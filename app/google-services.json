@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "304156968705",
+    "project_id": "daisodms-4469c",
+    "storage_bucket": "daisodms-4469c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304156968705:android:bf2385d0635182c71abd00",
+        "android_client_info": {
+          "package_name": "com.example.daisoworks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv6pqRzEmNRe47HmvNvQ1FwSoXZonyjOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

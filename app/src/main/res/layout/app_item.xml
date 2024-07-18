@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum = "10"
+    android:layout_marginTop="0dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="10">
+
+                <TextView
+                    android:id="@+id/txtApprPosition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:minWidth="60dp"
+                    android:text="팀장"
+                    android:textSize="14sp"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:id="@+id/txtApprName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:minWidth="60dp"
+                    android:text="박세미"
+                    android:textSize="14sp"
+                    android:layout_weight="2" />
+
+                <TextView
+                    android:id="@+id/txtApprDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="120dp"
+                    android:text="2022-02-11 16:33:56"
+                    android:textSize="14sp"
+                    android:layout_weight="3" />
+
+                <TextView
+                    android:id="@+id/txtApprButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="3"
+                    android:background="@drawable/radius"
+                    android:padding="3dp"
+                    android:text="확인"
+                    android:textAlignment="center"
+                    android:textSize="14sp" />
+        </TableRow>
+
+
+
+</LinearLayout>

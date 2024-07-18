@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.daisoworks.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        android:tag="HOME"
+        tools:layout="@layout/fragment_home" />
+
+
+
+    <fragment
+        android:id="@+id/nav_approve"
+        android:name="com.example.daisoworks.ui.approve.ApproveFragment"
+        android:label="@string/menu_approve"
+        android:tag="APPROVE"
+        tools:layout="@layout/fragment_approve" />
+
+
+
+    <fragment
+        android:id="@+id/nav_analysis"
+        android:name="com.example.daisoworks.ui.analysis.AnalysisFragment"
+        android:label="@string/menu_analysis"
+        android:tag="ANALYSIS"
+        tools:layout="@layout/fragment_analysis" />
+
+    <fragment
+        android:id="@+id/nav_home1"
+        android:name="com.example.daisoworks.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        android:tag="HOME1"
+        tools:layout="@layout/fragment_home" />
+
+
+
+    <fragment
+        android:id="@+id/nav_approve1"
+        android:name="com.example.daisoworks.ui.test.TestFragment"
+        android:label="@string/menu_approve1"
+        tools:layout="@layout/fragment_approve" />
+
+
+
+    <fragment
+        android:id="@+id/nav_analysis1"
+        android:name="com.example.daisoworks.ui.test1.TestFragment"
+        android:label="@string/menu_analysis1"
+        tools:layout="@layout/fragment_analysis" />
+
+</navigation>

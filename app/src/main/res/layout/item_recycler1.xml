@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="15dp"
+    app:cardUseCompatPadding="true">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_marginBottom="10dp"
+            android:background="#61FFFFFF"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/lblCmt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="작성자"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/txtCmt2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/txtCmt2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+
+                app:layout_constraintLeft_toRightOf="@+id/lblCmt2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <TextView
+                android:id="@+id/lblCmt3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="수신자"
+                app:layout_constraintHorizontal_bias="0"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/txtCmt3"
+                app:layout_constraintTop_toBottomOf="@+id/lblCmt2"
+                app:layout_constraintVertical_bias="0.082" />
+
+            <TextView
+                android:id="@+id/txtCmt3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constrainedWidth="true"
+
+                app:layout_constraintHorizontal_chainStyle="packed"
+
+                app:layout_constraintLeft_toRightOf="@+id/lblCmt3"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/lblCmt3"
+
+                app:layout_constraintTop_toBottomOf="@+id/txtCmt2"
+                app:layout_constraintVertical_bias="0.082" />
+
+
+            <TextView
+                android:id="@+id/lblCmt4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="작성일시"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/txtCmt4"
+                app:layout_constraintTop_toBottomOf="@+id/lblCmt3" />
+
+
+            <TextView
+                android:id="@+id/txtCmt4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+
+                android:textSize="15sp"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toEndOf="@+id/lblCmt4"
+                app:layout_constraintTop_toBottomOf="@+id/txtCmt3"
+                app:layout_constraintTop_toTopOf="@+id/lblCmt4" />
+
+            <TextView
+                android:id="@+id/txtCmt5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ellipsize="end"
+
+                android:maxLines="5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lblCmt4" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </FrameLayout>
+
+
+</androidx.cardview.widget.CardView>
