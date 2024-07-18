@@ -45,6 +45,7 @@
     </style>
 
     <style name="switchTextAppearanceDark">
+
         <item name="thumbTint">@color/purple_700</item>
         <item name="track">@drawable/style_toggle_btn</item>
         <item name="android:thumb">@drawable/style_toggle_thumb</item>
