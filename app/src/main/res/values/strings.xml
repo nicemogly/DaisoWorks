@@ -34,9 +34,7 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="lorem_ipsum">test
-
-    </string>
+    <string name="lorem_ipsum">test</string>
 
     <style name="switchTextAppearance">
         <item name="thumbTint">@color/purple_700</item>
