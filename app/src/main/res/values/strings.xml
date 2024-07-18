@@ -35,9 +35,16 @@
     <string name="previous">Previous</string>
 
     <string name="lorem_ipsum">test
+
     </string>
 
-
+    <style name="switchTextAppearance">
+        <item name="thumbTint">@color/purple_700</item>
+        <item name="track">@drawable/style_toggle_btn</item>
+        <item name="android:thumb">@drawable/style_toggle_thumb</item>
+        <item name="android:enabled">true</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
     <style name="switchTextAppearanceDark">
         <item name="thumbTint">@color/purple_700</item>
