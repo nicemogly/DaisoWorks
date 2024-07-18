@@ -52,7 +52,5 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-
-
     <string name="default_notification_channel_id" translatable="false">daisoworks_DMS</string>
 </resources>
