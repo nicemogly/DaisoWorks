@@ -16,19 +16,19 @@
                <item
                    android:id="@+id/nav_analysis1"
                    android:icon="@drawable/ic_menu_slideshow"
-                   android:title="업체정보조회" >
+                   android:title="@string/menu_herp1" >
                </item>
 
                <item
                    android:id="@+id/nav_analysis2"
                    android:icon="@drawable/ic_menu_slideshow"
-                   android:title="바코드관리" >
+                   android:title="@string/menu_herp2" >
                </item>
 
                <item
                    android:id="@+id/nav_analysis3"
                    android:icon="@drawable/ic_menu_slideshow"
-                   android:title="@string/menu_approve" >
+                   android:title="@string/menu_herp3" >
                </item>
            </group>
        </menu>
