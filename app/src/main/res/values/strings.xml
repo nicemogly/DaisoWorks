@@ -3,7 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">ASUNG GROUP</string>
-    <string name="nav_header_subtitle">(AD2201016)Jang Hoon Yoon</string>
+    <string name="nav_header_subtitle">Daiso Works</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">설정</string>
     <string name="action_settings1">로그아웃</string>
@@ -11,10 +11,11 @@
     <string name="menu_home">홈</string>
     <string name="menu_analysis">디자인현황</string>
     <string name="menu_approve">디자인결재</string>
-    <string name="menu_approve1">디자인조회</string>
 
 
-    <string name="menu_analysis1">HERP</string>
+    <string name="menu_home1">홈1</string>
+    <string name="menu_analysis1">TEST</string>
+    <string name="menu_approve1">TEST1</string>
 
 
 
@@ -35,9 +36,24 @@
 
     <string name="lorem_ipsum">test</string>
 
+    <style name="switchTextAppearance">
+        <item name="thumbTint">@color/purple_700</item>
+        <item name="track">@drawable/style_toggle_btn</item>
+        <item name="android:thumb">@drawable/style_toggle_thumb</item>
+        <item name="android:enabled">true</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
 
 
+    <style name="switchTextAppearanceDark">
+
+        <item name="thumbTint">@color/purple_700</item>
+        <item name="track">@drawable/style_toggle_btn</item>
+        <item name="android:thumb">@drawable/style_toggle_thumb</item>
+        <item name="android:enabled">true</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
 
 
