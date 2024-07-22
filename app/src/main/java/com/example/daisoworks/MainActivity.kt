@@ -22,6 +22,9 @@ import com.example.daisoworks.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import android.Manifest
+import android.widget.ExpandableListView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.GravityCompat
 import androidx.media3.common.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Firebase
@@ -34,12 +37,12 @@ import kotlinx.coroutines.tasks.await
 import java.util.concurrent.atomic.AtomicInteger
 
 
-class MainActivity : AppCompatActivity()   {
+class MainActivity : AppCompatActivity()  {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var mBackWait:Long = 0
-
+    lateinit var drawerLayout: DrawerLayout
 
     companion object{
         lateinit var prefs: PreferenceUtil
@@ -56,6 +59,7 @@ class MainActivity : AppCompatActivity()   {
         super.onCreate(savedInstanceState)
 
         getFCMToken()
+      //  initNavigationMenu()
         // [START handle_data_extras]
         intent.extras?.let {
             for (key in it.keySet()) {
@@ -182,6 +186,10 @@ class MainActivity : AppCompatActivity()   {
     }
 
 
+
+
+
+
     //PushMesssaging Service
     fun runtimeEnableAutoInit() {
         // [START fcm_runtime_enable_auto_init]
@@ -189,7 +197,6 @@ class MainActivity : AppCompatActivity()   {
         // [END fcm_runtime_enable_auto_init]
     }
 
-    //PushMesssaging Service
     fun deviceGroupUpstream() {
         // [START fcm_device_group_upstream]
         val to = "a_unique_key" // the notification key
@@ -203,7 +210,6 @@ class MainActivity : AppCompatActivity()   {
         // [END fcm_device_group_upstream]
     }
 
-    //PushMesssaging Service
     fun sendUpstream() {
         val SENDER_ID = "YOUR_SENDER_ID"
         val messageId = 0 // Increment for each
@@ -219,7 +225,6 @@ class MainActivity : AppCompatActivity()   {
         // [END fcm_send_upstream]
     }
 
-    //PushMesssaging Service
     fun subscribeTopics() {
         // [START subscribe_topics]
         Firebase.messaging.subscribeToTopic("weather")
@@ -234,7 +239,6 @@ class MainActivity : AppCompatActivity()   {
         // [END subscribe_topics]
     }
 
-    //PushMesssaging Service
     fun logRegToken() {
         // [START log_reg_token]
         Firebase.messaging.getToken().addOnCompleteListener { task ->
@@ -254,7 +258,6 @@ class MainActivity : AppCompatActivity()   {
         // [END log_reg_token]
     }
 
-    //PushMesssaging Service
     // [START ask_post_notifications]
     // Declare the launcher at the top of your Activity/Fragment:
     private val requestPermissionLauncher = registerForActivityResult(
@@ -267,7 +270,6 @@ class MainActivity : AppCompatActivity()   {
         }
     }
 
-    //PushMesssaging Service
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -288,7 +290,6 @@ class MainActivity : AppCompatActivity()   {
     }
     // [END ask_post_notifications]
 
-    //PushMesssaging Service
     // [START get_store_token]
     private suspend fun getAndStoreRegToken(): String {
         val token = Firebase.messaging.token.await()
@@ -304,8 +305,6 @@ class MainActivity : AppCompatActivity()   {
         return token
     }
     // [END get_store_token]
-
-    //PushMesssaging Service
     private fun getFCMToken(): String?{
         var token: String? = null
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -324,4 +323,6 @@ class MainActivity : AppCompatActivity()   {
         return token
     }
 
+
 }
+
