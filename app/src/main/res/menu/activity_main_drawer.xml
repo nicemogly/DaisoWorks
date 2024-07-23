@@ -10,25 +10,31 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
     </group>
-   <item android:title="HERP"   >
+   <item android:title="HERP" >
        <menu>
            <group android:checkableBehavior="single">
                <item
                    android:id="@+id/nav_analysis1"
                    android:icon="@drawable/ic_menu_slideshow"
-                   android:title="@string/menu_herp1" >
+                   android:title="전시회" >
                </item>
 
                <item
                    android:id="@+id/nav_analysis2"
                    android:icon="@drawable/ic_menu_slideshow"
-                   android:title="@string/menu_herp2" >
+                   android:title="상품" >
                </item>
 
                <item
                    android:id="@+id/nav_analysis3"
                    android:icon="@drawable/ic_menu_slideshow"
-                   android:title="@string/menu_herp3" >
+                   android:title="거래처" >
+               </item>
+
+               <item
+                   android:id="@+id/nav_analysis4"
+                   android:icon="@drawable/ic_menu_slideshow"
+                   android:title="수주" >
                </item>
            </group>
        </menu>

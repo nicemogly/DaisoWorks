@@ -1,6 +1,7 @@
 package com.example.daisoworks
 
 
+import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -13,20 +14,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.media3.common.util.Log
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.daisoworks.databinding.ActivityMainBinding
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import android.Manifest
-import android.widget.ExpandableListView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.GravityCompat
-import androidx.media3.common.util.Log
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
@@ -120,6 +117,9 @@ class MainActivity : AppCompatActivity()  {
         val currentFragmentFirst =
         supportFragmentManager.fragments.last().childFragmentManager?.primaryNavigationFragment?.tag//호스트 프래그먼트 가져오기
         prefs.setString("currentFragmentFirst", "$currentFragmentFirst")
+
+
+
 
 
     }

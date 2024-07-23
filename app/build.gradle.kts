@@ -63,6 +63,9 @@ dependencies {
     implementation(libs.androidx.media3.common)
     implementation(libs.firebase.messaging)
     implementation(libs.androidx.work.runtime.ktx)
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.material3.android)
+    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -90,5 +93,10 @@ dependencies {
 
     implementation("com.google.firebase:firebase-messaging-ktx")
     implementation("com.google.firebase:firebase-messaging-directboot:20.2.0")
+
+    //Bio
+    implementation("androidx.biometric:biometric-ktx:1.2.0-alpha04")
+
+
 }
 

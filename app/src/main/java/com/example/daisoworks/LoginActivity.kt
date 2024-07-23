@@ -2,17 +2,14 @@ package com.example.daisoworks
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.util.Log
-import android.widget.Switch
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+       AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
        prefs = PreferenceUtil(applicationContext)
 
         Log.d("testtest_logintop","22222")
@@ -51,8 +48,13 @@ class LoginActivity : AppCompatActivity() {
 
         }else{
             findViewById<SwitchCompat?>(R.id.category_toggle_iv).isChecked = true
+
+            val intent = Intent(this, Login2Activity::class.java)
+            startActivity(intent)
+
+            /*
              val intent = Intent(this, MainActivity::class.java)
-             startActivity(intent)
+             startActivity(intent)*/
         }
 
 
@@ -76,7 +78,8 @@ class LoginActivity : AppCompatActivity() {
                 val checkUserpass = true
                 // id 와 password 일치시
                 if (checkUserpass == true) {
-                    Toast.makeText(this@LoginActivity, "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
+
+                  //  Toast.makeText(this@LoginActivity, "로그인 되었습니다.", Toast.LENGTH_SHORT).show()
                     var autoLoginFlag1 : String = "0"
                     val autoLoginFlag:Boolean = findViewById<SwitchCompat?>(R.id.category_toggle_iv).isChecked
 
@@ -89,7 +92,8 @@ class LoginActivity : AppCompatActivity() {
                     prefs.setString("autoLoginFlagS","${autoLoginFlag1}")
 
 
-                    val intent = Intent(this, MainActivity::class.java)
+                  //  val intent = Intent(this, MainActivity::class.java)
+                   val intent = Intent(this, Login2Activity::class.java)
                     startActivity(intent)
                 }
                 else {
