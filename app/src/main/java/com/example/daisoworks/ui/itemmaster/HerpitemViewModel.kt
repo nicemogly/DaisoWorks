@@ -1,12 +1,12 @@
-package com.example.daisoworks.ui.test1
+package com.example.daisoworks.ui.itemmaster
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class Test1ViewModel : ViewModel() {
+class HerpitemViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
-        value = "This is test1 Fragment"
+        value = "This is menu_itemmaster Fragment"
     }
     val text: LiveData<String> = _text
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph1"
+    app:startDestination="@id/Suju1Fragment">
+
+    <fragment
+        android:id="@+id/Suju1Fragment"
+        android:name="com.example.daisoworks.Suju1Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_suju1">
+
+        <action
+            android:id="@+id/action_Suju2Fragment_to_Suju1Fragment"
+            app:destination="@id/Suju2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/Suju2Fragment"
+        android:name="com.example.daisoworks.Suju2Fragment"
+        android:label=""
+        tools:layout="@layout/fragment_suju2">
+
+        <action
+            android:id="@+id/action_Suju2Fragment_to_Suju1Fragment"
+            app:destination="@id/Suju1Fragment" />
+    </fragment>
+</navigation>

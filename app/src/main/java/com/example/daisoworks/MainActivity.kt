@@ -2,12 +2,16 @@ package com.example.daisoworks
 
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -51,10 +55,10 @@ class MainActivity : AppCompatActivity()  {
     private  var backFlag: String = "0"
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         prefs = PreferenceUtil(applicationContext)
         super.onCreate(savedInstanceState)
-
         getFCMToken()
       //  initNavigationMenu()
         // [START handle_data_extras]
@@ -120,9 +124,8 @@ class MainActivity : AppCompatActivity()  {
 
 
 
-
-
     }
+
 
     // onCreateOptionsMenu() 메소드를 오버라이딩해서, getMenuInflater().inflate()로 옵션 메뉴를 객체화시킨다.
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

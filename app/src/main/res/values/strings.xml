@@ -14,11 +14,10 @@
     <string name="menu_approve1">디자인조회</string>
 
 
-    <string name="menu_analysis1">HERP</string>
+    <string name="menu_itemmaster">상품조회</string>
     <string name="menu_herp1">업체정보조회</string>
     <string name="menu_herp2">바코드관리</string>
     <string name="menu_herp3">업체별 상퓸관리</string>
-
 
 
     <string name="editId_hint"><font size="14">6~15자 영문/숫자 조합으로 입력</font></string>
@@ -30,6 +29,11 @@
     <string name="title_dashboard">디자인현황</string>
     <string name="title_notifications">디자인결재</string>
 
+
+    <string name="herp_title1">기본정보</string>
+
+
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -37,8 +41,6 @@
     <string name="previous">Previous</string>
 
     <string name="lorem_ipsum">test</string>
-
-
 
 
     <style name="switchTextAppearanceDark">
@@ -52,7 +54,17 @@
     </style>
 
 
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 
     <string name="default_notification_channel_id" translatable="false">daisoworks_DMS</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
 </resources>

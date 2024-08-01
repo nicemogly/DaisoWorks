@@ -30,12 +30,7 @@
         android:tag="ANALYSIS"
         tools:layout="@layout/fragment_analysis" />
 
-    <fragment
-        android:id="@+id/nav_home1"
-        android:name="com.example.daisoworks.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        android:tag="HOME1"
-        tools:layout="@layout/fragment_home" />
+
 
 
 
@@ -48,9 +43,9 @@
 
 
     <fragment
-        android:id="@+id/nav_analysis1"
-        android:name="com.example.daisoworks.ui.test1.TestFragment"
-        android:label="@string/menu_analysis1"
-        tools:layout="@layout/fragment_analysis" />
+        android:id="@+id/nav_itemmaster"
+        android:name="com.example.daisoworks.ui.itemmaster.HerpitemFragment"
+        android:label="@string/menu_itemmaster"
+        tools:layout="@layout/fragment_herpitem" />
 
 </navigation>

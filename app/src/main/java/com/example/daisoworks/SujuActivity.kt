@@ -1,7 +1,6 @@
 package com.example.daisoworks
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,51 +8,55 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.daisoworks.databinding.ActivitySubBinding
+import com.example.daisoworks.databinding.ActivitySujuBinding
 
-class SubActivity : AppCompatActivity() {
+class SujuActivity : AppCompatActivity() {
     private val sharedViewModel: SharedViewModel by viewModels()
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivitySubBinding
+    private lateinit var binding: ActivitySujuBinding
 
-    private var ReqNo: String = ""
-    private var reqItemDesc: String = ""
+    private var SujuNo: String = ""
+    private var ItemNo: String = ""
+    private var SujuBuyer: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivitySubBinding.inflate(layoutInflater)
+        binding = ActivitySujuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_sub)
+        val navController = findNavController(R.id.nav_host_fragment_content_suju)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        if (intent.hasExtra("reqNo")) {
-            ReqNo = intent.getStringExtra("reqNo").toString()
-            reqItemDesc = intent.getStringExtra("reqItemDesc").toString()
 
-            Log.d("PUTVALUE" , "$ReqNo")
+
+
+
+        if (intent.hasExtra("sujuNo")) {
+            SujuNo = intent.getStringExtra("sujuNo").toString()
+            ItemNo = intent.getStringExtra("itemNo").toString()
+            SujuBuyer = intent.getStringExtra("sujuBuyer").toString()
         }
 
         //기본 Actionbar 제목 변경
-        getSupportActionBar()?.setTitle("$reqItemDesc");
-        sharedViewModel.updateText("$reqItemDesc")
+        getSupportActionBar()?.setTitle("$SujuNo($ItemNo)");
+        sharedViewModel.updateText("$SujuNo($ItemNo)")
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화 (화살표)
 
 
         var currentDestination = navController.currentDestination
-       // androidx.media3.common.util.Log.d("testtest" , "$currentDestination")
-      //  if(currentDestination.displayName == "Destination(com.example.daisoworks:id/nav_home) label=홈 class=com.example.daisoworks.ui.home.HomeFragment")
+        // androidx.media3.common.util.Log.d("testtest" , "$currentDestination")
+        //  if(currentDestination.displayName == "Destination(com.example.daisoworks:id/nav_home) label=홈 class=com.example.daisoworks.ui.home.HomeFragment")
 
     }
 
 
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_sub)
+        val navController = findNavController(R.id.nav_host_fragment_content_suju)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }

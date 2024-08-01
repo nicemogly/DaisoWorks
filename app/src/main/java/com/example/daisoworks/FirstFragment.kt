@@ -2,16 +2,17 @@ package com.example.daisoworks
 
 import android.os.Bundle
 import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisoworks.databinding.FragmentFirstBinding
 
@@ -21,8 +22,9 @@ import com.example.daisoworks.databinding.FragmentFirstBinding
  */
 class FirstFragment : Fragment() {
 
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private var _binding: FragmentFirstBinding? = null
-
+    private  var Ttitle : String = ""
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -80,16 +82,39 @@ class FirstFragment : Fragment() {
         //이미지 탭 리스너:이미지 탭했을때 위치를 리스너로 등록해서 처리할 수 있슴.
         binding.photoView.setOnScaleChangeListener { view, x, y ->
             //이미지를 탭했을때 처리
-
-
         }
+/*
 
+        binding.kkk.setOnClickListener {
+
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
+*/
 
 
         return root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+      // Ttitle = sharedViewModel.getData().toString()
+        sharedViewModel.getData().observe(viewLifecycleOwner, Observer {
+            Ttitle = it
+            (activity as AppCompatActivity).supportActionBar?.setTitle(Ttitle)
+
+        })
+
+
+
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+        /*   (activity as AppCompatActivity).supportActionBar?.setTitle("test")*/
+        /*  binding.buttonSecond.setOnClickListener {
+              findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+          }*/
+    }
 
 
 

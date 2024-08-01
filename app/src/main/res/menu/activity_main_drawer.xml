@@ -20,7 +20,7 @@
                </item>
 
                <item
-                   android:id="@+id/nav_analysis2"
+                   android:id="@+id/nav_itemmaster"
                    android:icon="@drawable/ic_menu_slideshow"
                    android:title="상품" >
                </item>
