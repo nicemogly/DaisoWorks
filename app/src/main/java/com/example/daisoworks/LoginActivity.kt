@@ -1,8 +1,13 @@
 package com.example.daisoworks
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -10,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
@@ -24,6 +30,7 @@ import retrofit2.http.Query
 
 class LoginActivity : AppCompatActivity() {
 
+    lateinit var main: ConstraintLayout
     lateinit var btnLogin: Button
     lateinit var editTextId: EditText
     lateinit var editTextPassword: EditText
@@ -36,6 +43,23 @@ class LoginActivity : AppCompatActivity() {
         lateinit var prefs: PreferenceUtil
     }
 
+
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            val v: View? = currentFocus
+            if (v is EditText) {
+                val outRect: Rect = Rect()
+                v.getGlobalVisibleRect(outRect)
+                if (!outRect.contains(event.rawX.toInt(), event.rawY.toInt())) {
+                    v.clearFocus()
+                    val imm =
+                        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0)
+                }
+            }
+        }
+        return super.dispatchTouchEvent(event)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         //Dark Mode 사용 안함.
@@ -74,6 +98,7 @@ class LoginActivity : AppCompatActivity() {
          }
 
         //화면 Object 변수 설정
+        main = findViewById(R.id.main)
         btnLogin = findViewById(R.id.btnLogin)
         editTextId = findViewById(R.id.editTextId)
         editTextPassword = findViewById(R.id.editTextPassword)
@@ -82,6 +107,8 @@ class LoginActivity : AppCompatActivity() {
         btnLogin!!.setOnClickListener {
             val user = editTextId!!.text.toString()
             val pass = editTextPassword!!.text.toString()
+
+            main.clearFocus()
 
             // 빈칸 제출시 Toast처리
             if (user == "" || pass == "") {
@@ -120,6 +147,42 @@ class LoginActivity : AppCompatActivity() {
                            //  내부저장소에 id,pw 등록
                             prefs.setString("id","${keyword3}")
                             prefs.setString("pw","${keyword4}")
+
+
+
+                            // 내부저장소에 회사등록
+                            var LoginCompany : String = ""
+                            var LoginCompanyCode : String = ""
+
+                            var PreLoginCompany = keyword3.substring(0,2).toUpperCase()
+                            if(PreLoginCompany=="AD") {
+                                LoginCompany="아성다이소"
+                                LoginCompanyCode="00000"
+                            }else if(PreLoginCompany=="AH") {
+                                LoginCompany="아성에이치엠피"
+                                LoginCompanyCode="10000"
+
+                            }else if(PreLoginCompany=="AS") {
+                                LoginCompany = "아성"
+                                LoginCompanyCode="00001"
+                            }
+
+                            if(keyword3=="AD2201016"){
+                                prefs.setString("company","아성에이치엠피")
+                                prefs.setString("companycode","10000")
+
+                                LoginCompany="아성에이치엠피"
+                                LoginCompanyCode="10000"
+
+                            }else {
+                                prefs.setString("company","${LoginCompany}")
+                                prefs.setString("companycode","${LoginCompanyCode}")
+                            }
+
+                          /*  Log.d("testtest" , "${LoginCompany}")
+                            Log.d("testtest" , "${LoginCompanyCode}")
+                            Log.d("testtest" , "${keyword3}")
+                          */
 
                             // autoLoginFlag1 초기화
                             var autoLoginFlag1: String = "0"
@@ -223,6 +286,8 @@ class LoginActivity : AppCompatActivity() {
     data class Login(
         var VALUE: String
     )
+
+
 }
 
 

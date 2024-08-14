@@ -1,4 +1,4 @@
-package com.example.daisoworks
+package com.example.daisoworks.data
 
 class DataItem1(
     val sendName : String ="",

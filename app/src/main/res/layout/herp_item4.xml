@@ -2,7 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card_layout2"
+    android:id="@+id/card_layout_herp4"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="3dp"
@@ -13,24 +13,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!--담당부서 헤더 정보 -->
         <LinearLayout
-            android:id="@+id/tv_herp_layout2"
+            android:id="@+id/tv_herpitem_layout5"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
             android:background="#F9F9F9"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_herpitem_layout3"
             tools:ignore="MissingConstraints">
-            <!--Text view -->
+
             <TextView
-                android:id="@+id/tv_herp_subject"
+                android:id="@+id/tv_herpitem_subject3"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Language"
+                android:text="샘플정보"
                 style="@style/textAppearance"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -52,16 +54,17 @@
 
         </LinearLayout>
 
-        <!--"expanded_view" -->
+        <!--담당부서 디테일 확장 정보 -->
         <LinearLayout
-            android:id="@+id/expanded_herp_view"
+            android:id="@+id/expanded_herpitem_view3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="30dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_herp_layout2">
+            app:layout_constraintTop_toBottomOf="@id/tv_herpitem_layout5">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -70,138 +73,127 @@
                 tools:ignore="MissingConstraints">
 
                 <TableRow
-                    android:id="@+id/tr1"
+                    android:id="@+id/tr17"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="0dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/expanded_herp_view"
+                    app:layout_constraintTop_toBottomOf="@+id/expanded_herpitem_view3"
                     tools:ignore="MissingConstraints">
 
                     <TextView
-                        android:id="@+id/tvSujuno"
+                        android:id="@+id/tvSampleNewItemNo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="5dp"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tvSujudate"
+                        android:id="@+id/tvSampleNItemNo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="5dp"
                         android:textAlignment="viewStart"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
+                        android:textSize="14sp"/>
                 </TableRow>
 
 
                 <TableRow
-                    android:id="@+id/tr2"
+                    android:id="@+id/tr18"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="0dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tr1"
+                    app:layout_constraintTop_toBottomOf="@+id/tr17"
                     tools:ignore="MissingConstraints">
 
                     <TextView
-                        android:id="@+id/tvSujuamt"
+                        android:id="@+id/tvSampleCsNoteNo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="5dp"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp"/>
 
                     <TextView
-                        android:id="@+id/tvSujuipsu"
+                        android:id="@+id/tvSampleCsNoteItemNo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="5dp"
                         android:textAlignment="viewStart"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
+                        android:textSize="14sp" />
                 </TableRow>
+
                 <TableRow
-                    android:id="@+id/tr3"
+                    android:id="@+id/tr19"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="0dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tr2"
+                    app:layout_constraintTop_toBottomOf="@+id/tr18"
                     tools:ignore="MissingConstraints">
 
                     <TextView
-                        android:id="@+id/tvSujuitemno"
+                        android:id="@+id/tvExhName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="5dp"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp"/>
 
                     <TextView
-                        android:id="@+id/tvSujubarcode"
+                        android:id="@+id/tvExhPeriod"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:padding="5dp"
                         android:textAlignment="viewStart"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp" />
+
 
                 </TableRow>
+
                 <TableRow
-                    android:id="@+id/tr4"
+                    android:id="@+id/tr20"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="0dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tr3"
+                    app:layout_constraintTop_toBottomOf="@+id/tr19"
                     tools:ignore="MissingConstraints">
 
-                    <TextView
-                        android:id="@+id/tvSujutcategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+
+
+                    <EditText
+                        android:id="@+id/tvExhDetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_span="2"
-                        android:padding="5dp"
+                        android:background="@drawable/edge"
                         android:textColor="@android:color/black"
+                        android:lines="4"
+                        android:enabled="false"
+                        android:maxLines="100"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:overScrollMode="always"
+                        android:singleLine="false"
                         android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:inputType="none"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent" />
 
                 </TableRow>
-                <TableRow
-                    android:id="@+id/tr5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tr4"
-                    tools:ignore="MissingConstraints">
 
-
-                    <TextView
-                        android:id="@+id/tvSujuitemcategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_span="2"
-                        android:padding="5dp"
-                        android:textAlignment="viewStart"
-                        android:textColor="@android:color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                </TableRow>
             </TableLayout>
-
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -5,6 +5,8 @@ plugins {
 
     id("com.google.gms.google-services")
     id("kotlin-parcelize")
+
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 
@@ -108,6 +110,12 @@ dependencies {
     //implementation("com.github.bumptech.glide:compiler:4.14.2")
 
     implementation("androidx.cardview:cardview:1.0.0") // 레이아웃으로 사용할 CardView
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.3")
+
+
+
 
 }
 

@@ -2,22 +2,19 @@ package com.example.daisoworks
 
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.media3.common.util.Log
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -71,6 +68,7 @@ class MainActivity : AppCompatActivity()  {
         // [END handle_data_extras]
 
 
+
         // 1. 바인딩 초기화
         binding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -121,6 +119,7 @@ class MainActivity : AppCompatActivity()  {
         val currentFragmentFirst =
         supportFragmentManager.fragments.last().childFragmentManager?.primaryNavigationFragment?.tag//호스트 프래그먼트 가져오기
         prefs.setString("currentFragmentFirst", "$currentFragmentFirst")
+
 
 
 
@@ -327,5 +326,21 @@ class MainActivity : AppCompatActivity()  {
     }
 
 
+/*    fun onFragmentChange(index:Int) {
+        if(index==1) {
+            //supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_sub, Write_post()).commit()
+        }
+        else if(index==2){
+         //   supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_sub, MyboardFrag()).commit()
+           // bottomNavi.setSelectedItemId(R.id.action_board)
+        }
+
+    }*/
+    //이 함수를 통해 다른 fragment로 이동한다.생성자가 아닌 불러오는 형식
+
+    fun fragmentChange_for_adapter(frag: Fragment){
+        Log.d("testtest" , "1111111111111111111111")
+        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_sub , frag).commit()
+    }
 }
 

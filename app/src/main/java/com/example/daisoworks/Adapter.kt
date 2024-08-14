@@ -3,8 +3,8 @@ package com.example.daisoworks
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.daisoworks.data.MovieData
 import com.example.daisoworks.databinding.FragmentAnalysisItemBinding
-import com.example.daisoworks.databinding.ItemRecyclerBinding
 
 
 class Adapter(val items: MutableList<MovieData.BoxOfficeResult.DailyBoxOffice?>):RecyclerView.Adapter<Adapter.ViewHolder>() {

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.daisoworks.databinding.ItemRecycler1Binding
+import com.example.daisoworks.data.DataItem
 import com.example.daisoworks.databinding.SingleItemBinding
 
 class ExpandableAdapter(private var itemList: List<DataItem>) : RecyclerView.Adapter<ExpandableAdapter.ViewHolder>() {

@@ -1,5 +1,6 @@
 package com.example.daisoworks
 
+import com.example.daisoworks.data.MovieData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

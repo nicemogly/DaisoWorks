@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.daisoworks.data.ApproveItem
 
 
 class ApprListViewAdapter(val context: FirstFragment, private val items: MutableList<ApproveItem>): BaseAdapter() {

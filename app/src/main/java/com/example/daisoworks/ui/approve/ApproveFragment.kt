@@ -2,20 +2,17 @@ package com.example.daisoworks.ui.approve
 
 
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.media3.common.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.daisoworks.Member
 import com.example.daisoworks.MyAdapter
+import com.example.daisoworks.data.Member
 import com.example.daisoworks.databinding.FragmentApproveBinding
 
 class ApproveFragment : Fragment() {

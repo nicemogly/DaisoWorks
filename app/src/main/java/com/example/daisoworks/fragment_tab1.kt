@@ -9,6 +9,8 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.daisoworks.data.DataItem
+import com.example.daisoworks.data.HerpSujuL
 import com.example.daisoworks.databinding.FragmentTab1Binding
 
 

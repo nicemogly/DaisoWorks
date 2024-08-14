@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.daisoworks.data.DataItem1
 
 import com.example.daisoworks.databinding.SingleItem1Binding
 

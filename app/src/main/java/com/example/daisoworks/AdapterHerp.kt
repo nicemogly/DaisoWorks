@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.daisoworks.data.HerpSujuL
 import com.example.daisoworks.databinding.ItemRecyclerHerpBinding
 
 

@@ -3,6 +3,7 @@ package com.example.daisoworks
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.daisoworks.data.Comment
 import com.example.daisoworks.databinding.ItemRecycler1Binding
 
 

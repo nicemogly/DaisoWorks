@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisoworks.Adapter
-import com.example.daisoworks.MovieData
+import com.example.daisoworks.data.MovieData
 import com.example.daisoworks.MovieService
 import com.example.daisoworks.databinding.FragmentAnalysisBinding
 import retrofit2.Call

@@ -1,4 +1,4 @@
-package com.example.daisoworks
+package com.example.daisoworks.data
 
 class DataItem (
     val name : String ="",

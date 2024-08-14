@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.daisoworks.data.DataSujuDetailItem
 import com.example.daisoworks.databinding.FragmentSuju1Binding
 
 
