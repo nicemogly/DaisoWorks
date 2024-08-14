@@ -14,6 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.daisoworks.adapter.ApprListViewAdapter
+import com.example.daisoworks.adapter.CommentAdapterAdapter
+import com.example.daisoworks.data.ApproveItem
+import com.example.daisoworks.data.Comment
 import com.example.daisoworks.databinding.FragmentFirstBinding
 
 
@@ -104,7 +108,6 @@ class FirstFragment : Fragment() {
             (activity as AppCompatActivity).supportActionBar?.setTitle(Ttitle)
 
         })
-
 
 
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)

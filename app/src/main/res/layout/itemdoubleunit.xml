@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum = "10"
+    android:layout_marginTop="0dp">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="10">
+
+        <TextView
+            android:id="@+id/txtItemGdsNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:minWidth="60dp"
+            android:text="품번"
+            android:textSize="14sp"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/txtItemBuyGdsBcd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:minWidth="60dp"
+            android:text="바코드"
+            android:textSize="14sp"
+            android:layout_weight="2" />
+
+        <TextView
+            android:id="@+id/txtItemButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="3"
+            android:background="@drawable/radius"
+            android:padding="3dp"
+            android:text="선택"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+    </TableRow>
+
+
+
+</LinearLayout>

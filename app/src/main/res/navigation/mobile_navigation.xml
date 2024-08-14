@@ -46,6 +46,29 @@
         android:id="@+id/nav_itemmaster"
         android:name="com.example.daisoworks.ui.itemmaster.HerpitemFragment"
         android:label="@string/menu_itemmaster"
-        tools:layout="@layout/fragment_herpitem" />
+        tools:layout="@layout/fragment_herpitem" >
+
+        <argument
+            android:name="comno"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_nav_itemmaster_to_nav_client7"
+            app:destination="@id/nav_client" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_client"
+        android:name="com.example.daisoworks.ui.client.HerpclientFragment"
+        android:label="@string/menu_client"
+        tools:layout="@layout/fragment_herpclient" >
+        <argument
+            android:name="comno"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_nav_client_to_nav_itemmaster"
+            app:destination="@id/nav_itemmaster" />
+    </fragment>
 
 </navigation>

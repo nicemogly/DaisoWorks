@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.daisoworks.PagerFragmentStateAdapter
 import com.example.daisoworks.R
+import com.example.daisoworks.adapter.PagerFragmentStateAdapter
 import com.example.daisoworks.fragment_tab1
 import com.example.daisoworks.fragment_tab2
 import com.google.android.material.tabs.TabLayout
@@ -53,14 +53,14 @@ class HomeFragment : Fragment() {
 
         // tablayout attach
         TabLayoutMediator(tabLayout, viewPager){ tab, position ->
-          //  tab.text = "Tab ${position+1}"
-                if(position==0){
-                    tab.text = "HERP"
-                }else if(position==1){
-                    tab.text = "DMS"
-                }else{
-                    tab.text = "Tab ${position+1}"
-                }
+            //  tab.text = "Tab ${position+1}"
+            if(position==0){
+                tab.text = "HERP"
+            }else if(position==1){
+                tab.text = "DMS"
+            }else{
+                tab.text = "Tab ${position+1}"
+            }
 
         }.attach()
     }

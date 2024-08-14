@@ -1,132 +1,220 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Nsroll2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.itemmaster.HerpitemFragment">
 
-    <FrameLayout
-        android:id="@+id/item_search"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="5dp"
-        android:background="#f0f0f0"
+        android:layout_height="match_parent"
+        android:id="@+id/herpItemRoot"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Nsroll2">
 
-        <TableRow
-            android:id="@+id/tr_item1"
+
+
+                <FrameLayout
+                    android:id="@+id/item_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="#f0f0f0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                    <TableRow
+                        android:id="@+id/tr_item1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tr_item2"
+                        tools:ignore="MissingConstraints">
+
+
+
+                        <Spinner
+                            android:id="@+id/spitemschbuyer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_span="2"
+                            android:background="@drawable/spinnerradius"
+                            android:layout_centerInParent="true" />
+
+                    </TableRow>
+
+
+                    <TableRow
+                        android:id="@+id/tr_item2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="50dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        tools:ignore="MissingConstraints">
+
+                        <SearchView
+                            android:id="@+id/svItem"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:iconifiedByDefault="false"
+                            android:layout_gravity="left"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tr_item1" />
+
+
+
+                        <ImageButton
+                            android:id="@+id/button"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:visibility="gone"
+                            android:layout_marginEnd="10dp"
+                            android:src="@drawable/baseline_qr_code_scanner_24"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                       />
+
+
+
+
+                    </TableRow>
+
+
+                </FrameLayout>
+
+        <TextView
+            android:id="@+id/txtRstText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtsujuBuyer"
-            tools:ignore="MissingConstraints">
-
-
-
-
-            <Spinner
-                android:id="@+id/spitemschbuyer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/spinnerradius"
-                android:layout_centerInParent="true" />
-
-
-
-            <SearchView
-                android:id="@+id/svItem"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </TableRow>
-
-
-    </FrameLayout>
-
-    <View
-        android:id="@+id/divView1"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:background="#cccccc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_search" />
-
-    <FrameLayout
-        android:id="@+id/item_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:background="#ffffff"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divView1">
-
-        <ImageView
-            android:id="@+id/photoView1"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/square_background_border_silver"
-            android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/nanumgothicextrabold"
+            android:gravity="center"
+            android:text="상품이 존재하지 않습니다."
+            android:textSize="15sp"
             android:visibility="gone"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/item_search" />
 
-      <!--  <com.github.chrisbanes.photoview.PhotoView
-            android:id="@+id/photoView1"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="1dp"
-            android:adjustViewBounds="true"
-            android:background="@drawable/square_background_border_silver"
-            android:padding="10dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>-->
+                <FrameLayout
+                    android:id="@+id/item_choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="#ffffff"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_search">
+
+                    <TextView
+                        android:id="@+id/text_test1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="8dp"
+                        android:textSize="14sp"
+                        android:text="바코드선택(다수품번)"
+                     />
+
+                        <ListView
+                            android:id="@+id/listViewItem1"
+                            android:layout_width="match_parent"
+                            android:layout_height="600dp"
+                            android:layout_marginTop="20dp" />
+                </FrameLayout>
 
 
-    </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_herp_itemlist"
-        android:layout_width="match_parent"
-        android:layout_height="288dp"
-        android:layout_marginStart="5dp"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_herp_itemlist1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
 
-        android:visibility="gone"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="5dp"
-        android:backgroundTint="#cccccc"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_img"
-        tools:listitem="@layout/single_item3" />
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="#3C3B3B"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_search"
+                    tools:listitem="@layout/herp_item1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_herp_itemlist2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="#3C3B3B"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_herp_itemlist1"
+                    tools:listitem="@layout/herp_item2" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_herp_itemlist3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="#3C3B3B"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_herp_itemlist2"
+                    tools:listitem="@layout/herp_item3" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_herp_itemlist4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:backgroundTint="#3C3B3B"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_herp_itemlist3"
+                    tools:listitem="@layout/herp_item4" />
+
+                   <View
+                    android:id="@+id/divView1"
+                    android:layout_width="0dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_herp_itemlist4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

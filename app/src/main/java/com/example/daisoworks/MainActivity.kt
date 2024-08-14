@@ -2,23 +2,20 @@ package com.example.daisoworks
 
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.media3.common.util.Log
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -57,6 +54,7 @@ class MainActivity : AppCompatActivity()  {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         prefs = PreferenceUtil(applicationContext)
         super.onCreate(savedInstanceState)
         getFCMToken()
@@ -69,6 +67,7 @@ class MainActivity : AppCompatActivity()  {
             }
         }
         // [END handle_data_extras]
+
 
 
         // 1. 바인딩 초기화
@@ -120,7 +119,9 @@ class MainActivity : AppCompatActivity()  {
 
         val currentFragmentFirst =
         supportFragmentManager.fragments.last().childFragmentManager?.primaryNavigationFragment?.tag//호스트 프래그먼트 가져오기
+
         prefs.setString("currentFragmentFirst", "$currentFragmentFirst")
+
 
 
 
@@ -166,32 +167,34 @@ class MainActivity : AppCompatActivity()  {
         val currentFragment = supportFragmentManager.fragments.last().childFragmentManager?.primaryNavigationFragment?.tag.toString()//호스트 프래그먼트 가져오기
         var fragment1 = supportFragmentManager.findFragmentByTag("HOME")
 
-        if(currentFragmentFirst1.equals(currentFragment)) {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("로그아웃 안내")
-            builder.setMessage("로그아웃 하시겠습니까?자동로그인이 초기화 됩니다")
-            builder.setPositiveButton("확인") { dialog, which ->
-                prefs.setString("autoLoginFlagS", "0")
-                val intent = Intent(this, LoginActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+        for(fragment: Fragment in supportFragmentManager.fragments) {
+            if (fragment.isVisible) {
+                Log.e("TAG", fragment.id.toString())
+                Log.e("TAG1", fragment.tag.toString())
+                var TAG1 : String = fragment.tag.toString()
+                if (TAG1.equals("f0")) {
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("로그아웃 안내")
+                    builder.setMessage("로그아웃 하시겠습니까?자동로그인이 초기화 됩니다")
+                    builder.setPositiveButton("확인") { dialog, which ->
+                        prefs.setString("autoLoginFlagS", "0")
+                        val intent = Intent(this, LoginActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
+                    }
+                    builder.setNegativeButton("취소") { dialog, which ->
+                        Toast.makeText(this@MainActivity, "취소하였습니다.", Toast.LENGTH_SHORT).show()
+
+                    }
+                    builder.show()
+
+                } else {
+                    super.onBackPressed();
+
+                }
             }
-            builder.setNegativeButton("취소") { dialog, which ->
-                Toast.makeText(this@MainActivity, "취소하였습니다.", Toast.LENGTH_SHORT).show()
-
-            }
-            builder.show()
-
-        }else{
-            super.onBackPressed();
-
         }
     }
-
-
-
-
-
 
     //PushMesssaging Service
     fun runtimeEnableAutoInit() {
@@ -281,10 +284,6 @@ class MainActivity : AppCompatActivity()  {
             ) {
                 // FCM SDK (and your app) can post notifications.
             } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-                // TODO: display an educational UI explaining to the user the features that will be enabled
-                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
-                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
-                //       If the user selects "No thanks," allow the user to continue without notifications.
             } else {
                 // Directly ask for the permission
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
@@ -327,5 +326,9 @@ class MainActivity : AppCompatActivity()  {
     }
 
 
+    //이 함수를 통해 다른 fragment로 이동한다.생성자가 아닌 불러오는 형식
+    fun fragmentChange_for_adapter(frag: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_sub , frag).commit()
+    }
 }
 

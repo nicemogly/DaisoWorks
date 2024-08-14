@@ -44,7 +44,7 @@
 
             <ImageButton
                 android:id="@+id/viewMoreBtn"
-                android:tint="#666666"
+                app:tint="#666666"
                 android:src="@drawable/ic_arrow_drop_up"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_width="?attr/actionBarSize"
@@ -135,7 +135,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tr1"
+                    app:layout_constraintTop_toBottomOf="@+id/tr2"
                     tools:ignore="MissingConstraints">
 
                     <TextView
@@ -164,22 +164,35 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tr1"
+                    app:layout_constraintTop_toBottomOf="@+id/tr3"
                     tools:ignore="MissingConstraints">
 
                     <TextView
                         android:id="@+id/tvSujutcategory"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_span="2"
                         android:padding="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tr5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr4"
+                    tools:ignore="MissingConstraints">
+
+
                     <TextView
                         android:id="@+id/tvSujuitemcategory"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_span="2"
                         android:padding="5dp"
                         android:textAlignment="viewStart"
                         android:textColor="@android:color/black"

@@ -26,7 +26,7 @@
                </item>
 
                <item
-                   android:id="@+id/nav_analysis3"
+                   android:id="@+id/nav_client"
                    android:icon="@drawable/ic_menu_slideshow"
                    android:title="거래처" >
                </item>

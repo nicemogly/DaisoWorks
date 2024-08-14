@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.daisoworks.adapter.ExpandableAdapter
+import com.example.daisoworks.adapter.ExpandableAdapter1
+import com.example.daisoworks.data.DataItem
+import com.example.daisoworks.data.DataItem1
 import com.example.daisoworks.databinding.FragmentTab2Binding
 
 class fragment_tab2 : Fragment() {
