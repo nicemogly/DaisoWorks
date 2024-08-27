@@ -11,7 +11,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -160,6 +159,7 @@ class MainActivity : AppCompatActivity()  {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+/*
 
     override fun onBackPressed() {
 
@@ -167,34 +167,41 @@ class MainActivity : AppCompatActivity()  {
         val currentFragment = supportFragmentManager.fragments.last().childFragmentManager?.primaryNavigationFragment?.tag.toString()//호스트 프래그먼트 가져오기
         var fragment1 = supportFragmentManager.findFragmentByTag("HOME")
 
+
         for(fragment: Fragment in supportFragmentManager.fragments) {
             if (fragment.isVisible) {
-                Log.e("TAG", fragment.id.toString())
-                Log.e("TAG1", fragment.tag.toString())
-                var TAG1 : String = fragment.tag.toString()
-                if (TAG1.equals("f0")) {
-                    val builder = AlertDialog.Builder(this)
-                    builder.setTitle("로그아웃 안내")
-                    builder.setMessage("로그아웃 하시겠습니까?자동로그인이 초기화 됩니다")
-                    builder.setPositiveButton("확인") { dialog, which ->
-                        prefs.setString("autoLoginFlagS", "0")
-                        val intent = Intent(this, LoginActivity::class.java)
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-                        startActivity(intent)
-                    }
-                    builder.setNegativeButton("취소") { dialog, which ->
-                        Toast.makeText(this@MainActivity, "취소하였습니다.", Toast.LENGTH_SHORT).show()
 
-                    }
-                    builder.show()
 
-                } else {
+                val tag = fragment.tag
+                lateinit var frag: Fragment
+                Log.d("Mytag" , tag.toString())
+                Log.d("Mytag" , currentFragment.toString())
+
+
+                if (tag.equals("f0")) {
+                        val builder = AlertDialog.Builder(this)
+                        builder.setTitle("로그아웃 안내")
+                        builder.setMessage("로그아웃 하시겠습니까?자동로그인이 초기화 됩니다")
+                        builder.setPositiveButton("확인") { dialog, which ->
+                            prefs.setString("autoLoginFlagS", "0")
+                            val intent = Intent(this, LoginActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                        }
+                        builder.setNegativeButton("취소") { dialog, which ->
+                            Toast.makeText(this@MainActivity, "취소하였습니다.", Toast.LENGTH_SHORT).show()
+
+                        }
+                        builder.show()
+                }else {
                     super.onBackPressed();
 
                 }
+
             }
         }
     }
+*/
 
     //PushMesssaging Service
     fun runtimeEnableAutoInit() {

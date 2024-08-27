@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.daisoworks.BuildConfig
 import com.example.daisoworks.PreferenceUtil
 import com.example.daisoworks.R
 import com.example.daisoworks.adapter.ExpandableAdapterHerpItem1
@@ -136,7 +137,7 @@ class HerpitemFragment : Fragment() {
         supplementService = retrofit.create(RetrofitService::class.java)
 
         //API서비스 호출 파라미터 comCd 회사코드 같이 날려서 함수 실행
-        getCorpCdList(supplementService,comCd)
+        getCorpCdList(supplementService,comCd,"${BuildConfig.API_KEY}")
 
         //데이터와 스피너를 연결 시켜줄 adapter를 만들어 준다.
         //ArrayAdapter의 두 번쨰 인자는 스피너 목록에 아이템을 그려줄 레이아웃을 지정.
@@ -233,7 +234,7 @@ class HerpitemFragment : Fragment() {
                         //조회품번이 1개이상인지 체크함.
                         itemcount = mutableListOf<ItemCount>()
                  //   Log.d("navArgs4" , BuyerCd)
-                        getItemCount(supplementService, comCd, BuyerCd, query)
+                        getItemCount(supplementService, comCd, BuyerCd, query, "${BuildConfig.API_KEY}")
                         //검색 키보드 내림
                         binding.svItem.clearFocus()
                         //binding.button.visibility = View.GONE
@@ -299,7 +300,7 @@ class HerpitemFragment : Fragment() {
 
         //LoadingDialog(requireContext()).show()
         showLoadingDialog()
-        getItemList1(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo)
+        getItemList1(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo, "${BuildConfig.API_KEY}")
     }
 
     private fun itemGetData2() {
@@ -311,24 +312,24 @@ class HerpitemFragment : Fragment() {
         Log.d("ItevSearch1" , " getItemList2 ${BuyGdsBcd}")
         Log.d("ItevSearch1" , " getItemList2 ${GdsNo}")
 
-        getItemList2(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo)
+        getItemList2(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo, "${BuildConfig.API_KEY}")
     }
 
     private fun itemGetData3() {
         Log.d("ItevSearch" , "getItemList3 호출")
         //showLoadingDialog()
-        getItemList3(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo)
+        getItemList3(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo, "${BuildConfig.API_KEY}")
     }
     private fun itemGetData4() {
         Log.d("ItevSearch" , "getItemList4 호출")
         //showLoadingDialog()
-        getItemList4(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo)
+        getItemList4(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo, "${BuildConfig.API_KEY}")
     }
 
     private fun itemGetData5(barcode1:String) {  //바코드 품번 변환
         Log.d("ItevSearch" , "getItemList5 호출")
         //showLoadingDialog()
-        getItemList5(supplementService, comCd, barcode1)
+        getItemList5(supplementService, comCd, barcode1, "${BuildConfig.API_KEY}")
     }
 
 
@@ -437,14 +438,16 @@ class HerpitemFragment : Fragment() {
     interface RetrofitService {
         @GET("buyersch")
         fun corpCd(
-            @Query("comCode") param1: String
+            @Query("comCode") param1: String,
+            @Query("apikey") param2: String
         ): Call<List<CorpCd>>
 
         @GET("itemcount")
         fun itemCount(
             @Query("comCode") param1: String,
             @Query("buyCode") param2: String,
-            @Query("querytxt") param3: String
+            @Query("querytxt") param3: String,
+            @Query("apikey") param4: String
         ): Call<List<ItemCount>>
 
         @GET("itemview1")
@@ -452,7 +455,8 @@ class HerpitemFragment : Fragment() {
             @Query("comCode") param1: String,
             @Query("buyCode") param2: String,
             @Query("BuyGdsBcd") param3: String,
-            @Query("GdsNo") param4: String
+            @Query("GdsNo") param4: String,
+            @Query("apikey") param5: String
         ): Call<List<DataItemDetail1>>
 
         @GET("itemview2")
@@ -460,7 +464,8 @@ class HerpitemFragment : Fragment() {
             @Query("comCode") param1: String,
             @Query("buyCode") param2: String,
             @Query("BuyGdsBcd") param3: String,
-            @Query("GdsNo") param4: String
+            @Query("GdsNo") param4: String,
+            @Query("apikey") param5: String
         ): Call<List<DataItemDetail2>>
 
         @GET("itemview3")
@@ -468,7 +473,8 @@ class HerpitemFragment : Fragment() {
             @Query("comCode") param1: String,
             @Query("buyCode") param2: String,
             @Query("BuyGdsBcd") param3: String,
-            @Query("GdsNo") param4: String
+            @Query("GdsNo") param4: String,
+            @Query("apikey") param5: String
         ): Call<List<DataItemDetail3>>
 
         @GET("itemview4")
@@ -476,14 +482,16 @@ class HerpitemFragment : Fragment() {
             @Query("comCode") param1: String,
             @Query("buyCode") param2: String,
             @Query("BuyGdsBcd") param3: String,
-            @Query("GdsNo") param4: String
+            @Query("GdsNo") param4: String,
+            @Query("apikey") param5: String
         ): Call<List<DataItemDetail4>>
 
 
         @GET("itemtrans1")
         fun itemTrans1(
             @Query("comCode") param1: String,
-            @Query("BuyGdsBcd") param2: String
+            @Query("BuyGdsBcd") param2: String,
+            @Query("apikey") param3: String
         ): Call<List<DataTrans1>>
 
 
@@ -492,8 +500,8 @@ class HerpitemFragment : Fragment() {
 
     // API RETROFIT2 호출 함수 구현( HR에서 제공해준 API주소에 인자값 셋팅 , GET방식, 파라미터1, 2 는 HR에서 제공해준값 ,파라미터 3,4 는 앱에서 던짐.)
     // Callback시 GSON 형식에 맞게끔 데이터 클래스 담아야 함.여기서 에러주의, Json 형식 맞아야하고 GSON 변환도 맞아야함.
-    private fun getCorpCdList(service: RetrofitService, keyword1:String){
-        service.corpCd(keyword1).enqueue(object: retrofit2.Callback<List<CorpCd>> {
+    private fun getCorpCdList(service: RetrofitService, keyword1:String, keyword2: String){
+        service.corpCd(keyword1,keyword2).enqueue(object: retrofit2.Callback<List<CorpCd>> {
             override  fun onFailure(call: Call<List<CorpCd>>, error: Throwable) {
                 Log.d("CorpCd", "창순문제실패원인: {$error}")
             }
@@ -509,6 +517,8 @@ class HerpitemFragment : Fragment() {
 
                 val responseBody = response.body()!!
                 //val myStringBuilder = StringBuilder()
+                comCdDataArr.clear()
+                mutableComMap.clear()
                 for(comCdData1 in responseBody) {
                     comCdDataArr.add( comCdData1.comName)
                     mutableComMap.put(comCdData1.comCd , comCdData1.comName)
@@ -545,8 +555,8 @@ class HerpitemFragment : Fragment() {
 
 
     //Item 갯수 체크
-    private fun getItemCount(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String){
-        service.itemCount(keyword1,keyword2,keyword3).enqueue(object: retrofit2.Callback<List<ItemCount>> {
+    private fun getItemCount(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String){
+        service.itemCount(keyword1,keyword2,keyword3,keyword4).enqueue(object: retrofit2.Callback<List<ItemCount>> {
             override  fun onFailure(call: Call<List<ItemCount>>, error: Throwable) {
                 Log.d("itemcount", "실패원인: {$error}")
             }
@@ -599,8 +609,8 @@ class HerpitemFragment : Fragment() {
 
     //enqueue(object: retrofit2.Callback<DataItemList1>
     //상품 일반정보 가져오기
-    private fun getItemList1(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String){
-        service.itemView1(keyword1,keyword2,keyword3,keyword4).enqueue(object: retrofit2.Callback<List<DataItemDetail1>> {
+    private fun getItemList1(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String, keyword5:String){
+        service.itemView1(keyword1,keyword2,keyword3,keyword4,keyword5).enqueue(object: retrofit2.Callback<List<DataItemDetail1>> {
 
             override  fun onFailure(call: Call<List<DataItemDetail1>>, error: Throwable) {
                 Log.d("DataItemList1", "실패원인: {$error}")
@@ -634,8 +644,8 @@ class HerpitemFragment : Fragment() {
     }
 
     //거래처 정보 가져오기
-    private fun getItemList2(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String){
-        service.itemView2(keyword1,keyword2,keyword3,keyword4).enqueue(object: retrofit2.Callback<List<DataItemDetail2>> {
+    private fun getItemList2(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String, keyword5: String){
+        service.itemView2(keyword1,keyword2,keyword3,keyword4,keyword5).enqueue(object: retrofit2.Callback<List<DataItemDetail2>> {
 
             override  fun onFailure(call: Call<List<DataItemDetail2>>, error: Throwable) {
                 Log.d("DataItemList2", "실패원인: {$error}")
@@ -669,8 +679,8 @@ class HerpitemFragment : Fragment() {
 
 
     //상품담당자 정보 가져오기
-    private fun getItemList3(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String){
-        service.itemView3(keyword1,keyword2,keyword3,keyword4).enqueue(object: retrofit2.Callback<List<DataItemDetail3>> {
+    private fun getItemList3(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String, keyword5: String){
+        service.itemView3(keyword1,keyword2,keyword3,keyword4,keyword5).enqueue(object: retrofit2.Callback<List<DataItemDetail3>> {
 
             override  fun onFailure(call: Call<List<DataItemDetail3>>, error: Throwable) {
                 Log.d("DataItemList3", "실패원인: {$error}")
@@ -703,8 +713,8 @@ class HerpitemFragment : Fragment() {
     }
 
 
-    private fun getItemList4(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String){
-        service.itemView4(keyword1,keyword2,keyword3,keyword4).enqueue(object: retrofit2.Callback<List<DataItemDetail4>> {
+    private fun getItemList4(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String, keyword5: String){
+        service.itemView4(keyword1,keyword2,keyword3,keyword4, keyword5).enqueue(object: retrofit2.Callback<List<DataItemDetail4>> {
 
             override  fun onFailure(call: Call<List<DataItemDetail4>>, error: Throwable) {
                 Log.d("DataItemList4", "실패원인: {$error}")
@@ -737,8 +747,8 @@ class HerpitemFragment : Fragment() {
 
 
 
-    private fun getItemList5(service: RetrofitService, keyword1:String, keyword2:String){
-        service.itemTrans1(keyword1,keyword2).enqueue(object: retrofit2.Callback<List<DataTrans1>> {
+    private fun getItemList5(service: RetrofitService, keyword1:String, keyword2:String, keyword3: String){
+        service.itemTrans1(keyword1,keyword2,keyword3).enqueue(object: retrofit2.Callback<List<DataTrans1>> {
 
             override  fun onFailure(call: Call<List<DataTrans1>>, error: Throwable) {
                 Log.d("DataTrans1", "실패원인: {$error}")

@@ -1,3 +1,7 @@
+
+import java.util.Properties
+
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -9,6 +13,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
 }
 
+val properties = Properties().apply { load(project.rootProject.file("local.properties").inputStream()) }
 
 android {
     namespace = "com.example.daisoworks"
@@ -22,6 +27,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", properties.getProperty("api.key.herp"))
     }
 
     buildTypes {
@@ -42,6 +49,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
 
         dataBinding = true
     }

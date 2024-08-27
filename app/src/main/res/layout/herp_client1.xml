@@ -112,7 +112,15 @@
                         android:id="@+id/tvClientBizNum"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_span="2"
+                        android:padding="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+                    <TextView
+                        android:id="@+id/tvClientBizMNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:padding="5dp"
                         android:textColor="@android:color/black"
                         android:textSize="14sp" />

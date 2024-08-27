@@ -4,6 +4,7 @@ data class DataClientDetail1(
     var clientNoP : String = "",     //거래처번호(생산기준)
     var clientPreNoP : String = "",  //거래처풀번호(생산기준)
     var clientBizNoP : String = "" , //거래처풀번호(생산기준)
+    var clientBizMNoP : String = "" , //사업자관리번호
     var clientBizNameK : String = "", //거래처명(한글)
     var clientBizAddrK : String = "", //거래처주소(한글)
     var clientBizCeoK : String = "", //거래처대표자(한글)

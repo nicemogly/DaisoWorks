@@ -1,12 +1,19 @@
 package com.example.daisoworks.ui.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
+import com.example.daisoworks.LoginActivity
+import com.example.daisoworks.LoginActivity.Companion.prefs
 import com.example.daisoworks.R
 import com.example.daisoworks.adapter.PagerFragmentStateAdapter
 import com.example.daisoworks.fragment_tab1
@@ -17,7 +24,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class HomeFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-
+    private lateinit var callback: OnBackPressedCallback
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,4 +71,39 @@ class HomeFragment : Fragment() {
 
         }.attach()
     }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //sample_text.text = "occur back pressed event!!"
+
+                val builder = AlertDialog.Builder(requireContext())
+                builder.setTitle("로그아웃 안내")
+                builder.setMessage("로그아웃 하시겠습니까?자동로그인이 초기화 됩니다")
+                builder.setPositiveButton("확인") { dialog, which ->
+                    prefs.setString("autoLoginFlagS", "0")
+                    val intent = Intent(requireContext(), LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+                builder.setNegativeButton("취소") { dialog, which ->
+                    Toast.makeText( requireContext(), "취소하였습니다.", Toast.LENGTH_SHORT).show()
+
+                }
+                builder.show()
+
+
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
+
+
 }

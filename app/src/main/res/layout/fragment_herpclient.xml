@@ -68,6 +68,24 @@
 
     </FrameLayout>
 
+
+        <TextView
+            android:id="@+id/txtRstText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/nanumgothicextrabold"
+            android:gravity="center"
+            android:text="거래처가 존재하지 않습니다."
+            android:textSize="15sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/client_search" />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_herp_clientlist1"
             android:layout_width="match_parent"
