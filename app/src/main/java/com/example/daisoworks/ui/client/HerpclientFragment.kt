@@ -1,6 +1,7 @@
 package com.example.daisoworks.ui.client
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.example.daisoworks.PreferenceUtil
 import com.example.daisoworks.adapter.ExpandableAdapterHerpClient1
 import com.example.daisoworks.adapter.ExpandableAdapterHerpClient2
 import com.example.daisoworks.adapter.ExpandableAdapterHerpClient22
+import com.example.daisoworks.data.ClientCount
 import com.example.daisoworks.data.DataClientDetail1
 import com.example.daisoworks.data.DataClientDetail2
 import com.example.daisoworks.data.DataClientDetail22
@@ -45,6 +47,8 @@ class HerpclientFragment : Fragment() {
     private lateinit var retrofit : Retrofit
     private lateinit var supplementService : HerpclientFragment.RetrofitService
 
+    private var ClientcodeP : String = ""
+    private var ClientnameK : String = ""
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -54,6 +58,11 @@ class HerpclientFragment : Fragment() {
     private lateinit var ExpandableAdapterHerpClient2: ExpandableAdapterHerpClient2
     private lateinit var ExpandableAdapterHerpClient22: ExpandableAdapterHerpClient22
     private var comCd : String = ""
+
+
+    private var clientcount = mutableListOf<ClientCount>()
+    private var clientDialog1 = mutableListOf<String>()
+
 
     var dataList1: List<DataClientDetail1>? = null
     var dataList2: List<DataClientDetail2>? = null
@@ -106,9 +115,9 @@ class HerpclientFragment : Fragment() {
         binding.rvHerpClientlist1.adapter = ExpandableAdapterHerpClient1
 
         //거래처상품 껍데기 바인딩
-/*        binding.rvHerpClientlist2.layoutManager = LinearLayoutManager(requireContext())
-        ExpandableAdapterHerpClient2 = ExpandableAdapterHerpClient2(requireContext(), clientList2)
-        binding.rvHerpClientlist2.adapter = ExpandableAdapterHerpClient2*/
+        binding.rvHerpClientlist2.layoutManager = LinearLayoutManager(requireContext())
+        ExpandableAdapterHerpClient2 = ExpandableAdapterHerpClient2( clientList2 , context)
+        binding.rvHerpClientlist2.adapter = ExpandableAdapterHerpClient2
 
 
         binding.svClient.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -116,7 +125,7 @@ class HerpclientFragment : Fragment() {
                 binding.txtRstText.visibility = View.GONE
                 var clientschMethod = binding.spclientschCode.getSelectedItem().toString()
 
-
+                //Log.d("companysearch" , clientschMethod)
                 // 검색 버튼 누를 때 호출
                 binding.svClient.clearFocus()
                 if(clientschMethod.equals("선택")) {
@@ -124,6 +133,9 @@ class HerpclientFragment : Fragment() {
                     return false
                 } else if (query.equals("null")){
                     showAlert1("거래처명/코드를 입력해주세요")
+                    return false
+                } else if (query.toString().length < 3 ){
+                    showAlert1("검색어를 2글자이상 입력하세요")
                     return false
                 }else {
 
@@ -141,7 +153,12 @@ class HerpclientFragment : Fragment() {
                     if(clientschMethod.equals("거래처코드")) {
                         getClientList1(supplementService, comCd, comNum, "${BuildConfig.API_KEY}")
                     }else if(clientschMethod.equals("거래처명")) {
-                        getClientList11(supplementService, comCd, comNum,"${BuildConfig.API_KEY}")
+                        Log.d("CSearch", "거래처명 검색 시작 ")
+                        comNum =   "%"+comNum+"%"
+
+                        Log.d("CSearch", comNum)
+                        getClientCountList(supplementService, comCd, comNum,"${BuildConfig.API_KEY}")
+                    //    getClientList11(supplementService, comCd, comNum,"${BuildConfig.API_KEY}")
                     }
 
                    //getData1()
@@ -172,16 +189,13 @@ class HerpclientFragment : Fragment() {
 
         }
 
-
-
-
         return root
     }
 
-    private fun getData1() {
+   /* private fun getData1() {
         // 서버에서 가져온 데이터라고 가정한다.
-        /*clientNoP,clientPreNoP,clientBizNoP,clientBizNameK,clientBizAddrK,clientBizCeoK,clientBizNameE,clientBizAddrE,clientBizCeoE,
-        clientBizNameC,clientBizAddrC,clientBizCeoC,clientBizCountry,clientBizKind,clientBizTel,clientBizHomepage,clientBizEmail,expand1*/
+        *//*clientNoP,clientPreNoP,clientBizNoP,clientBizNameK,clientBizAddrK,clientBizCeoK,clientBizNameE,clientBizAddrE,clientBizCeoE,
+        clientBizNameC,clientBizAddrC,clientBizCeoC,clientBizCountry,clientBizKind,clientBizTel,clientBizHomepage,clientBizEmail,expand1*//*
 
         val clientListData1 = DataClientDetail1(
             "201925",
@@ -207,10 +221,54 @@ class HerpclientFragment : Fragment() {
         clientList1.clear()
         clientList1.add(clientListData1)
         ExpandableAdapterHerpClient1.notifyDataSetChanged()
+    }*/
+
+
+    fun createDialog(clientcount: MutableList<ClientCount>){
+
+        val dataList =  mutableListOf<String>()
+
+        for(i: Int in 0..clientcount.size-1){
+            dataList.add(clientcount[i].clientBizNameK)
+           // Log.d("CSearch", clientcount[i].clientBizNameK.toString())
+        }
+        Log.d("CSearch", "1")
+        val adapter = ArrayAdapter<String>(
+            requireContext(), android.R.layout.select_dialog_singlechoice ,dataList
+        )
+
+        Log.d("CSearch", "2")
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("거래처 선택")
+        // builder에 어뎁터 설정
+        // 두 번째 매개변수에는 사용자가 선택한 항목의 순서값이 들어온다.
+        builder.setAdapter(adapter){ dialogInterface: DialogInterface, i: Int ->
+            // setTextView.text = "선택한 항목 : ${dataList[i]}"
+
+            Log.d("CSearch", "3")
+            ClientnameK =  dataList[i]
+            ClientcodeP = clientcount[i].clientNoP.toString()
+
+            clientGetData1()
+
+        }
+
+        Log.d("CSearch", "4")
+        builder.setNegativeButton("취소",null)
+        builder.show()
+        binding.svClient.clearFocus()
+
     }
 
 
 
+    private  fun clientGetData1() {
+
+        //LoadingDialog(requireContext()).show()
+        showLoadingDialog()
+        Log.d("CSearch", ClientcodeP)
+        getClientList1(supplementService, comCd, ClientcodeP,"${BuildConfig.API_KEY}")
+    }
 
     //Retrofit Object 설정
     object RetrofitClient {
@@ -259,20 +317,16 @@ class HerpclientFragment : Fragment() {
         ): Call<List<DataClientDetail1>>
 
 
-
+        @GET("comview2")
+        fun comView2(
+            @Query("comCode") param1: String,
+            @Query("comNum") param2: String,
+            @Query("apikey") param3: String
+        ): Call<List<DataClientDetail22>>
     }
 
 
-    /*
-    private fun initialize(){
-        with(data21){
-            add(DataClientDetail22( "1000231","BH스테이크 나이프"))
-            add(DataClientDetail22( "1000239","BH나무손잡이국자"))
-            add(DataClientDetail22( "1000241","BH나무손잡이건지개 (큰구멍)"))
-            add(DataClientDetail22( "1000242","BH물결무늬야채칼"))
-            add(DataClientDetail22( "1000319","BH나무손잡이스푼"))
-        }
-    }*/
+
 
 
     private fun showLoadingDialog() {
@@ -284,6 +338,12 @@ class HerpclientFragment : Fragment() {
             // button.text = "Finished"
         }
     }
+
+    private fun noitemDisplay(){
+        binding.rvHerpClientlist1.visibility = View.GONE
+        binding.rvHerpClientlist2.visibility = View.GONE
+    }
+
 
 
     private fun showAlert1( str1:String){
@@ -323,8 +383,54 @@ class HerpclientFragment : Fragment() {
         if( binding.rvHerpClientlist1.visibility == ConstraintSet.GONE) {
             binding.rvHerpClientlist1.visibility = View.VISIBLE
         }
+
+        if( binding.rvHerpClientlist2.visibility == ConstraintSet.GONE) {
+            binding.rvHerpClientlist2.visibility = View.VISIBLE
+        }
         binding.svClient.clearFocus();
         binding.svClient.setQuery("", false)
+    }
+
+
+    private fun getClientCountList(service: HerpclientFragment.RetrofitService, keyword1:String, keyword2:String, keyword3:String){
+        service.comView11(keyword1,keyword2,keyword3).enqueue(object: retrofit2.Callback<List<DataClientDetail1>> {
+            override  fun onFailure(call: Call<List<DataClientDetail1>>, error: Throwable) {
+                Log.d("CSearch", "실패원인: {$error}")
+            }
+            override fun onResponse(
+                call: Call<List<DataClientDetail1>>,
+                response: Response<List<DataClientDetail1>>
+            ) {
+               // BuyerCd = keyword2
+                Log.d("CSearch", "거래처명  API 성공 ")
+                val responseBody = response.body()!!
+                clientcount = mutableListOf<ClientCount>()
+                clientDialog1 = mutableListOf<String>()
+                for(clientcnt1 in responseBody) {
+                    clientcount.add( ClientCount(clientcnt1.clientNoP , clientcnt1.clientBizNameK))
+                    clientDialog1.add(clientcnt1.clientBizNameK)
+                }
+                Log.d("CSearch", clientcount.size.toString())
+                if(clientcount.size > 1) { //거래처가 1개이상  존재할 경우
+                    createDialog(clientcount)
+                }else if(clientcount.size == 1) { // 거래처가 1개일 경우
+                    ClientcodeP =  clientcount[0].clientNoP
+                    if(ClientcodeP.isNotEmpty()) {
+                        getClientList1(supplementService, comCd, ClientcodeP, "${BuildConfig.API_KEY}")
+                    }
+                }else { //거래처번호가 존재 하지 않을 경우
+
+                    noitemDisplay()
+                    binding.txtRstText.visibility = View.VISIBLE
+                    binding.svClient.clearFocus();
+                    binding.svClient.setQuery("", false)
+                }
+
+                ClientcodeP = binding.svClient.query.toString()
+                Log.d("ItevSearch" , "거래처번호 + ${ClientcodeP}")
+
+            }
+        })
     }
 
 
@@ -349,8 +455,11 @@ private fun getClientList1(service: HerpclientFragment.RetrofitService, keyword1
             mAdapter?.notifyDataSetChanged()
             binding.rvHerpClientlist1.setHasFixedSize(true)
 
-
             itemDisplay()
+
+            getClientList11(supplementService, comCd, keyword2, "${BuildConfig.API_KEY}")
+
+
             //itemGetData2()
 
         }
@@ -361,27 +470,37 @@ private fun getClientList1(service: HerpclientFragment.RetrofitService, keyword1
 
 
     private fun getClientList11(service: HerpclientFragment.RetrofitService, keyword1:String, keyword2:String, keyword3:String){
-        service.comView11(keyword1,keyword2,keyword3).enqueue(object: retrofit2.Callback<List<DataClientDetail1>> {
+        service.comView2(keyword1,keyword2,keyword3).enqueue(object: retrofit2.Callback<List<DataClientDetail22>> {
 
-            override  fun onFailure(call: Call<List<DataClientDetail1>>, error: Throwable) {
-                Log.d("DataClientDetail1", "실패원인: {$error}")
+            override  fun onFailure(call: Call<List<DataClientDetail22>>, error: Throwable) {
+                Log.d("DataClientDetail22", "실패원인: {$error}")
             }
 
             //Retrofit error 없이 Response 떨어지면
             override fun onResponse(
-                call: Call<List<DataClientDetail1>>,
-                response: Response<List<DataClientDetail1>>
+                call: Call<List<DataClientDetail22>>,
+                response: Response<List<DataClientDetail22>>
             ) {
-                dataList1 = response.body()
-                val mAdapter = dataList1?.let { ExpandableAdapterHerpClient1(it, context) }
-                binding.rvHerpClientlist1.adapter = mAdapter
-                mAdapter?.notifyDataSetChanged()
-                binding.rvHerpClientlist1.setHasFixedSize(true)
 
+                val responseBody = response.body()!!
+
+                data21.clear()
+                with(data21){
+                    for(itemcnt1 in responseBody) {
+                      add(DataClientDetail22(itemcnt1.clientItemNo , itemcnt1.clientItemName))
+                    }
+                }
+
+                val clientListData2 = DataClientDetail2(
+                    false ,
+                    data21
+                )
+
+                clientList2.clear()
+                clientList2.add(clientListData2)
+                ExpandableAdapterHerpClient2.notifyDataSetChanged()
 
                 itemDisplay()
-                //itemGetData2()
-
             }
 
         })

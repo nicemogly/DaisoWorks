@@ -11,11 +11,9 @@ import com.example.daisoworks.data.DataClientDetail2
 import com.example.daisoworks.databinding.HerpClient2Binding
 
 
-class ExpandableAdapterHerpClient2(val context: Context, private var clientList1: List<DataClientDetail2> ) : RecyclerView.Adapter<ExpandableAdapterHerpClient2.ViewHolder>()  {
+class ExpandableAdapterHerpClient2(private var itemList: List<DataClientDetail2>, val context: Context? ) : RecyclerView.Adapter<ExpandableAdapterHerpClient2.ViewHolder>()  {
 
-    // create an inner class with name ViewHolder
-    // It takes a view argument, in which pass the generated class of single_item.xml
-    // ie SingleItemBinding and in the RecyclerView.ViewHolder(binding.root) pass it like this
+
     inner class ViewHolder(val binding: HerpClient2Binding) : RecyclerView.ViewHolder(binding.root){
 
 
@@ -37,19 +35,15 @@ class ExpandableAdapterHerpClient2(val context: Context, private var clientList1
     }
 
 
-    /*clientNoP,clientPreNoP,clientBizNoP,clientBizNameK,clientBizAddrK,clientBizCeoK,clientBizNameE,clientBizAddrE,clientBizCeoE,
-       clientBizNameC,clientBizAddrC,clientBizCeoC,clientBizCountry,clientBizKind,clientBizTel,clientBizHomepage,clientBizEmail,expand1*/
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = clientList1[position]
+        val item = itemList[position]
         holder.bind(item)
 
 
         with(holder){
-            with(clientList1[position]){
-                // set name of the language from the list
-                //상품정보
-               // binding.tvClientItemNo.text = this.clientItemNo
-             //   binding.tvClientItemName.text = this.clientItemName
+            with(itemList[position]){
+
+
 
                 binding.expandedHerpclientView1.visibility = if (this.expand2) View.VISIBLE else View.GONE
 
@@ -69,6 +63,6 @@ class ExpandableAdapterHerpClient2(val context: Context, private var clientList1
         }
     }
 
-    override fun getItemCount(): Int = clientList1.size
+    override fun getItemCount(): Int = itemList.size
 
 }
