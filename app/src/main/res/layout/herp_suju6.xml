@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_layout_herp6"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="3dp"
+    android:layout_marginEnd="3dp"
+    android:layout_marginBottom="3dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--수주 비고 정보 -->
+        <LinearLayout
+            android:id="@+id/tv_herpsuju_layout7"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#E1DFDF"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="MissingConstraints">
+            <!--Text view -->
+            <TextView
+                android:id="@+id/tv_herpsuju_subject"
+                style="@style/textAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="비고"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/viewMoreBtn"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_drop_up"
+                app:tint="#666666" />
+
+        </LinearLayout>
+
+        <!--수주 비고  디테일 확장 정보 -->
+        <LinearLayout
+            android:id="@+id/expanded_herpsuju_view6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_herpsuju_layout7">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:stretchColumns="*"
+                tools:ignore="MissingConstraints">
+
+
+                <TextView
+                    android:id="@+id/tv_subject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="전용비고"
+                    style="@style/textAppearance"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    />
+
+
+                <TableRow
+                    android:id="@+id/tr1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:scrollbarStyle="outsideInset"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr1"
+                    tools:ignore="MissingConstraints">
+
+
+                    <EditText
+                        android:id="@+id/tvetc1"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/edge"
+                        android:enabled="false"
+                        android:lines="4"
+                        android:maxLines="100"
+                        android:overScrollMode="always"
+                        android:padding="5dp"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollbarFadeDuration="0"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+                </TableRow>
+
+
+
+                <TextView
+                    android:id="@+id/tv_subject1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="품질관리"
+                    style="@style/textAppearance"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    />
+
+
+
+
+                <TableRow
+                    android:id="@+id/tr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:scrollbarStyle="outsideInset"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_subject1"
+                    tools:ignore="MissingConstraints">
+
+
+                    <EditText
+                        android:id="@+id/tvetc2"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/edge"
+                        android:enabled="false"
+                        android:lines="4"
+                        android:maxLines="100"
+                        android:overScrollMode="always"
+                        android:padding="5dp"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollbarFadeDuration="0"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+                </TableRow>
+                <TextView
+                    android:id="@+id/tv_subject2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="불량유형"
+                    style="@style/textAppearance"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    />
+
+                <TableRow
+                    android:id="@+id/tr3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:scrollbarStyle="outsideInset"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_subject2"
+                    tools:ignore="MissingConstraints">
+
+
+                    <EditText
+                        android:id="@+id/tvetc3"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:background="@drawable/edge"
+                        android:enabled="false"
+                        android:lines="4"
+                        android:maxLines="100"
+                        android:overScrollMode="always"
+                        android:padding="5dp"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+                        android:scrollbarFadeDuration="0"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+                </TableRow>
+                <TextView
+                    android:id="@+id/tv_subject3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="기타"
+                    style="@style/textAppearance"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    />
+
+                <TableRow
+                    android:id="@+id/tr4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:scrollbarStyle="outsideInset"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_subject3"
+                    tools:ignore="MissingConstraints">
+
+
+                    <EditText
+                        android:id="@+id/tvetc4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edge"
+                        android:enabled="false"
+                        android:fadeScrollbars="false"
+
+                        android:padding="5dp"
+                        android:scrollbarAlwaysDrawVerticalTrack="true"
+
+                        android:scrollbarStyle="insideInset"
+                        android:overScrollMode="always"
+                        android:inputType="textMultiLine"
+                        android:scrollbarFadeDuration="0"
+                        android:scrollbars="vertical"
+                        android:singleLine="false"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

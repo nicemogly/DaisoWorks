@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_layout_herp1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="3dp"
+    android:layout_marginEnd="3dp"
+    android:layout_marginBottom="3dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--수주 기본 정보 -->
+        <LinearLayout
+            android:id="@+id/tv_herpsuju_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="#E1DFDF"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="MissingConstraints">
+            <!--Text view -->
+            <TextView
+                android:id="@+id/tv_herpsuju_subject"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
+                android:text="기본정보"
+                style="@style/textAppearance"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:ellipsize="end"
+                android:singleLine="true"
+                />
+            <View
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:id="@+id/viewMoreBtn"
+                android:src="@drawable/ic_arrow_drop_up"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                app:tint="#666666" />
+
+        </LinearLayout>
+
+        <!--수주 기본 디테일 확장 정보 -->
+        <LinearLayout
+            android:id="@+id/expanded_herpsuju_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_herpsuju_layout2">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:stretchColumns="*"
+                tools:ignore="MissingConstraints">
+
+                <TableRow
+                    android:id="@+id/tr66"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/expanded_herpsuju_view"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+                        android:id="@+id/photoView1"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:layout_span="2"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/square_background_border_silver"
+                        android:padding="10dp"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/tr1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr1"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:id="@+id/tvsujumginitno"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvsujudate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:textAlignment="viewStart"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr1"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:id="@+id/tvsujuamt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvsujuipsu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:textAlignment="viewStart"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr2"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:id="@+id/tvsujuper"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_span="2"
+                        android:padding="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr3"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:id="@+id/tvsujuitemno"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvsujubarcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr4"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:id="@+id/tvsujutcategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:layout_span="2"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+                </TableRow>
+
+
+                <TableRow
+                    android:id="@+id/tr6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr5"
+                    tools:ignore="MissingConstraints">
+
+
+                    <TextView
+                        android:id="@+id/tvsujuitemcategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:layout_span="2"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tr7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr6"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:id="@+id/tvsujuitemdesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:layout_span="2"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tr8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tr7"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:id="@+id/tvsujudelicondition"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tvsujumadein"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+
+
+                </TableRow>
+
+
+            </TableLayout>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

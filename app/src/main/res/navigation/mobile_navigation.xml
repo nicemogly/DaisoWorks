@@ -53,7 +53,10 @@
             app:argType="string"
             android:defaultValue="" />
         <action
-            android:id="@+id/action_nav_itemmaster_to_nav_client7"
+            android:id="@+id/action_nav_itemmaster_to_nav_suju2"
+            app:destination="@id/nav_suju" />
+        <action
+            android:id="@+id/action_nav_itemmaster_to_nav_client3"
             app:destination="@id/nav_client" />
     </fragment>
 
@@ -67,8 +70,30 @@
             app:argType="string"
             android:defaultValue="" />
         <action
-            android:id="@+id/action_nav_client_to_nav_itemmaster"
+            android:id="@+id/action_nav_client_to_nav_suju"
+            app:destination="@id/nav_suju" />
+        <action
+            android:id="@+id/action_nav_client_to_nav_itemmaster3"
             app:destination="@id/nav_itemmaster" />
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_suju"
+        android:name="com.example.daisoworks.ui.suju.HerpsujuFragment"
+        android:label="@string/menu_suju"
+        tools:layout="@layout/fragment_herpsuju" >
+        <argument
+            android:name="comno"
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_nav_suju_to_nav_itemmaster2"
+            app:destination="@id/nav_itemmaster" />
+        <action
+            android:id="@+id/action_nav_suju_to_nav_client"
+            app:destination="@id/nav_client" />
+
+    </fragment>
+
 
 </navigation>

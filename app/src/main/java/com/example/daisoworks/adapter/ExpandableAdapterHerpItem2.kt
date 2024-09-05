@@ -1,6 +1,7 @@
 package com.example.daisoworks.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,10 +47,16 @@ class ExpandableAdapterHerpItem2(private var itemList2: List<DataItemDetail2>, v
                 }
 
 
+                binding.tvClientNoP.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                binding.tvClientNoS.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                binding.tvClientNoB.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
+
+
                 //프래그먼트 변경전 넘길 파라미터 셋팅 및 화면 전환, actionNavItemmasterToNavClient7이 mobile_navigation에서 파라미터 또는 화면연결선을
                 //지정하면 자동으로 actionNavItemmasterToNavClient7dl 만들어져야 하나 gradle 빌더상 오류가 있슴. 자동생성 안되어 nav_graph2를생성했다 지움
                 val comnov =  binding.tvClientNoP.text
-                val action = HerpitemFragmentDirections.actionNavItemmasterToNavClient7( comno = "$comnov" )
+                val action = HerpitemFragmentDirections.actionNavItemmasterToNavClient3( comno = "$comnov" )
 
                 //화면에서 생산 거래처 번호 클릭시 네비게이션 지정된데로 이동함.
                 binding.tvClientNoP.setOnClickListener { view ->

@@ -13,11 +13,11 @@
    <item android:title="HERP" >
        <menu>
            <group android:checkableBehavior="single">
-               <item
+             <!--  <item
                    android:id="@+id/nav_analysis1"
                    android:icon="@drawable/ic_menu_slideshow"
                    android:title="전시회" >
-               </item>
+               </item>-->
 
                <item
                    android:id="@+id/nav_itemmaster"
@@ -32,7 +32,7 @@
                </item>
 
                <item
-                   android:id="@+id/nav_analysis4"
+                   android:id="@+id/nav_suju"
                    android:icon="@drawable/ic_menu_slideshow"
                    android:title="수주" >
                </item>

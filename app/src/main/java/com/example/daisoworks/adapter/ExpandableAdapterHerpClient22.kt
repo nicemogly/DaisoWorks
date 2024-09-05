@@ -1,6 +1,7 @@
 package com.example.daisoworks.adapter
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -35,9 +36,9 @@ class ExpandableAdapterHerpClient22(val context: Context?, private var clientLis
             with(clientList2[position]){
 
                 holder.bind(clientList2[position])
-
+                binding.tvClientItemNo.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 val comnov =  binding.tvClientItemNo.text
-                val action = HerpclientFragmentDirections.actionNavClientToNavItemmaster( comno = "$comnov" )
+                val action = HerpclientFragmentDirections.actionNavClientToNavItemmaster3( comno = "$comnov" )
 
 
                 //화면에서 생산 거래처 번호 클릭시 네비게이션 지정된데로 이동함.

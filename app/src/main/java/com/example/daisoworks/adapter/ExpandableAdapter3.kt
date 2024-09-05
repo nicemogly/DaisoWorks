@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.daisoworks.R
-import com.example.daisoworks.data.DataSujuDetailItem
+import com.example.daisoworks.data.DataSujuDetail1
 import com.example.daisoworks.databinding.SingleItem3Binding
 
 
-class ExpandableAdapter3(private var sujuList: List<DataSujuDetailItem>) : RecyclerView.Adapter<ExpandableAdapter3.ViewHolder>() {
+class ExpandableAdapter3(private var sujuList: List<DataSujuDetail1>) : RecyclerView.Adapter<ExpandableAdapter3.ViewHolder>() {
 
     // create an inner class with name ViewHolder
     // It takes a view argument, in which pass the generated class of single_item.xml
@@ -29,8 +29,8 @@ class ExpandableAdapter3(private var sujuList: List<DataSujuDetailItem>) : Recyc
         with(holder){
             with(sujuList[position]){
                 // set name of the language from the list
-                binding.tvHerpSubject.text = this.name
-                binding.tvSujuno.text = this.sujuno
+             //   binding.tvHerpSubject.text = this.name
+             //   binding.tvSujuno.text = this.sujuno
                 binding.tvSujudate.text = this.sujudate
                 binding.tvSujuamt.text = this.sujuamt
                 binding.tvSujuipsu.text = this.sujuipsu
@@ -43,12 +43,12 @@ class ExpandableAdapter3(private var sujuList: List<DataSujuDetailItem>) : Recyc
                 binding.tvSujupaymentcondition.text = this.sujupaymentcondition
                 binding.tvSujurun.text = this.sujurun
                 binding.tvSujumadein.text = this.sujumadein*/
-                binding.expandedHerpView.visibility = if (this.expand) View.VISIBLE else View.GONE
-                if(this.expand) binding.viewMoreBtn.setImageResource(R.drawable.ic_arrow_drop_up) else binding.viewMoreBtn.setImageResource(
+                binding.expandedHerpView.visibility = if (this.expand1) View.VISIBLE else View.GONE
+                if(this.expand1) binding.viewMoreBtn.setImageResource(R.drawable.ic_arrow_drop_up) else binding.viewMoreBtn.setImageResource(
                     R.drawable.ic_arrow_drop_down
                 )
                 binding.cardLayout2.setOnClickListener {
-                    this.expand = !this.expand
+                    this.expand1 = !this.expand1
                     notifyDataSetChanged()
                 }
             }

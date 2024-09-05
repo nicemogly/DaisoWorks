@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.daisoworks.adapter.ExpandableAdapter3
-import com.example.daisoworks.data.DataSujuDetailItem
+import com.example.daisoworks.data.DataSujuDetail1
 import com.example.daisoworks.databinding.FragmentSuju1Binding
 
 
@@ -30,7 +30,7 @@ class Suju1Fragment : Fragment() {
     private val binding get() = _binding!!
 
 
-    private var sujuList = ArrayList<DataSujuDetailItem>()
+    private var sujuList = ArrayList<DataSujuDetail1>()
     private lateinit var expandableAdapter3: ExpandableAdapter3
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +60,7 @@ class Suju1Fragment : Fragment() {
         // attach adapter to the recyclerview
         expandableAdapter3 = ExpandableAdapter3(sujuList)
 
-        getData()
+       // getData()
 
         binding.rvHerpList.adapter = expandableAdapter3
 
@@ -71,11 +71,11 @@ class Suju1Fragment : Fragment() {
     }
 
 
-    private fun getData() {
+  /*  private fun getData() {
         // 서버에서 가져온 데이터라고 가정한다.
         // create new objects and add some row data
         //name,sujuno,sujudate,sujuamt,sujuipsu,sujuitemno,sujubarcode,sujutcategory,sujuitemcategory,sujuitemdesc,sujudelicondition,sujupaymentcondition,sujurun,sujumadein,expand
-        val sujuListData1= DataSujuDetailItem(
+        val sujuListData1= DataSujuDetail1(
             "기본정보",
             "NC2018030681",
             "수주일:" + "2018-03-06",
@@ -96,7 +96,7 @@ class Suju1Fragment : Fragment() {
         // add items to list
         sujuList.add(sujuListData1)
         expandableAdapter3.notifyDataSetChanged()
-    }
+    }*/
 
     override fun onDestroy() {
         super.onDestroy()

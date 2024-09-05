@@ -49,8 +49,7 @@ class HerpclientFragment : Fragment() {
 
     private var ClientcodeP : String = ""
     private var ClientnameK : String = ""
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+
     private val binding get() = _binding!!
     private var clientList1 = ArrayList<DataClientDetail1>()
     private var clientList2 = ArrayList<DataClientDetail2>()
@@ -139,11 +138,11 @@ class HerpclientFragment : Fragment() {
                     return false
                 }else {
 
-                    if( binding.rvHerpClientlist1.visibility == View.GONE) {
+                    if (binding.rvHerpClientlist1.visibility == View.GONE) {
                         binding.rvHerpClientlist1.visibility = View.VISIBLE
                     }
 
-                    if( binding.rvHerpClientlist2.visibility == View.GONE) {
+                    if (binding.rvHerpClientlist2.visibility == View.GONE) {
                         binding.rvHerpClientlist2.visibility = View.VISIBLE
                     }
 
@@ -161,8 +160,7 @@ class HerpclientFragment : Fragment() {
                     //    getClientList11(supplementService, comCd, comNum,"${BuildConfig.API_KEY}")
                     }
 
-                   //getData1()
-                   //getData2()
+
                    Toast.makeText(requireContext(),"거래처 $query 검색", Toast.LENGTH_SHORT).show()
                    return true
                 }
@@ -191,37 +189,6 @@ class HerpclientFragment : Fragment() {
 
         return root
     }
-
-   /* private fun getData1() {
-        // 서버에서 가져온 데이터라고 가정한다.
-        *//*clientNoP,clientPreNoP,clientBizNoP,clientBizNameK,clientBizAddrK,clientBizCeoK,clientBizNameE,clientBizAddrE,clientBizCeoE,
-        clientBizNameC,clientBizAddrC,clientBizCeoC,clientBizCountry,clientBizKind,clientBizTel,clientBizHomepage,clientBizEmail,expand1*//*
-
-        val clientListData1 = DataClientDetail1(
-            "201925",
-            "CP2017040028",
-            "66672928-000-09-16-0",
-            "크리에잇 커머스 유한회사",
-            "7층 CTR NO.53-55 락하트 완차이 HK",
-            "알렉스뎅",
-            "CREATE COMMERCE CO.,LIMITED",
-            "7/F SPA CTR NO.53-55 LOCKHART RD WAN CHAI HK",
-            "ALEX DENG",
-            "深圳市科创商贸有限公司联系我们",
-            "香港湾仔骆克道53-55号SPA中心7楼",
-            "阿力而行等",
-            "홍콩",
-            "물품공급회사",
-            "0662-3213988",
-            "http://www.kbs.co.kr",
-            "alex@yjholdsun.com"
-        )
-
-
-        clientList1.clear()
-        clientList1.add(clientListData1)
-        ExpandableAdapterHerpClient1.notifyDataSetChanged()
-    }*/
 
 
     fun createDialog(clientcount: MutableList<ClientCount>){
@@ -421,6 +388,7 @@ class HerpclientFragment : Fragment() {
                 }else { //거래처번호가 존재 하지 않을 경우
 
                     noitemDisplay()
+
                     binding.txtRstText.visibility = View.VISIBLE
                     binding.svClient.clearFocus();
                     binding.svClient.setQuery("", false)
@@ -454,10 +422,19 @@ private fun getClientList1(service: HerpclientFragment.RetrofitService, keyword1
             binding.rvHerpClientlist1.adapter = mAdapter
             mAdapter?.notifyDataSetChanged()
             binding.rvHerpClientlist1.setHasFixedSize(true)
+            var kks = dataList1?.size.toString()
 
-            itemDisplay()
+            if(kks.equals("0")){
+                noitemDisplay()
 
-            getClientList11(supplementService, comCd, keyword2, "${BuildConfig.API_KEY}")
+                binding.txtRstText.visibility = View.VISIBLE
+                binding.svClient.clearFocus();
+                binding.svClient.setQuery("", false)
+            }else {
+                itemDisplay()
+
+                getClientList11(supplementService, comCd, keyword2, "${BuildConfig.API_KEY}")
+            }
 
 
             //itemGetData2()
