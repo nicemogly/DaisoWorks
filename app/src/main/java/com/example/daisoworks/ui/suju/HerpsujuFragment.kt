@@ -248,7 +248,7 @@ class HerpsujuFragment : Fragment() {
 
 
 
-
+        //binding.root.findViewById<TextView>(R.id.tvsujuitemno).paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         return root
 

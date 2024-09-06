@@ -1,6 +1,8 @@
 package com.example.daisoworks
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
@@ -16,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.daisoworks.data.ChkVer
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
@@ -36,7 +39,13 @@ class LoginActivity : AppCompatActivity() {
     lateinit var editTextPassword: EditText
     lateinit var autoLogin: SwitchCompat
     private lateinit var retrofit : Retrofit
+    private lateinit var retrofit1 : Retrofit
     private  lateinit var supplementService : RetrofitService
+    private  lateinit var supplementService1 : RetrofitService1
+    private var SversionName : String  = ""
+    private var versionName : String  = ""
+    private var versionFkag : String  = "N"
+
 
     //내부저장소 변수 설정
     companion object{
@@ -68,8 +77,13 @@ class LoginActivity : AppCompatActivity() {
         prefs = PreferenceUtil(applicationContext)
 
         //RetroFit2 API 객체생성 및 Retro 서비스 객체 생생(서비는 내부에 둠)
+        //HR
         retrofit = RetrofitClient.getInstance()
         supplementService = retrofit.create(RetrofitService::class.java)
+
+        //APPVERSION
+        retrofit1 = RetrofitClient1.getInstance1()
+        supplementService1 = retrofit1.create(RetrofitService1::class.java)
 
         super.onCreate(savedInstanceState)
 
@@ -78,6 +92,12 @@ class LoginActivity : AppCompatActivity() {
 
         //fragment Binding
         setContentView(R.layout.activity_login)
+
+        //로그인전 APP Version Check
+        versionName = BuildConfig.VERSION_NAME
+        getVersionName(supplementService1,"${BuildConfig.API_KEY}")
+       // var  loginFlag: String? = response.body()?.loginList?.get(0)?.VALUE?.toString()
+       // if(versionName.equals())
 
         //내부저장소 자동로그인 여부 가져오기 , 기본값은 0
         val autoLoginFlagS = prefs.getString("autoLoginFlagS","0")
@@ -147,8 +167,6 @@ class LoginActivity : AppCompatActivity() {
                            //  내부저장소에 id,pw 등록
                             prefs.setString("id","${keyword3}")
                             prefs.setString("pw","${keyword4}")
-
-
 
                             // 내부저장소에 회사등록
                             var LoginCompany : String = ""
@@ -234,6 +252,36 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+
+    private fun getVersionName(service1: LoginActivity.RetrofitService1, keyword1:String){
+           service1.checkVersion(keyword1).enqueue(object: retrofit2.Callback<List<ChkVer>> {
+            override  fun onFailure(call: Call<List<ChkVer>>, error: Throwable) {
+                Log.d("versionCheck", "versionCheck Failed: {$error}")
+            }
+
+            //Retrofit error 없이 Response 떨어지면
+            override fun onResponse(
+                call: Call<List<ChkVer>>,
+                response: Response<List<ChkVer>>
+            ) {
+
+                val responseBody = response.body()!!
+                //val myStringBuilder = StringBuilder()
+
+                SversionName = responseBody[0].versionName
+                if(versionName.equals(SversionName)){
+                    versionFkag = "Y"
+                }else{
+                    versionFkag = "N"
+                    createDialog()
+
+                }
+
+            }
+        })
+    }
+
+
     fun onMove(){
         val intent = Intent(this, Login2Activity::class.java)
         startActivity(intent)
@@ -245,7 +293,8 @@ class LoginActivity : AppCompatActivity() {
         private val gson = GsonBuilder().setLenient().create()
 
         //BASEURL 끝에 / 빠지면 에러 남.
-        private const val BASE_URL = "https://hr.asungcorp.com/cm/service/BRS_CM_RetrieveReturnVal/"
+        private const val BASE_URL =  "https://hr.asungcorp.com/cm/service/BRS_CM_RetrieveReturnVal/"
+
 
            //Retrofit 객체생성
         fun getInstance(): Retrofit {
@@ -265,7 +314,44 @@ class LoginActivity : AppCompatActivity() {
             }
             return instance!!
         }
+
     }
+
+
+    object RetrofitClient1 {
+
+
+        private var instance1: Retrofit? = null
+        private val gson1 = GsonBuilder().setLenient().create()
+
+        //BASEURL 끝에 / 빠지면 에러 남.
+
+        private const val BASE_URL1 = "http://59.10.47.222:3000/"
+
+        //Retrofit 객체생성
+
+        fun getInstance1(): Retrofit {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.apply { interceptor.level = HttpLoggingInterceptor.Level.BODY }
+
+            //client 없으면 GSON , JSON형태의 데이터 클래스 생성시 에러가 나는것 같음.
+            //Interceptor 해서 뭔가 오류 수정작업하는것 같음.
+            val client: OkHttpClient =
+                OkHttpClient.Builder().addInterceptor(interceptor).build()
+            if (instance1 == null) {
+                instance1 = Retrofit.Builder()
+                    .baseUrl(BASE_URL1)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create(gson1))
+                    .build()
+            }
+            return instance1!!
+        }
+
+
+    }
+
+
 
     //Retrofit Service : 전송방식(GET,POST....) , Parameter 세팅가능
     interface RetrofitService {
@@ -276,7 +362,17 @@ class LoginActivity : AppCompatActivity() {
             @Query("IN_INPUT.USER_NM") param3: String,
             @Query("IN_INPUT.VALUE") param4: String
         ): Call<LoginList>
+
     }
+
+    interface RetrofitService1 {
+        @GET("checkversion")
+        fun checkVersion(
+            @Query("apikey") param1: String
+        ): Call<List<ChkVer>>
+
+    }
+
 
     // Data Class(결과값, CALL BACK시 API통신 결과값을 담는다. {"OUT_RESULT":[{"VALUE":"T"}]}
     data class LoginList(
@@ -287,6 +383,23 @@ class LoginActivity : AppCompatActivity() {
         var VALUE: String
     )
 
+
+    fun createDialog(){
+
+        var builder = AlertDialog.Builder(this)
+        builder.setTitle("버전 업데이트 안내")
+        builder.setMessage("버전이 일치하지 않습니다.새로운 버전을 설치하여 주세요")
+        builder.setIcon(R.mipmap.ic_launcher)
+        builder.setNegativeButton("확인", listener)
+        builder.show()
+
+
+    }
+
+    var listener = DialogInterface.OnClickListener { p0, p1 ->
+
+        System.exit(0)
+    }
 
 }
 
