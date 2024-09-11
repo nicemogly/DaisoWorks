@@ -137,14 +137,25 @@ class MainActivity : AppCompatActivity()  {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //return super.onOptionsItemSelected(item)
         when(item?.itemId){
-            R.id.action_settings1 -> {
 
-                prefs.setString("autoLoginFlagS","0")
+            //로그아웃
+            R.id.action_settings1 -> {
+                prefs.setString("autoLoginFlagS", "0")
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 //ContextCompat.startActivity(binding.root.context, intent, null)
                 return true
+            }
+
+            //설정
+            R.id.action_settings2 -> {
+                val intent = Intent(this, SettingActivity::class.java)
+               // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+
+                return true
+
             } else -> return super.onOptionsItemSelected(item)
         }
 
