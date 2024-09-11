@@ -69,10 +69,8 @@ sampleCsNoteItemNo,exhName,exhPeriod, exhDetail*/
                         .into(binding.photoView1)
                 }
 
-
                 Log.d("ItevSearch" , "onBindViewHolder 안에있다.")
                 Log.d("ItevSearch" , "onBindViewHolder + ${this.itemNo}")
-
 
                 binding.expandedHerpitemView.visibility = if (this.expand1) View.VISIBLE else View.GONE
 
@@ -84,7 +82,6 @@ sampleCsNoteItemNo,exhName,exhPeriod, exhDetail*/
                     this.expand1 = !this.expand1
                     notifyDataSetChanged()
                 }
-
 
             }
         }
