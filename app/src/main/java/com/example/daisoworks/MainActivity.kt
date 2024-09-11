@@ -122,8 +122,6 @@ class MainActivity : AppCompatActivity()  {
         prefs.setString("currentFragmentFirst", "$currentFragmentFirst")
 
 
-
-
     }
 
 

@@ -233,7 +233,7 @@ class HerpitemFragment : Fragment() {
                 }else {
                         //조회품번이 1개이상인지 체크함.
                         itemcount = mutableListOf<ItemCount>()
-                 //   Log.d("navArgs4" , BuyerCd)
+                        //   Log.d("navArgs4" , BuyerCd)
                         getItemCount(supplementService, comCd, BuyerCd, query, "${BuildConfig.API_KEY}")
                         //검색 키보드 내림
                         binding.svItem.clearFocus()

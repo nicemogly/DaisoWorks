@@ -43,6 +43,7 @@ class LoginActivity : AppCompatActivity() {
     private  lateinit var supplementService : RetrofitService
     private  lateinit var supplementService1 : RetrofitService1
     private var SversionName : String  = ""
+    private var SversionMsg : String  = ""
     private var versionName : String  = ""
     private var versionFkag : String  = "N"
 
@@ -122,6 +123,8 @@ class LoginActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.btnLogin)
         editTextId = findViewById(R.id.editTextId)
         editTextPassword = findViewById(R.id.editTextPassword)
+
+
 
         // 로그인 버튼 클릭(오토로그인 아님)
         btnLogin!!.setOnClickListener {
@@ -269,11 +272,12 @@ class LoginActivity : AppCompatActivity() {
                 //val myStringBuilder = StringBuilder()
 
                 SversionName = responseBody[0].versionName
+                SversionMsg = responseBody[0].versionMsg
                 if(versionName.equals(SversionName)){
                     versionFkag = "Y"
                 }else{
                     versionFkag = "N"
-                    createDialog()
+                    createDialog(SversionMsg)
 
                 }
 
@@ -384,20 +388,18 @@ class LoginActivity : AppCompatActivity() {
     )
 
 
-    fun createDialog(){
-
+    fun createDialog( str1: String){
+        var versionTitle = resources.getString(R.string.versioninfo)
         var builder = AlertDialog.Builder(this)
-        builder.setTitle("버전 업데이트 안내")
-        builder.setMessage("버전이 일치하지 않습니다.새로운 버전을 설치하여 주세요")
+        builder.setTitle(versionTitle.toString())
+        builder.setMessage(str1)
         builder.setIcon(R.mipmap.ic_launcher)
         builder.setNegativeButton("확인", listener)
         builder.show()
 
-
     }
 
     var listener = DialogInterface.OnClickListener { p0, p1 ->
-
         System.exit(0)
     }
 

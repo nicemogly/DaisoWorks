@@ -36,6 +36,7 @@
 
 
     <string name="herp_title1">기본정보</string>
+    <string name="versioninfo">버전 업데이트 안내</string>
 
 
     <!-- Strings used for fragments for navigation -->
