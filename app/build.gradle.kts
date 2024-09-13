@@ -127,5 +127,8 @@ dependencies {
     implementation("com.google.zxing:core:3.4.0")
     implementation("com.journeyapps:zxing-android-embedded:4.1.0")
 
+    //차트
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 }
 

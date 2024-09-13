@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
+import android.webkit.WebView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -14,6 +16,18 @@ import com.example.daisoworks.adapter.ExpandableAdapter2
 import com.example.daisoworks.data.DataItem
 import com.example.daisoworks.data.HerpSujuL
 import com.example.daisoworks.databinding.FragmentTab1Binding
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.text.DecimalFormat
 
 
 class fragment_tab1 : Fragment() {
@@ -30,6 +44,7 @@ class fragment_tab1 : Fragment() {
     private val data: MutableList<HerpSujuL> = mutableListOf()
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,10 +55,141 @@ class fragment_tab1 : Fragment() {
 
 
         val textTitleView: TextView = binding.htvTitle1
+        val lineChart: LineChart = binding.lineChart
+        val barChart: BarChart = binding.barChart
+
         val layoutParams = RelativeLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, // CardView width
             ViewGroup.LayoutParams.WRAP_CONTENT // CardView height
         )
+
+
+        // 선 차트 데이터 설정
+        val lineEntries = listOf(
+            Entry(0f, 100f),
+            Entry(1f, 120f),
+            Entry(2f, 200f),
+            Entry(3f, 80f),
+            Entry(4f, 140f),
+            Entry(5f, 135f),
+            Entry(6f, 150f),
+            Entry(7f, 0f),
+            Entry(8f, 0f),
+            Entry(9f, 0f)
+        )
+
+        val lineDataSet = LineDataSet(lineEntries, "Monthly Sales").apply {
+            color = 0xFF003366.toInt() // 남색
+            valueTextColor = 0xFF003366.toInt() // 남색
+            valueTextSize = 12f
+            lineWidth = 3f // 선 두께 설정
+            circleRadius = 5f // 데이터 포인트 원의 반지름
+        }
+
+        val lineData = LineData(lineDataSet)
+        lineChart.data = lineData
+        lineChart.description.isEnabled = false
+
+        // X축 레이블 설정
+        val lineXAxis = lineChart.xAxis
+        lineXAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(arrayOf(
+                "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "11월", "12월"
+            ))
+            position = XAxis.XAxisPosition.BOTTOM
+            granularity = 1f // X축의 간격을 1로 설정
+            isGranularityEnabled = true
+            //labelRotationAngle = 45f // 레이블 회전 각도 설정
+            textSize = 10f // 레이블 텍스트 크기 설정도록 함)
+            labelCount = 10 // X축 레이블의 개수 강제 설정
+
+            setDrawGridLines(true) // X축 그리드라인 표시
+            gridColor = 0xFFCCCCCC.toInt() // 점선 색상 (연한 회색)
+            gridLineWidth = 1f // 점선의 두께
+            enableGridDashedLine(10f, 5f, 0f) // 점선 스타일 (길이, 간격, 시작점)
+
+            axisMinimum = -0.5f // X축 최소값 설정 (데이터 포인트가 점선 사이에 위치하도록 조정)
+            axisMaximum = 9.5f
+        }
+
+        // Y축 설정
+        val lineYAxis = lineChart.axisLeft
+        lineYAxis.apply {
+            setDrawLabels(true) // 레이블 표시
+            setDrawGridLines(false) // Y축 그리드라인 숨기기
+            axisMinimum = 0f // Y축 최소값 설정 (필요에 따라 조정)
+        }
+
+        lineChart.axisRight.isEnabled = false // 오른쪽 Y축 비활성화
+
+        lineChart.invalidate() // 차트 새로 고침
+
+        // 세로 막대 차트 데이터 설정
+        val barEntries = listOf(
+            BarEntry(0f, 40.2f),
+            BarEntry(1f, 18.3f),
+            BarEntry(2f, 72f),
+            BarEntry(3f, 63.1f),
+            BarEntry(4f, 15.8f),
+            BarEntry(5f, 82.5f),
+            BarEntry(6f, 61.5f),
+            BarEntry(7f, 0f),
+            BarEntry(8f, 0f),
+            BarEntry(9f, 0f)
+        )
+
+        val barDataSet = BarDataSet(barEntries, "납기율").apply {
+            colors = listOf(0xFF003366.toInt()) // 남색
+            valueTextColor = 0xFF003366.toInt() // 남색
+            valueTextSize = 12f
+            valueFormatter = object : ValueFormatter() {
+                private val decimalFormat = DecimalFormat("#,###.#")
+
+                override fun getFormattedValue(value: Float): String {
+                    return if (value.toInt() == 0) {
+                        "0"
+                    } else {
+                        decimalFormat.format(value)
+                    }
+                }
+            }
+        }
+
+        val barData = BarData(barDataSet)
+        barChart.data = barData
+        barChart.description.isEnabled = false
+
+        // X축 레이블 설정
+        val barXAxis = barChart.xAxis
+        barXAxis.apply {
+            valueFormatter = IndexAxisValueFormatter(arrayOf(
+                "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "11월", "12월"
+            ))
+            position = XAxis.XAxisPosition.BOTTOM
+            granularity = 1f // X축의 간격을 1로 설정
+            isGranularityEnabled = true
+            setDrawGridLines(false) // X축 그리드라인 숨기기
+            //labelRotationAngle = 45f // 레이블 회전 각도 설정
+            textSize = 10f // 레이블 텍스트 크기 설정도록 함)
+            labelCount = 10 // X축 레이블의 개수 강제 설정
+        }
+
+        // Y축 설정
+        val barYAxis = barChart.axisLeft
+        barYAxis.apply {
+            // 10단위로 점선 표시
+            setDrawGridLines(true)
+            gridColor = 0xFFCCCCCC.toInt() // 점선 색상 (연한 회색)
+            gridLineWidth = 1f // 점선의 두께
+            enableGridDashedLine(10f, 5f, 0f) // 점선 스타일 (길이, 간격, 시작점)
+            setDrawLabels(true) // 레이블 표시
+            axisMinimum = 0f // Y축 최소값 설정
+            labelCount = 10 // Y축 레이블 개수 조정
+        }
+
+        barChart.axisRight.isEnabled = false // 오른쪽 Y축 비활성화
+
+        barChart.invalidate() // 차트 새로 고침
 
         layoutParams.setMargins(16, 16, 16, 50)
         textTitleView.text = "최근 수주 [조리/식사용품팀]"
