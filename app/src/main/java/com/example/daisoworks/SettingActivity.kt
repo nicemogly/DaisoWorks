@@ -1,21 +1,12 @@
 package com.example.daisoworks
 
-import android.R.attr.button
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 
 
 class SettingActivity : AppCompatActivity() {
@@ -49,7 +40,7 @@ class SettingActivity : AppCompatActivity() {
         //버전 확인
         var versionName = BuildConfig.VERSION_NAME
         tv1 = findViewById(R.id.txtVersionN)
-        tv1?.setText("현재버전 " + versionName)
+        tv1?.setText(versionName)
 
         //내부저장소 자동로그인 여부 가져오기 , 기본값은 0
         val autoLoginFlagS = prefs.getString("autoLoginFlagS","0")
@@ -73,21 +64,7 @@ class SettingActivity : AppCompatActivity() {
             }
         }
 
-
-
-        /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }*/
     }
-
-    //onSupportNavigateUp() 메소드를 오버라이딩해서, AppBar에 생성되는 뒤로가기 버튼을 눌렀을 때 뒤로 이동시킨다.
-    /*override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_setting)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }*/
-
 
     //Actionbar 메뉴 클릭 이벤트
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
