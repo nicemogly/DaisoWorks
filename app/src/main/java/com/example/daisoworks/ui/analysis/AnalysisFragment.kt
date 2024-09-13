@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisoworks.adapter.Adapter
 import com.example.daisoworks.data.MovieData
-import com.example.daisoworks.service.MovieService
 import com.example.daisoworks.databinding.FragmentAnalysisBinding
+import com.example.daisoworks.service.MovieService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -142,8 +142,6 @@ class AnalysisFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-
-
         _binding = null
     }
 }

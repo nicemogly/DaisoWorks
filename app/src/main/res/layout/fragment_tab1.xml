@@ -24,12 +24,15 @@
             android:id="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="5dp"
             android:orientation="vertical"
             tools:context=".ChartActivity">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                >
 
                 <TextView
                     android:id="@+id/txtLine"
@@ -60,11 +63,13 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/lineChart"
                 android:layout_width="match_parent"
-                android:layout_height="300dp" />
+                android:layout_height="300dp"
+                tools:ignore="MissingClass" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
                 <TextView
                     android:id="@+id/txtBar"
@@ -130,7 +135,7 @@
         <TextView
             android:id="@+id/lblTitle6"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="20dp"
             app:layout_constraintTop_toBottomOf="@+id/rv_list2" />
 
 
@@ -160,7 +165,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/htvTitle1"
                 app:layout_constraintVertical_bias="0.0"/>
-
+        <View
+            android:id="@+id/divView1"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/herprecyclerView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
