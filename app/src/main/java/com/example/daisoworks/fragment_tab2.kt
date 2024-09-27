@@ -33,9 +33,7 @@ class fragment_tab2 : Fragment() {
     private lateinit var retrofit : Retrofit
     private lateinit var supplementService : RetrofitService
 
-    private var param1: String? = null
-    private var param2: String? = null
-
+    //공지사항
     private var languageList = ArrayList<CorpId>()
     private lateinit var expandableAdapterDmsNotice: ExpandableAdapterDmsNotice
 
@@ -63,8 +61,8 @@ class fragment_tab2 : Fragment() {
 
         prefs = PreferenceUtil(requireContext())
 
-        //로그인시 담아놓은 회사코드를 가지고  API통신시 파라미터값으로 활용함.
-        comId = prefs.getString("mUserId","AD2201012")
+        //로그인시 담아놓은 ID를 가지고  API통신시 파라미터값으로 활용함.
+        comId = LoginActivity.prefs.getString("id", "none")
 
         //RetroFit2 API 객체생성 및 Retro 서비스 객체 생생(서비스는 내부에 둠)
         retrofit = RetrofitClient.getInstance()
@@ -74,14 +72,11 @@ class fragment_tab2 : Fragment() {
         languageList = ArrayList<CorpId>()
         //API서비스 호출 파라미터 comCd 회사코드 같이 날려서 함수 실행
         getData(supplementService,"${BuildConfig.API_KEY}",comId)
-        //getData()
 
         languageList1 = ArrayList<DataItem1>()
         getData1()
 
         binding.rvList.layoutManager = LinearLayoutManager(requireContext())
-
-
 
        // expandableAdapterDmsNotice.notifyDataSetChanged()
         // define layout manager for the Recycler view
@@ -147,26 +142,18 @@ class fragment_tab2 : Fragment() {
                 response: Response<List<CorpId>>
             ) {
 
-
                 val responseBody = response.body()!!
-
                 languageList.clear()
                 for (comCdData1 in responseBody) {
 
                     languageList.add(CorpId(comCdData1.boardTitle, comCdData1.boardContents, false)) // CorpId에 필요한 값을 전달*/
-
-
                 }
-
                 expandableAdapterDmsNotice = ExpandableAdapterDmsNotice(languageList)
                 binding.root.findViewById<RecyclerView>(R.id.rv_list).adapter = expandableAdapterDmsNotice
 
             }
         })
     }
-
-
-
 
     private fun getData1() {
         // 서버에서 가져온 데이터라고 가정한다.
