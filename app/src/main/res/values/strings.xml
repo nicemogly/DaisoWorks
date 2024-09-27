@@ -16,6 +16,7 @@
 
 
     <string name="menu_itemmaster">상품조회</string>
+    <string name="menu_commaster">거래처조회</string>
     <string name="menu_herp1">업체정보조회</string>
     <string name="menu_herp2">바코드관리</string>
     <string name="menu_herp3">업체별 상퓸관리</string>

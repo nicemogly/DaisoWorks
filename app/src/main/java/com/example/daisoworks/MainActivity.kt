@@ -91,6 +91,7 @@ class MainActivity : AppCompatActivity()  {
                 R.id.nav_analysis,
                 R.id.nav_approve,
                 R.id.nav_suju,
+                R.id.nav_client,
                 R.id.nav_approve1
             ), drawerLayout
         )

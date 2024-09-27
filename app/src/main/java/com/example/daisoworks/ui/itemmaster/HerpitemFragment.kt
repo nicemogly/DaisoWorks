@@ -498,7 +498,7 @@ class HerpitemFragment : Fragment() {
 
     }
 
-    // API RETROFIT2 호출 함수 구현( HR에서 제공해준 API주소에 인자값 셋팅 , GET방식, 파라미터1, 2 는 HR에서 제공해준값 ,파라미터 3,4 는 앱에서 던짐.)
+    // API RETROFIT2 호출 함수 구현( PI주소에 인자값 셋팅 , GET방식, 파라미터1, 2 는 HR에서 제공해준값 ,파라미터 3,4 는 앱에서 던짐.)
     // Callback시 GSON 형식에 맞게끔 데이터 클래스 담아야 함.여기서 에러주의, Json 형식 맞아야하고 GSON 변환도 맞아야함.
     private fun getCorpCdList(service: RetrofitService, keyword1:String, keyword2: String){
         service.corpCd(keyword1,keyword2).enqueue(object: retrofit2.Callback<List<CorpCd>> {
