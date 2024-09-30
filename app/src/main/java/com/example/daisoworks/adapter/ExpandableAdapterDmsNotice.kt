@@ -36,6 +36,7 @@ import com.example.daisoworks.databinding.SingleItemBinding
                     //  if(this.expand) binding.viewMoreBtn.setImageResource(R.drawable.ic_arrow_drop_up) else binding.viewMoreBtn.setImageResource(R.drawable.ic_arrow_drop_down)
                     binding.cardLayout.setOnClickListener {
                         this.expand = !this.expand
+                        notifyDataSetChanged()
                     }
                 }
             }
