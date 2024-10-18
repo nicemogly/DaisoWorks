@@ -1,7 +1,8 @@
 package com.example.daisoworks.adapter
 
 import android.content.Context
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,24 +54,25 @@ sampleCsNoteItemNo,exhName,exhPeriod, exhDetail*/
                 //binding.root.findViewById<ImageView>(R.id.photoView1) = this.itemPictureUrl
                // binding.root.findViewById<ImageView>(R.id.photoView1).setImageURI(this.itemPictureUrl.toUri())
                // val imgUrl: String = "http://herpold.asunghmp.biz/FTP"+this.itemPictureUrl
-                val imgUrl: String = "https://cdn.daisomall.co.kr/file/PD/20240708/fDLihH42tRGSTqojDpSQ1029927_00_00fDLihH42tRGSTqojDpSQ.jpg/dims/optimize/dims/resize/150x200"
+              //  val imgUrl: String = "https://cdn.daisomall.co.kr/file/PD/20240708/fDLihH42tRGSTqojDpSQ1029927_00_00fDLihH42tRGSTqojDpSQ.jpg/dims/optimize/dims/resize/150x200"
 
-                if (imgUrl.length > 0) {
+
+
+                Handler(Looper.getMainLooper()).postDelayed({
+
+                    val imgUrl: String =
+                        "http://59.10.47.222:3000/static/" + this.itemNo + ".jpg"
 
                     Glide.with(binding.photoView1.context)
                         .load(imgUrl)
                         .error(android.R.drawable.stat_notify_error)
                         .into(binding.photoView1)
 
-                } else {
-                    Glide.with(binding.photoView1.context)
-                        .load(R.drawable.asung_logo)
-                        .error(android.R.drawable.stat_notify_error)
-                        .into(binding.photoView1)
-                }
 
-                Log.d("ItevSearch" , "onBindViewHolder 안에있다.")
-                Log.d("ItevSearch" , "onBindViewHolder + ${this.itemNo}")
+                    // 실행 할 코드
+                }, 200)
+
+
 
                 binding.expandedHerpitemView.visibility = if (this.expand1) View.VISIBLE else View.GONE
 

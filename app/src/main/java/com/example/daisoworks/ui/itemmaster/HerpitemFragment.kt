@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisoworks.BuildConfig
+import com.example.daisoworks.MainActivity
 import com.example.daisoworks.PreferenceUtil
 import com.example.daisoworks.R
 import com.example.daisoworks.adapter.ExpandableAdapterHerpItem1
@@ -35,7 +36,9 @@ import com.example.daisoworks.data.DataItemDetail3
 import com.example.daisoworks.data.DataItemDetail4
 import com.example.daisoworks.data.DataTrans1
 import com.example.daisoworks.data.ItemCount
+import com.example.daisoworks.data.apirstData
 import com.example.daisoworks.databinding.FragmentHerpitemBinding
+import com.example.daisoworks.ui.home.HomeFragment
 import com.example.daisoworks.util.LoadingDialog
 import com.google.gson.GsonBuilder
 import com.google.zxing.integration.android.IntentIntegrator
@@ -129,6 +132,31 @@ class HerpitemFragment : Fragment() {
 
         prefs = PreferenceUtil(requireContext())
 
+        //초기
+        binding.txtRstText.visibility = View.VISIBLE
+
+
+        val LCC = HomeFragment.prefs.getString("companycode","0")
+
+        if(LCC == "00000") {//아성다이소
+
+            val builder  = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            builder.setTitle("안내")
+                .setMessage("아성그룹 관계사 전용화면입니다.")
+                .setPositiveButton( "확인",
+                    DialogInterface.OnClickListener { dialog, it ->
+                        val intent =
+                            Intent(activity, MainActivity::class.java) //fragment라서 activity intent와는 다른 방식
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        startActivity(intent)
+                    })
+                .setCancelable(false)
+            builder.show()
+
+        }
+
+
+
         //로그인시 담아놓은 회사코드를 가지고  API통신시 파라미터값으로 활용함.
          comCd = prefs.getString("companycode","0")
 
@@ -218,7 +246,8 @@ class HerpitemFragment : Fragment() {
         //검색버튼 클릭시
         binding.svItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                binding.txtRstText.visibility = View.GONE
+                   binding.txtRstText.visibility = View.GONE
+
                 //validation Check(BuyerCd,corpcd,itemcode
              //   Log.d("BuyerCd123" , BuyerCd)
                 if(BuyerCd.equals("null")) {
@@ -338,7 +367,7 @@ class HerpitemFragment : Fragment() {
         val dialog = LoadingDialog(requireContext())
         CoroutineScope(Main).launch {
             dialog.show()
-            delay(3000)
+            delay(2500)
             dialog.dismiss()
            // button.text = "Finished"
         }
@@ -459,6 +488,15 @@ class HerpitemFragment : Fragment() {
             @Query("apikey") param5: String
         ): Call<List<DataItemDetail1>>
 
+        @GET("imgdownload")
+        fun imgView1(
+            @Query("apikey") param1: String,
+            @Query("reqno") param2: String,
+            @Query("imgUrl") param3: String?
+        ): Call<List<apirstData>>
+
+
+
         @GET("itemview2")
         fun itemView2(
             @Query("comCode") param1: String,
@@ -516,6 +554,9 @@ class HerpitemFragment : Fragment() {
               //  var  loginFlag: String? = response.body()?.loginList?.get(0)?.VALUE?.toString()
 
                 val responseBody = response.body()!!
+
+              // Log.d("DMS LIST1" , "{$responseBody.size}")
+
                 //val myStringBuilder = StringBuilder()
                 comCdDataArr.clear()
                 mutableComMap.clear()
@@ -624,24 +665,57 @@ class HerpitemFragment : Fragment() {
 
                 BuyerCd = keyword2
                 GdsNo = keyword4
-
-
-                Log.d("ItevSearch" , " getItemList1 성공 시작")
                 dataList1 = response.body()
-                Log.d("ItevSearch1", dataList1.toString())
 
+
+                var prefixattr3:String = "http://herp.asunghmp.biz/FTP"
+                var attr5 = GdsNo+".jpg"
+
+                var imgUrl = prefixattr3+dataList1?.get(0)?.itemPictureUrl
+                imgUrl = imgUrl.trim()
+
+
+                requestGet1(supplementService,"${BuildConfig.API_KEY}", attr5, imgUrl)
+                //getItemList1(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo, )
+
+
+                itemDisplay()
+                itemGetData2()
 
                 val mAdapter = dataList1?.let { ExpandableAdapterHerpItem1(it, context) }
                 binding.rvHerpItemlist1.adapter = mAdapter
                 mAdapter?.notifyDataSetChanged()
                 binding.rvHerpItemlist1.setHasFixedSize(true)
-                itemDisplay()
-                itemGetData2()
-
             }
 
         })
     }
+
+    //상품 이미지 다운로드
+    private fun requestGet1(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String){
+        service.imgView1(keyword1,keyword2,keyword3).enqueue(object: retrofit2.Callback<List<apirstData>> {
+
+
+            override  fun onFailure(call: Call<List<apirstData>>, error: Throwable) {
+                Log.d("apirstData", "실패원인: {$error}")
+            }
+
+
+
+            //Retrofit error 없이 Response 떨어지면
+            override fun onResponse(
+                call: Call<List<apirstData>>,
+                response: Response<List<apirstData>>
+            ) {
+
+
+
+                Log.d("apirstData", "ok")
+            }
+
+        })
+    }
+
 
     //거래처 정보 가져오기
     private fun getItemList2(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String, keyword4:String, keyword5: String){
@@ -802,6 +876,13 @@ class HerpitemFragment : Fragment() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        getItemList4(supplementService, comCd, BuyerCd, BuyGdsBcd, GdsNo, "${BuildConfig.API_KEY}")
     }
 
 }

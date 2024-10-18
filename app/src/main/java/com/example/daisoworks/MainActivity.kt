@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity()  {
 
         prefs = PreferenceUtil(applicationContext)
         super.onCreate(savedInstanceState)
-        getFCMToken()
+       // getFCMToken()
       //  initNavigationMenu()
         // [START handle_data_extras]
         intent.extras?.let {
@@ -83,6 +84,13 @@ class MainActivity : AppCompatActivity()  {
 
         //6.NavigationView Binding
         val navView: NavigationView = binding.navView
+        var header =  navView.getHeaderView(0)
+
+        var id1 =  prefs.getString("id", "none")
+
+
+        header.findViewById<TextView>(R.id.txtReq1).text = id1
+       //navView.findViewById<TextView>(R.id.txtReq1).text = "1111111"
 
         //7.destination이 될 fragment 목록 설정
         appBarConfiguration = AppBarConfiguration(
@@ -121,6 +129,8 @@ class MainActivity : AppCompatActivity()  {
         supportFragmentManager.fragments.last().childFragmentManager?.primaryNavigationFragment?.tag//호스트 프래그먼트 가져오기
 
         prefs.setString("currentFragmentFirst", "$currentFragmentFirst")
+
+
 
 
     }
@@ -347,5 +357,7 @@ class MainActivity : AppCompatActivity()  {
     fun fragmentChange_for_adapter(frag: Fragment){
         supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_sub , frag).commit()
     }
+
+
 }
 

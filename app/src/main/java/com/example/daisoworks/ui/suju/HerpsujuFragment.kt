@@ -16,8 +16,10 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisoworks.BuildConfig
+import com.example.daisoworks.MainActivity
 import com.example.daisoworks.PreferenceUtil
 import com.example.daisoworks.R
 import com.example.daisoworks.adapter.ExpandableAdapterHerpSuju1
@@ -34,6 +36,7 @@ import com.example.daisoworks.data.DataSujuDetail4
 import com.example.daisoworks.data.DataSujuDetail5
 import com.example.daisoworks.data.DataSujuDetail6
 import com.example.daisoworks.data.SujuCount
+import com.example.daisoworks.data.apirstData
 import com.example.daisoworks.databinding.FragmentHerpsujuBinding
 import com.example.daisoworks.util.LoadingDialog
 import com.google.gson.GsonBuilder
@@ -129,6 +132,11 @@ class HerpsujuFragment : Fragment() {
 
         val root: View = binding.root
 
+        //초기
+        binding.txtRstText.visibility = View.VISIBLE
+
+
+
         var btnBarcode = binding.button
         btnBarcode.setOnClickListener {
             //   val intentIntegrator = IntentIntegrator(activity)
@@ -141,6 +149,27 @@ class HerpsujuFragment : Fragment() {
         }
 
         HerpsujuFragment.prefs = PreferenceUtil(requireContext())
+
+
+        val LCC = HerpsujuFragment.prefs.getString("companycode","0")
+
+        if(LCC == "00000") {//아성다이소
+
+            val builder  = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            builder.setTitle("안내")
+                .setMessage("아성그룹 관계사 전용화면입니다.")
+                .setPositiveButton( "확인",
+                    DialogInterface.OnClickListener { dialog, it ->
+                        val intent =
+                            Intent(activity, MainActivity::class.java) //fragment라서 activity intent와는 다른 방식
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        startActivity(intent)
+                    })
+                .setCancelable(false)
+            builder.show()
+
+        }
+
 
         //로그인시 담아놓은 회사코드를 가지고  API통신시 파라미터값으로 활용함.
         comCd = HerpsujuFragment.prefs.getString("companycode","0")
@@ -231,7 +260,9 @@ class HerpsujuFragment : Fragment() {
                 }else {
                     //조회품번이 1개이상인지 체크함.
                     sujucount = mutableListOf<SujuCount>()
-                    //   Log.d("navArgs4" , BuyerCd)
+                     Log.d("oksubmit1" , "${comCd}")
+                    Log.d("oksubmit2" , "${BuyerCd}")
+                    Log.d("oksubmit3" , "${query}")
                     getSujuCount(supplementService, comCd, BuyerCd, query, "${BuildConfig.API_KEY}")
                     //검색 키보드 내림
                     binding.svItem.clearFocus()
@@ -245,6 +276,32 @@ class HerpsujuFragment : Fragment() {
                 return false
             }
         })
+
+
+        var comCd1 = prefs.getString("companycode","0")
+
+        val args : HerpsujuFragmentArgs by navArgs()
+        val vcomno1 = args.comno1  //수주번호
+        val vcomno2 = args.comno2  //GDSNO
+        val vcomno3 = args.comno3  //BUYCD
+        val vcomno4 = args.comno4  //BUYCD
+
+        if(vcomno1=="") {
+            // Log.d("navArgs" , "123123")
+        }else{
+
+            SujuMgNo = vcomno1
+            BuyerCd=vcomno3
+            GdsNo=vcomno2
+            BuyGdsBcd = vcomno4
+            Log.d("navArgs-GdsNo" , "${GdsNo}")
+            Log.d("navArgs-comCd1" , "${comCd1}")
+           // binding.svItem.setQuery(GdsNo, true)
+          //  getSujuList1(supplementService, comCd1, BuyerCd, SujuMgNo ,  BuyGdsBcd,  "${BuildConfig.API_KEY}")
+            sujuGetData1()
+        }
+
+
 
 
 
@@ -285,9 +342,10 @@ class HerpsujuFragment : Fragment() {
 
 
     private fun sujuDisplay() {
-        Log.d("ItevSearch" , "itemDisplay 호출")
+
 
         if( binding.rvHerpSujulist1.visibility == ConstraintSet.GONE) {
+
             binding.rvHerpSujulist1.visibility = View.VISIBLE
         }
         binding.svItem.clearFocus();
@@ -350,7 +408,7 @@ class HerpsujuFragment : Fragment() {
         val dialog = LoadingDialog(requireContext())
         CoroutineScope(Dispatchers.Main).launch {
             dialog.show()
-            delay(3000)
+            delay(400)
             dialog.dismiss()
             // button.text = "Finished"
         }
@@ -475,6 +533,12 @@ class HerpsujuFragment : Fragment() {
             @Query("BuyGdsBcd") param3: String,
             @Query("apikey") param5: String
         ): Call<List<DataSujuDetail6>>
+        @GET("imgdownload")
+        fun imgView1(
+            @Query("apikey") param1: String,
+            @Query("reqno") param2: String,
+            @Query("imgUrl") param3: String?
+        ): Call<List<apirstData>>
 
     }
 
@@ -495,6 +559,8 @@ class HerpsujuFragment : Fragment() {
 
 
             SujuMgNo = sujucount[i].suju_mg_no
+
+            Log.d("SujuMgno" , "${SujuMgNo}")
             BuyGdsBcd = sujucount[i].buy_gds_bcd
 
             if(SujuMgNo.isNotEmpty()) {
@@ -563,6 +629,7 @@ class HerpsujuFragment : Fragment() {
     private  fun sujuGetData1() {
 
         showLoadingDialog()
+
         getSujuList1(supplementService, comCd, BuyerCd, SujuMgNo ,  BuyGdsBcd,  "${BuildConfig.API_KEY}")
     }
 
@@ -634,15 +701,62 @@ class HerpsujuFragment : Fragment() {
                 BuyerCd = keyword2
                 SujuMgNo = keyword3
                 BuyGdsBcd = keyword4
+
+
                 dataList1 = response.body()
 
+                var vtlpath1 = dataList1?.get(0)?.vtlpath
+                var vgdsno = dataList1?.get(0)?.sujuitemno
+                var vbcd = BuyGdsBcd
+
+                var prefixattr3  = ""
+                var attr5 = ""
+                var imgUrl1 = ""
+
+
+                prefixattr3 = "http://herp.asunghmp.biz/FTP"
+
+
+
+                attr5 = vgdsno+".jpg"
+                imgUrl1 = prefixattr3+vtlpath1+"/"+BuyGdsBcd+".jpg"
+                imgUrl1 = imgUrl1.trim()
+                requestGet1(supplementService,"${BuildConfig.API_KEY}", attr5, imgUrl1)
+
+
+
                 val mAdapter = dataList1?.let { ExpandableAdapterHerpSuju1(it, context) }
+
                 binding.rvHerpSujulist1.adapter = mAdapter
                 mAdapter?.notifyDataSetChanged()
                 binding.rvHerpSujulist1.setHasFixedSize(true)
+                var kkkkkkk = mAdapter?.itemCount
+
+                Log.d("param5" , "${kkkkkkk}")
                 sujuDisplay()
                 sujuGetData2()
 
+            }
+
+        })
+    }
+
+
+    private fun requestGet1(service: RetrofitService, keyword1:String, keyword2:String, keyword3:String){
+        service.imgView1(keyword1,keyword2,keyword3).enqueue(object: retrofit2.Callback<List<apirstData>> {
+
+
+            override  fun onFailure(call: Call<List<apirstData>>, error: Throwable) {
+                Log.d("apirstData", "실패원인: {$error}")
+            }
+
+            //Retrofit error 없이 Response 떨어지면
+            override fun onResponse(
+                call: Call<List<apirstData>>,
+                response: Response<List<apirstData>>
+            ) {
+
+                Log.d("apirstData", "ok")
             }
 
         })

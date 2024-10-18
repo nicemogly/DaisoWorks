@@ -1,6 +1,7 @@
 package com.example.daisoworks.adapter
 
 import android.content.Intent
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -29,11 +30,17 @@ class MyAdapter() : RecyclerView.Adapter<Holder>(){
         holder.setData(member)
 
 
+
+
         holder.binding.fab.setOnClickListener {
             val intent = Intent(holder.itemView?.context, SubActivity::class.java)
-            intent.putExtra("reqNo" , "${member.reqNo}")
-            intent.putExtra("reqItemDesc" , "${member.reqItemDesc}")
+            intent.putExtra("reqNo" , "${member.reqId}")
+            intent.putExtra("revNo" , "${member.revNo}")
+            intent.putExtra("reqItemDesc" , "${member.korProductDesc}")
             ContextCompat.startActivity(holder.binding.root.context, intent, null)
+
+
+
 
            // Log.d("PUTVALUE전" , "{$member.reqNo}")
 
@@ -50,24 +57,22 @@ class MyAdapter() : RecyclerView.Adapter<Holder>(){
 
 class Holder(val binding: ItemRecyclerBinding) : RecyclerView.ViewHolder(binding.root){
     fun setData(member: Member){
-        binding.txtReq1.text = member.reqNo
-        binding.txtReq2.text = member.reqItemNo
-        binding.txtReq3.text = member.reqItemDesc
-        binding.txtReq4.text = member.reqDeowner
-        binding.txtReq5.text = member.reqValday
+        binding.txtReq1.text = member.reqId
+        binding.txtReq2.text = member.productCd
+        binding.txtReq3.text = member.korProductDesc
+        binding.txtReq4.text = member.mainDsnEmpNm
+        binding.txtReq5.text = member.cmplExptDate
+
+       if(member.apprStts == "RQ") {
+           binding.txtReq3.setBackgroundColor(Color.parseColor("#448AFF"))
+       }else if (member.apprStts == "CM") {
+           binding.txtReq3.setBackgroundColor(Color.parseColor("#C6C2C2"))
+       }
+
     }
 
 
 
-
-/*
-    fun setData1(comment: Comment){
-        binding.txtCmt2.text = comment.reqSendName
-        binding.txtCmt3.text = comment.reqRedvName
-        binding.txtCmt4.text = comment.reqDate
-        binding.txtCmt5.text = comment.reqConts
-    }
-*/
 
 
 

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.daisoworks.SujuActivity
-import com.example.daisoworks.data.HerpSujuL
+import com.example.daisoworks.data.DataSujuDetail0
 import com.example.daisoworks.databinding.ItemRecyclerHerpBinding
 
 
@@ -17,7 +17,7 @@ import com.example.daisoworks.databinding.ItemRecyclerHerpBinding
 
 class AdapterHerp() : RecyclerView.Adapter<HolderHerp>(){
 
-    var listData = mutableListOf<HerpSujuL>()
+    var listData = mutableListOf<DataSujuDetail0>()
 
     /*    var listData1 = mutableListOf<Comment>()*/
 
@@ -28,18 +28,34 @@ class AdapterHerp() : RecyclerView.Adapter<HolderHerp>(){
 
     override fun onBindViewHolder(holder: HolderHerp, position: Int) {
         val sujuList = listData[position]
+        Log.d("DataSujuDetail0", "2")
+
         holder.setData(sujuList)
 
         //data class HerpSujuL(val sujuBuyer: String , val sujuNo: String  , val itemNo: String  , val itemDesc: String  , val sujuDate: String , val sujuInt: Int , val sujuUnit : String)
 
         holder.binding.fab.setOnClickListener {
+
+
+            val comnov1 ="${sujuList.sujuno}"
+            val comnov2 ="${sujuList.gdsno}"
+            val comnov3 ="${sujuList.buycorpcd}"
+            val comnov4 ="${sujuList.buygdsbcd}"
+//            val action =  HomeFragmentDirections.actionNavHomeToNavSuju( comno1 = "$comnov1" ,comno2 = "$comnov2",comno3 = "$comnov3" , comno4 = "$comnov4")
+//
+//
+//                Navigation.findNavController(it).navigate(action)
+
+
+
             val intent = Intent(holder.itemView?.context, SujuActivity::class.java)
-            intent.putExtra("sujuNo" , "${sujuList.sujuNo}")
-            intent.putExtra("itemNo" , "${sujuList.itemNo}")
-            intent.putExtra("sujuBuyer" , "${sujuList.sujuBuyer}")
+            intent.putExtra("sujumginitno" , "${sujuList.sujumginitno}")
+            intent.putExtra("sujuNo" , "${sujuList.sujuno}")
+            intent.putExtra("itemNo" , "${sujuList.gdsno}")
+            intent.putExtra("sujuBuyer" , "${sujuList.buycorpcd}")
+            intent.putExtra("buygdsbcd" , "${sujuList.buygdsbcd}")
+            intent.putExtra("gdsname" , "${sujuList.gdsnmekor}")
             ContextCompat.startActivity(holder.binding.root.context, intent, null)
-
-
 
         }
 
@@ -53,19 +69,43 @@ class AdapterHerp() : RecyclerView.Adapter<HolderHerp>(){
 }
 
 class HolderHerp(val binding: ItemRecyclerHerpBinding) : RecyclerView.ViewHolder(binding.root){
-    fun setData(herpsujul: HerpSujuL){
-        binding.txtsujuBuyer.text = herpsujul.sujuBuyer
-        if(herpsujul.sujuBuyer=="아성다이소"){
+    fun setData(herpsujul: DataSujuDetail0){
+
+        Log.d("DataSujuDetail0", "2")
+
+        var kcomcha : String = ""
+        if(herpsujul.buycorpcd == "10000") {
+            kcomcha = "아성HMP"
+        }else if(herpsujul.buycorpcd == "10005") {
+            kcomcha = "(주)아성다이소"
+        }else if(herpsujul.buycorpcd == "30510") {
+            kcomcha = "아성솔루션"
+        }else if(herpsujul.buycorpcd == "10001") {
+            kcomcha = "DAISO INDUSTRIES CO., LTD."
+        }else if(herpsujul.buycorpcd == "12004") {
+            kcomcha = "(주)다이소출판"
+        }else if(herpsujul.buycorpcd == "12002") {
+            kcomcha = "PLUS ONE CO.,LTD"
+        }else if(herpsujul.buycorpcd == "12000") {
+            kcomcha = "JC SALES"
+        }else if(herpsujul.buycorpcd == "12003") {
+            kcomcha = "IAC Commerce Inc."
+        }
+
+        binding.txtsujuBuyer.text = kcomcha
+        if(herpsujul.buycorpcd=="10005"){
             binding.txtsujuBuyer.setBackgroundColor(Color.parseColor("#9AB9FF"))
         }else{
             binding.txtsujuBuyer.setBackgroundColor(Color.parseColor("#80763A"))
         }
-        binding.txtsujuNo.text = herpsujul.sujuNo
-        binding.txtitemNo.text = herpsujul.itemNo
-        binding.txtitemDesc.text = herpsujul.itemDesc
-        binding.txtsujuDate.text = herpsujul.sujuDate
-        binding.txtsujuInt.text = herpsujul.sujuInt.toString() +  herpsujul.sujuUnit.toString()
+        binding.txtsujuNo.text = herpsujul.sujumginitno
+        binding.txtitemNo.text = herpsujul.gdsno
+        binding.txtitemDesc.text = herpsujul.gdsnmekor
+        binding.txtsujuDate.text = herpsujul.sujudate
+        binding.txtsujuInt.text = herpsujul.sujuindiqty
     /*    binding.txtsujuUnit.text = herpsujul.sujuUnit.toString()*/
+
+
 
 
     }

@@ -9,11 +9,6 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
 
-        <item
-            android:id="@+id/nav_approve1"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_approve1"
-            android:visible="false" />
 
 
         <item
@@ -26,6 +21,12 @@
             android:id="@+id/nav_client"
             android:icon="@drawable/baseline_groups_2_24"
             android:title="@string/menu_commaster" />
+
+        <item
+            android:id="@+id/nav_suju"
+            android:icon="@drawable/baseline_workspace_premium_24"
+            android:title="@string/menu_sujumaster" />
+
 
 
         <item

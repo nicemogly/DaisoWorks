@@ -14,6 +14,7 @@ data class DataSujuDetail1(
     val sujubarcode : String= "",            //바코드
     val sujudelicondition : String= "",      //운송
     val sujumadein : String= "",             //원산지
+    val vtlpath : String = "",
     var expand1 : Boolean = true
 )
 

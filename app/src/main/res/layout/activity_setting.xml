@@ -14,14 +14,14 @@
 
         <TextView
             android:id="@+id/txt1"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="로그인"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="#000000"
             android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
+
             android:layout_marginStart="13dp"
             tools:ignore="MissingConstraints" />
 
@@ -59,14 +59,14 @@
 
         <TextView
             android:id="@+id/txt2"
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="앱 정보"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="#000000"
             android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
+
             android:layout_marginStart="13dp"
             tools:ignore="MissingConstraints" />
 
@@ -99,6 +99,158 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/txt11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="개발자 환경"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+
+            android:layout_marginStart="13dp"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl1"
+            android:layout_width="match_parent"
+            android:layout_margin="13dp"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/rounded_corners">
+
+            <!-- 문구 TextView -->
+
+
+            <TextView
+                android:id="@+id/txt12"
+                android:layout_width="52dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="회사정보"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <RadioGroup
+                android:id="@+id/radio_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt12"
+                app:layout_constraintVertical_bias="0.15">
+
+                <RadioButton
+                    android:id="@+id/radio_comtype1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AD" />
+
+                <RadioButton
+                    android:id="@+id/radio_comtype2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AH" />
+
+                <RadioButton
+                    android:id="@+id/radio_comtype3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AS" />
+
+
+            </RadioGroup>
+
+
+
+
+            <TextView
+                android:id="@+id/txt22"
+                android:layout_width="52dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="임원여부"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.40" />
+
+            <RadioGroup
+                android:id="@+id/radio_expg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt22"
+                app:layout_constraintVertical_bias="0.55">
+
+                <RadioButton
+                    android:id="@+id/radio_exp1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Y" />
+
+                <RadioButton
+                    android:id="@+id/radio_exp2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="N" />
+
+
+
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/txt33"
+                android:layout_width="52dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:text="사원정보"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.78" />
+
+
+            <EditText
+                android:id="@+id/setuserid"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt33"
+                app:layout_constraintVertical_bias="0.80"
+                />
+
+            <Button
+                android:id="@+id/btnSetSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="등록"
+                android:textColor="@color/white"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/setuserid"
+                app:layout_constraintTop_toBottomOf="@+id/txt33" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

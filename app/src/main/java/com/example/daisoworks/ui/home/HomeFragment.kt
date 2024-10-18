@@ -1,6 +1,7 @@
 package com.example.daisoworks.ui.home
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.daisoworks.LoginActivity
-import com.example.daisoworks.LoginActivity.Companion.prefs
+import com.example.daisoworks.PreferenceUtil
 import com.example.daisoworks.R
 import com.example.daisoworks.adapter.PagerFragmentStateAdapter
 import com.example.daisoworks.fragment_tab1
@@ -25,6 +26,15 @@ class HomeFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var callback: OnBackPressedCallback
+
+    //내부저장소 변수 설정
+    companion object{
+        lateinit var prefs: PreferenceUtil
+        private const val TAG = "HomeTab"
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,25 +48,66 @@ class HomeFragment : Fragment() {
         val view:View = inflater.inflate(R.layout.fragment_home, container, false)
         viewPager = view.findViewById(R.id.pager)
         tabLayout = view.findViewById(R.id.tab_layout)
+
+
         return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        //내부저장소 초기화
+        prefs = PreferenceUtil(requireContext())
+        //내부저장소
+        val LCC = prefs.getString("companycode","0")
+
+
         val pagerAdapter = PagerFragmentStateAdapter(requireActivity())
         // 6개의 fragment add
         pagerAdapter.addFragment(fragment_tab1())
         pagerAdapter.addFragment(fragment_tab2())
-
-        // adapter
         viewPager.adapter = pagerAdapter
+
+        if(LCC == "00000") {//아성다이소
+            viewPager.currentItem = 1
+        }else if(LCC == "10000"){ //아성에이치엠피
+            viewPager.currentItem = 0
+        }else if(LCC == "00001") { //아성
+            viewPager.currentItem = 0
+        }
+
+
+
+
+
+
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int){
-                super.onPageSelected(position)
+               Log.d("MainTab" , position.toString())
+                if(LCC=="00000" && (position == 0 || position == null) ){
+
+                      val builder  = AlertDialog.Builder(requireContext())
+                      builder.setTitle("안내")
+                          .setMessage("아성그룹 관계사 전용화면입니다.")
+                          .setPositiveButton( "확인",
+                              DialogInterface.OnClickListener { dialog, it ->
+                                  viewPager.currentItem = 1
+
+                              })
+                          .setCancelable(false)
+                    builder.show()
+
+                }else {
+                    super.onPageSelected(position)
+                }
                 Log.e("ViewPagerFragment", "Page ${position+1}")
             }
         })
+
+
+
+
+
 
         // tablayout attach
         TabLayoutMediator(tabLayout, viewPager){ tab, position ->

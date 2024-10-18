@@ -2,6 +2,8 @@ package com.example.daisoworks.adapter
 
 import android.content.Context
 import android.graphics.Paint
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,21 +45,22 @@ class ExpandableAdapterHerpSuju1(private var itemList: List<DataSujuDetail1>, va
                 binding.tvsujumadein.text = this.sujumadein
                 binding.tvsujubarcode.text = this.sujubarcode
 
-                val imgUrl: String = "https://cdn.daisomall.co.kr/file/PD/20240708/fDLihH42tRGSTqojDpSQ1029927_00_00fDLihH42tRGSTqojDpSQ.jpg/dims/optimize/dims/resize/150x200"
+                Handler(Looper.getMainLooper()).postDelayed({
 
-                if (imgUrl.length > 0) {
+                    val imgUrl: String =
+                        "http://59.10.47.222:3000/static/" + this.sujuitemno + ".jpg"
 
                     Glide.with(binding.photoView1.context)
                         .load(imgUrl)
                         .error(android.R.drawable.stat_notify_error)
                         .into(binding.photoView1)
 
-                } else {
-                    Glide.with(binding.photoView1.context)
-                        .load(R.drawable.asung_logo)
-                        .error(android.R.drawable.stat_notify_error)
-                        .into(binding.photoView1)
-                }
+
+                    // 실행 할 코드
+                }, 200)
+
+
+
 
 
                 binding.expandedHerpsujuView.visibility = if (this.expand1) View.VISIBLE else View.GONE

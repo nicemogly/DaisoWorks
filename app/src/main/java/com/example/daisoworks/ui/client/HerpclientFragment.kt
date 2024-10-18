@@ -2,6 +2,7 @@ package com.example.daisoworks.ui.client
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.daisoworks.BuildConfig
+import com.example.daisoworks.MainActivity
 import com.example.daisoworks.PreferenceUtil
 import com.example.daisoworks.adapter.ExpandableAdapterHerpClient1
 import com.example.daisoworks.adapter.ExpandableAdapterHerpClient2
@@ -86,6 +88,31 @@ class HerpclientFragment : Fragment() {
 
 
         HerpclientFragment.prefs = PreferenceUtil(requireContext())
+
+        //초기
+        binding.txtRstText.visibility = View.VISIBLE
+
+
+        val LCC = prefs.getString("companycode","0")
+
+        if(LCC == "00000") {//아성다이소
+
+            val builder  = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+            builder.setTitle("안내")
+                .setMessage("아성그룹 관계사 전용화면입니다.")
+                .setPositiveButton( "확인",
+                    DialogInterface.OnClickListener { dialog, it ->
+                        val intent =
+                            Intent(activity, MainActivity::class.java) //fragment라서 activity intent와는 다른 방식
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                        startActivity(intent)
+                    })
+                .setCancelable(false)
+            builder.show()
+
+        }
+
+
 
         //로그인시 담아놓은 회사코드를 가지고  API통신시 파라미터값으로 활용함.
         comCd = HerpclientFragment.prefs.getString("companycode","0")
