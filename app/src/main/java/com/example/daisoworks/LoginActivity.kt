@@ -188,7 +188,7 @@ class LoginActivity : AppCompatActivity() {
                                 LoginCompanyCode="00001"
                             }
 
-                            if(keyword3=="AD2201016"){
+                            if(keyword3=="AD2201016" || keyword3=="AD2201004"){
                                 prefs.setString("company","아성에이치엠피")
                                 prefs.setString("companycode","10000")
 

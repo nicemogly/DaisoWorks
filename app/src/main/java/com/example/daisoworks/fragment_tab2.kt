@@ -34,7 +34,7 @@ class fragment_tab2 : Fragment() {
     private lateinit var supplementService : RetrofitService
 
     //공지사항
-    private var languageList = ArrayList<CorpId>()
+    private  var languageList = ArrayList<CorpId>()
     private lateinit var expandableAdapterDmsNotice: ExpandableAdapterDmsNotice
 
     private var languageList1 = ArrayList<DataItem1>()
@@ -63,6 +63,8 @@ class fragment_tab2 : Fragment() {
 
         //로그인시 담아놓은 ID를 가지고  API통신시 파라미터값으로 활용함.
         comId = LoginActivity.prefs.getString("id", "none")
+
+        Log.d("MELONG" , comId)
 
         //RetroFit2 API 객체생성 및 Retro 서비스 객체 생생(서비스는 내부에 둠)
         retrofit = RetrofitClient.getInstance()
