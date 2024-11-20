@@ -82,6 +82,8 @@ class fragment_tab2 : Fragment() {
         comId = prefs.getString("id", "none")
 
 
+        Log.d("MELONG" , comId)
+
         //RetroFit2 API 객체생성 및 Retro 서비스 객체 생생(서비스는 내부에 둠)
         retrofit = RetrofitClient.getInstance()
         supplementService = retrofit.create(RetrofitService::class.java)
