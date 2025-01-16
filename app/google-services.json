@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "304156968705",
-    "project_id": "daisodms-4469c",
-    "storage_bucket": "daisodms-4469c.appspot.com"
+    "project_number": "409297280311",
+    "project_id": "daisoworks-3055a",
+    "storage_bucket": "daisoworks-3055a.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:304156968705:android:bf2385d0635182c71abd00",
+        "mobilesdk_app_id": "1:409297280311:android:1e5f7811ff2542de398eb2",
         "android_client_info": {
           "package_name": "com.example.daisoworks"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBv6pqRzEmNRe47HmvNvQ1FwSoXZonyjOA"
+          "current_key": "AIzaSyBej8fZPlhvw0GZ1ONScyTL74iDKoNWLh8"
         }
       ],
       "services": {

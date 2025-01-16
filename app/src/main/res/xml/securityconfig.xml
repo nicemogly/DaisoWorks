@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config>
+        <trust-anchors>
+            <certificates src="@raw/_asungcorp"/> <!--추가한 certificate 파일-->
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
+    <domain-config>
+        <domain includeSubdomains="true">hr.asungcorp.com</domain> <!--접속 도메인-->
+        <trust-anchors>
+            <certificates src="@raw/_asungcorp" /> <!--추가한 certificate 파일-->
+        </trust-anchors>
+    </domain-config>
+
+
+        <domain-config cleartextTrafficPermitted="true">
+            <domain includeSubdomains="true">59.10.47.222</domain>
+        </domain-config>
+
+
+
+
+</network-security-config>

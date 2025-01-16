@@ -110,7 +110,7 @@ class fragment_tab2 : Fragment() {
         var now = LocalDate.now()
 
         var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
-        Strnow = "2021"
+       // Strnow = "2024"
 
         //getChartLoad(supplementService,"${BuildConfig.API_KEY}" , id1 , Strnow)
         getChartLoad(supplementService,"${BuildConfig.API_KEY}" , id1 , Strnow)
@@ -158,7 +158,7 @@ class fragment_tab2 : Fragment() {
         var now = LocalDate.now()
 
         var Strnow = now.format(DateTimeFormatter.ofPattern("yyyy"))
-        Strnow = "2021"
+       // Strnow = "2024"
 
         //getChartLoad(supplementService,"${BuildConfig.API_KEY}" , id1 , Strnow)
         getChartLoad(supplementService,"${BuildConfig.API_KEY}" , id1 , Strnow)

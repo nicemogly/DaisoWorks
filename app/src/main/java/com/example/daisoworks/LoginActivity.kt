@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Rect
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
@@ -47,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
     private  lateinit var supplementService1 : RetrofitService1
     private  lateinit var supplementService2 : RetrofitService2
     private  lateinit var supplementService3 : RetrofitService3
+    private   var autoLoginFlagS : String = ""
     private var SversionName : String  = ""
     private var SversionMsg : String  = ""
     private var versionName : String  = ""
@@ -118,33 +120,9 @@ class LoginActivity : AppCompatActivity() {
        // var  loginFlag: String? = response.body()?.loginList?.get(0)?.VALUE?.toString()
        // if(versionName.equals())
 
-        //내부저장소 자동로그인 여부 가져오기 , 기본값은 0
-        val autoLoginFlagS = prefs.getString("autoLoginFlagS","0")
-
-        //자동로그인 분기처리
-        if(autoLoginFlagS=="0") { //자동로그인이 아니면
-            findViewById<SwitchCompat?>(R.id.category_toggle_iv).isChecked = false
-        }else{  // 자동로그인이면
-            findViewById<SwitchCompat?>(R.id.category_toggle_iv).isChecked = true
-
-            //디자이스별 내부 저장소에서 id,pw 값을 가져옴
-            var id1 = prefs.getString("id", "none")
-            var pw1 = prefs.getString("pw", "none")
 
 
-            Toast.makeText(this@LoginActivity, "자동저장된 값으로 로그인중입니다.", Toast.LENGTH_SHORT).show()
-            //RETRO API 호출(파라미터값 설정)
-          //  var id2 = "AH1304050"
-        //    Log.d("로그인" , "1")
-            getMemberInfo(supplementService3, "${BuildConfig.API_KEY}"  ,"$id1") //Herp Member INFO 최백호
-          //  Log.d("로그인" , "2")
-            getLoginList2(supplementService2, "IN_INPUT","OUT_RESULT","$id1") //임원여부
-            //Log.d("로그인" , "3")
-            getLoginList(supplementService, "IN_INPUT","OUT_RESULT","$id1","$pw1")  //계정1차확인
-           Log.d("로그인" , "4")
-//            Log.d("로그인id" , "$id1")
-//            Log.d("로그인pw" , "$pw1")
-         }
+
 
         //화면 Object 변수 설정
         main = findViewById(R.id.main)
@@ -154,29 +132,41 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-        // 로그인 버튼 클릭(오토로그인 아님)
-        btnLogin!!.setOnClickListener {
-            val user = editTextId!!.text.toString()
-            val pass = editTextPassword!!.text.toString()
+            // 로그인 버튼 클릭(오토로그인 아님)
+            btnLogin!!.setOnClickListener {
+                val user = editTextId!!.text.toString()
+                val pass = editTextPassword!!.text.toString()
 
-            main.clearFocus()
+                main.clearFocus()
 
-            // 빈칸 제출시 Toast처리
-            if (user == "" || pass == "") {
-                Toast.makeText(this@LoginActivity, "사번과 비밀번호를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
-            } else {
-                var id = user.trim()//trim : 문자열 공백제거
-                var pw = pass.trim()
-                //RETRO API 호출(파라미터값 설정)
+                // 빈칸 제출시 Toast처리
+                if (user == "" || pass == "") {
+                    Toast.makeText(this@LoginActivity, "사번과 비밀번호를 모두 입력해주세요.", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    var id = user.trim()//trim : 문자열 공백제거
+                    var pw = pass.trim()
 
-               // id = "AS1410020"
-            //    var id1 = "AH1304050"
-                getMemberInfo(supplementService3, "${BuildConfig.API_KEY}"  ,"$id") //Herp Member INFO 최백호
-                getLoginList2(supplementService2, "IN_INPUT","OUT_RESULT","$id") //임원여부
-                getLoginList(supplementService, "IN_INPUT","OUT_RESULT","$id","$pw")  //계정1차확인
 
+                    getMemberInfo(
+                        supplementService3,
+                        "${BuildConfig.API_KEY}",
+                        "$id"
+                    ) //Herp Member INFO 최백호
+
+                    getLoginList2(supplementService2, "IN_INPUT", "OUT_RESULT", "$id") //임원여부
+
+                    getLoginList(
+                        supplementService,
+                        "IN_INPUT",
+                        "OUT_RESULT",
+                        "$id",
+                        "$pw"
+                    )  //계정1차확인
+                   // Log.d("testest" , "4")
+                }
             }
-        }
+
     }
 
     // API RETROFIT2 호출 함수 구현( HR에서 제공해준 API주소에 인자값 셋팅 , GET방식, 파라미터1, 2 는 HR에서 제공해준값 ,파라미터 3,4 는 앱에서 던짐.)
@@ -184,7 +174,7 @@ class LoginActivity : AppCompatActivity() {
     private fun getLoginList(service: RetrofitService, keyword1:String, keyword2:String,keyword3:String,keyword4:String){
         service.userLogin(keyword1,keyword2,keyword3,keyword4).enqueue(object: retrofit2.Callback<LoginList> {
             override  fun onFailure(call: Call<LoginList>, error: Throwable) {
-                Log.d("로그인", "실패원인: {$error}")
+                Log.d("로그인1111", "실패원인: {$error}")
             }
 
             //Retrofit error 없이 Response 떨어지면
@@ -259,11 +249,11 @@ class LoginActivity : AppCompatActivity() {
                             prefs.setString("autoLoginFlagS", "${autoLoginFlag1}")
 
 
-                            Log.d("HERP-Deptgbn", "$Deptgbn")
-                            Log.d("HERP-Deptnme", "$Deptnme")
-                            Log.d("HERP-Deptcde", "$Deptcde")
-
-
+//                            Log.d("HERP-Deptgbn", "$Deptgbn")
+//                            Log.d("HERP-Deptnme", "$Deptnme")
+//                            Log.d("HERP-Deptcde", "$Deptcde")
+//
+//
 
                             //  val intent = Intent(this, MainActivity::class.java)
                             // 함수 안이라 Intent  안먹혀서 별도 함수로 보냄
@@ -272,28 +262,43 @@ class LoginActivity : AppCompatActivity() {
                         }
 
                         "F" -> {  //사번,비번 불일치하면
+
+                         //   autoLoginFlagS = "0"
                             Toast.makeText(
                                 this@LoginActivity,
-                                "로그인실패: 사번 또는 비밀번호가 올바르지 않습니다.",
+                                "로그인실패: 사번 또는 비밀번호가 올바르지 않습니다1.",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
 
                         "" -> { //예외의 경우
+
+                          //  autoLoginFlagS = "0"
                             Toast.makeText(
                                 this@LoginActivity,
-                                "로그인실패: 시스템 관리자에게 문의바랍니다.",
+                                "로그인실패: 시스템 관리자에게 문의바랍니다2.",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
                     }
                     Log.d("로그인", "아이디비번 1차 성공")
                 }else{
+                 //   autoLoginFlagS = "0"
+                 ///  var  autoLoginFlag1 = "0"
+                //    prefs.setString("autoLoginFlagS", "${autoLoginFlag1}")
+              //      findViewById<SwitchCompat?>(R.id.category_toggle_iv).isChecked = false
+                    //디자이스별 내부 저장소에서 id,pw 값을 가져옴
+//                    var id2 = prefs.setString("id", "none")
+//
+//                    editTextId.setText(id2)
+
                     Toast.makeText(
                         this@LoginActivity,
-                        "로그인실패: 사번 또는 비밀번호가 올바르지 않습니다.",
+                        "로그인실패: 사번 또는 비밀번호가 올바르지 않습니다3.",
                         Toast.LENGTH_SHORT
+
                     ).show()
+
                 }
 
             }
@@ -313,39 +318,50 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<LoginList2>
             ) {
 
-                // RetroFit2 API 로그인 결과값중 VALUE값 셋팅
-                var  login2Flag: String? = response.body()?.loginList2?.get(0)?.VALUE?.toString()
+                val responseBody = response.body()!!
+                var ksting = responseBody.loginList2.size
+                Log.d("임원여부", "{$ksting}")
 
+                if(ksting==0) {
 
-                //리턴되는 값이 완전히 달라져서 VALUE값이  NULL로 들어옴. NULL값 분기처리가 필요함.
-                if(login2Flag != null ) {
-                    Log.d("excutive", "{$login2Flag}")
-                    when (login2Flag) {
-                        "T" -> { //임원이면
-                            //  내부저장소에 임원여부 등록
-                            prefs.setString("excutive","T")
-                        }
-
-                        "F" -> {
-                            prefs.setString("excutive","F")
-                        }
-
-                        "" -> { //예외의 경우
-                            Toast.makeText(
-                                this@LoginActivity,
-                                "로그인실패: 시스템 관리자에게 문의바랍니다.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                    Log.d("로그인", "임원여부 성공")
                 }else{
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "임원여부취득실패: 임원정보유무가  올바르지 않습니다.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    var  login2Flag: String? = response.body()?.loginList2?.get(0)?.VALUE?.toString()
+
+
+
+                    //리턴되는 값이 완전히 달라져서 VALUE값이  NULL로 들어옴. NULL값 분기처리가 필요함.
+                    if(login2Flag != null ) {
+                        Log.d("excutive", "{$login2Flag}")
+                        when (login2Flag) {
+                            "T" -> { //임원이면
+                                //  내부저장소에 임원여부 등록
+                                prefs.setString("excutive","T")
+                            }
+
+                            "F" -> {
+                                prefs.setString("excutive","F")
+                            }
+
+                            "" -> { //예외의 경우
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    "로그인실패: 시스템 관리자에게 문의바랍니다.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                        Log.d("로그인", "임원여부 성공")
+                    }else{
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "임원여부취득실패: 임원정보유무가  올바르지 않습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
                 }
+
+              // RetroFit2 API 로그인 결과값중 VALUE값 셋팅
 
             }
         })
@@ -368,10 +384,53 @@ class LoginActivity : AppCompatActivity() {
 
                 SversionName = responseBody[0].versionName
                 SversionMsg = responseBody[0].versionMsg
+Log.d("version" , versionName)
+
+                Log.d("version1" , SversionName)
                 if(versionName.equals(SversionName)){
                     versionFkag = "Y"
+
+
+                    //내부저장소 자동로그인 여부 가져오기 , 기본값은 0
+                    autoLoginFlagS = prefs.getString("autoLoginFlagS","0")
+                    if(versionFkag=="Y") {
+                        //자동로그인 분기처리
+                        if (autoLoginFlagS == "0") { //자동로그인이 아니면
+                            findViewById<SwitchCompat?>(R.id.category_toggle_iv).isChecked = false
+                        } else {  // 자동로그인이면
+                            findViewById<SwitchCompat?>(R.id.category_toggle_iv).isChecked = true
+
+                            //디자이스별 내부 저장소에서 id,pw 값을 가져옴
+                            var id1 = prefs.getString("id", "none")
+                            var pw1 = prefs.getString("pw", "none")
+                            editTextId.setText(id1)
+                            editTextPassword.setText(pw1)
+
+
+                            Toast.makeText(this@LoginActivity, "자동저장된 값으로 로그인중입니다.", Toast.LENGTH_SHORT).show()
+                            //RETRO API 호출(파라미터값 설정)
+                            //  var id2 = "AH1304050"
+                            //    Log.d("로그인" , "1")
+                            getMemberInfo(
+                                supplementService3,
+                                "${BuildConfig.API_KEY}",
+                                "$id1"
+                            ) //Herp Member INFO 최백호
+                            //  Log.d("로그인" , "2")
+                            getLoginList(supplementService, "IN_INPUT", "OUT_RESULT", "$id1", "$pw1")  //계정1차확인
+                            Log.d("로그인", "4")
+
+                            getLoginList2(supplementService2, "IN_INPUT", "OUT_RESULT", "$id1") //임원여부
+                            //Log.d("로그인" , "3")
+
+                        }
+                    }
+
+
+
                 }else{
                     versionFkag = "N"
+
                     createDialog(SversionMsg)
 
                 }
@@ -444,6 +503,7 @@ class LoginActivity : AppCompatActivity() {
                 instance = Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .client(client)
+                   //.client(unsafeOkHttpClient.build())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
             }
@@ -623,12 +683,16 @@ class LoginActivity : AppCompatActivity() {
         builder.setMessage(str1)
         builder.setIcon(R.mipmap.ic_launcher)
         builder.setNegativeButton("확인", listener)
+        builder.setCancelable(false)
         builder.show()
 
     }
 
     var listener = DialogInterface.OnClickListener { p0, p1 ->
-        System.exit(0)
+     //  System.exit(0)
+        var intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://hr.asungcorp.com/cm/service/html.ncd?view=/lgerp/hr/mobile/DmsAppDownload"))
+        startActivity(intent)
+
     }
 
 }

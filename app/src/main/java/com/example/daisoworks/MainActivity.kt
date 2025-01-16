@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -46,6 +47,25 @@ class MainActivity : AppCompatActivity()  {
         lateinit var prefs: PreferenceUtil
         private const val TAG = "MainActivity"
         private const val NOTIFICATION_REQUEST_CODE = 1234
+        private val PERMISSION_REQUEST_CODE = 5000
+    }
+
+
+
+    private fun permissionCheck() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val permissionCheck = ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            )
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    PERMISSION_REQUEST_CODE
+                )
+            }
+        }
     }
 
     private  var autoLoginFlag: String = ""
@@ -55,9 +75,10 @@ class MainActivity : AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        Log.d("PUSHTEST", "new Token ")
         prefs = PreferenceUtil(applicationContext)
         super.onCreate(savedInstanceState)
-       // getFCMToken()
+        getFCMToken()
       //  initNavigationMenu()
         // [START handle_data_extras]
         intent.extras?.let {
@@ -131,7 +152,7 @@ class MainActivity : AppCompatActivity()  {
         prefs.setString("currentFragmentFirst", "$currentFragmentFirst")
 
 
-
+        permissionCheck()
 
     }
 
@@ -166,6 +187,7 @@ class MainActivity : AppCompatActivity()  {
                 startActivity(intent)
 
                 return true
+
 
             } else -> return super.onOptionsItemSelected(item)
         }

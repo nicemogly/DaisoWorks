@@ -28,11 +28,7 @@ import retrofit2.http.Query
 class ApproveFragment : Fragment() {
 
     private var _binding: FragmentApproveBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
     private var listStatus : String = "ALL"
 
     //데이터 통신
@@ -57,9 +53,6 @@ class ApproveFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        Log.d("setData" , "start0")
-
         prefs = PreferenceUtil(requireContext())
 
         val approveViewModel =
@@ -74,18 +67,12 @@ class ApproveFragment : Fragment() {
         )
 
 
-
         //RetroFit2 API 객체생성 및 Retro 서비스 객체 생생(서비스는 내부에 둠)
         retrofit = ApproveFragment.RetrofitClient.getInstance()
         supplementService = retrofit.create(ApproveFragment.RetrofitService::class.java)
 
          id1 =  prefs.getString("id", "none")
-        //id1 = "AH1506150"
-      //  id1 = "AH0403070"
         //API서비스 호출 파라미터 comCd 회사코드 같이 날려서 함수 실행
-
-
-
         getApproveList(supplementService,"${BuildConfig.API_KEY}",id1)
 
 
@@ -93,30 +80,24 @@ class ApproveFragment : Fragment() {
         layoutParams.setMargins(16,16,16,50)
         textView.text = "디자인진행 승인정보관리"
 
-
         val btnRQ = binding.butPro
         val btnAL = binding.butAll
         val btnCM = binding.butEnd
-
 
         btnRQ.setOnClickListener {
             listStatus = "RQ"
             getApproveList(supplementService,"${BuildConfig.API_KEY}",id1)
         }
 
-
         btnCM.setOnClickListener {
             listStatus = "CM"
             getApproveList(supplementService,"${BuildConfig.API_KEY}",id1)
         }
 
-
         btnAL.setOnClickListener {
             listStatus = "All"
             getApproveList(supplementService,"${BuildConfig.API_KEY}",id1)
         }
-
-
         return root
     }
 
@@ -214,9 +195,7 @@ class ApproveFragment : Fragment() {
                 adapter.listData = data1
                 binding.recyclerView.adapter = adapter
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
-                //binding.recyclerView.notifyDataSetChanged()
                 adapter.notifyDataSetChanged()
-                Log.d("DMS LIST" , "5")
 
             }
 
@@ -232,11 +211,7 @@ class ApproveFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-       // Log.d("aaaaaaonResume" , "5")
 
-      //  data.clear();
-      //  data1.clear();
-     //   getApproveList(supplementService,"${BuildConfig.API_KEY}",id1)
 
 
     }

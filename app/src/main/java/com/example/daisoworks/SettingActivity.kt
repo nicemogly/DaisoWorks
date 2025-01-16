@@ -41,7 +41,7 @@ class SettingActivity : AppCompatActivity() {
         //기본 Actionbar 제목 변경
         getSupportActionBar()?.setTitle("설정")
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화 (화살표)
-
+        Log.d("babo", "0")
 
         //버전 확인
         var versionName = BuildConfig.VERSION_NAME
@@ -54,7 +54,7 @@ class SettingActivity : AppCompatActivity() {
         val lexcutive = prefs.getString("excutive", "0")
         val lid = prefs.getString("id", "0")
 
-
+        Log.d("babo", "00")
 
         //자동로그인 분기처리
         if (autoLoginFlagS == "0") { //자동로그인이 아니면
@@ -62,7 +62,7 @@ class SettingActivity : AppCompatActivity() {
         } else {  // 자동로그인이면
             findViewById<SwitchCompat?>(R.id.login_toggle).isChecked = true
         }
-
+        Log.d("babo", "000")
         //토글 선택시
         loginToggle = findViewById(R.id.login_toggle)
         loginToggle.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -77,51 +77,94 @@ class SettingActivity : AppCompatActivity() {
 
         imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager?
 
+        var id1 = prefs.getString("id", "none")
 
-        val radio_company: RadioGroup = findViewById(R.id.radio_company)
 
-        if (lcomcode == "00000") {
-            radio_company.check(R.id.radio_comtype1)
-        } else if (lcomcode == "10000"){
-            radio_company.check(R.id.radio_comtype2)
-        }else if (lcomcode == "00001"){
-            radio_company.check(R.id.radio_comtype3)
-        }
+        var txt11: TextView = findViewById(R.id.txt11)
+        var txt12: TextView = findViewById(R.id.txt12)
+        var txt22: TextView = findViewById(R.id.txt22)
+        var txt33: TextView = findViewById(R.id.txt33)
 
-        radio_company.setOnCheckedChangeListener { radioGroup, i ->
-            when(i){
-                R.id.radio_comtype1 ->  prefs.setString("companycode", "00000")
-                R.id.radio_comtype2 ->  prefs.setString("companycode", "10000")
-                R.id.radio_comtype3 ->  prefs.setString("companycode", "00001")
-            }
-            Toast.makeText( this, "저장하였습니다.", Toast.LENGTH_SHORT).show()
-        }
-
-        val radio_expg: RadioGroup = findViewById(R.id.radio_expg)
-        if (lexcutive == "T") {
-            radio_expg.check(R.id.radio_exp1)
-        }else{
-            radio_expg.check(R.id.radio_exp2)
-        }
-
-        radio_expg.setOnCheckedChangeListener { radioGroup, i ->
-            when(i){
-                R.id.radio_exp1 ->  prefs.setString("excutive", "T")
-                R.id.radio_exp2 ->  prefs.setString("excutive", "F")
-            }
-            Toast.makeText( this, "저장하였습니다.", Toast.LENGTH_SHORT).show()
-        }
-
+        var rc: RadioGroup = findViewById(R.id.radio_company)
+        var re: RadioGroup = findViewById(R.id.radio_expg)
         val btnSetSave: Button = findViewById(R.id.btnSetSave)
         val setuserid: TextView = findViewById(R.id.setuserid)
 
-        setuserid.text = lid
 
-        btnSetSave.setOnClickListener(){
-            prefs.setString("id", setuserid.text.toString())
-            hideKeyboard(it)
-            Toast.makeText( this, "저장하였습니다.", Toast.LENGTH_SHORT).show()
+        var cl1: View = findViewById(R.id.cl1)
+
+
+        if(id1=="AD2201016" || id1=="AD2201005" || id1=="AD2201004" ){
+
+
+
+            val radio_company: RadioGroup = findViewById(R.id.radio_company)
+
+            if (lcomcode == "00000") {
+                radio_company.check(R.id.radio_comtype1)
+            } else if (lcomcode == "10000"){
+                radio_company.check(R.id.radio_comtype2)
+            }else if (lcomcode == "00001"){
+                radio_company.check(R.id.radio_comtype3)
+            }
+
+            radio_company.setOnCheckedChangeListener { radioGroup, i ->
+                when(i){
+                    R.id.radio_comtype1 ->  prefs.setString("companycode", "00000")
+                    R.id.radio_comtype2 ->  prefs.setString("companycode", "10000")
+                    R.id.radio_comtype3 ->  prefs.setString("companycode", "00001")
+                }
+                Toast.makeText( this, "저장하였습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+            val radio_expg: RadioGroup = findViewById(R.id.radio_expg)
+            if (lexcutive == "T") {
+                radio_expg.check(R.id.radio_exp1)
+            }else{
+                radio_expg.check(R.id.radio_exp2)
+            }
+
+            radio_expg.setOnCheckedChangeListener { radioGroup, i ->
+                when(i){
+                    R.id.radio_exp1 ->  prefs.setString("excutive", "T")
+                    R.id.radio_exp2 ->  prefs.setString("excutive", "F")
+                }
+                Toast.makeText( this, "저장하였습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+            //   val btnSetSave: Button = findViewById(R.id.btnSetSave)
+            //    val setuserid: TextView = findViewById(R.id.setuserid)
+
+            setuserid.text = lid
+
+            btnSetSave.setOnClickListener(){
+                prefs.setString("id", setuserid.text.toString())
+                hideKeyboard(it)
+                Toast.makeText( this, "저장하였습니다.", Toast.LENGTH_SHORT).show()
+            }
+
+        }else{
+            Log.d("babo", "1")
+            cl1.visibility = View.INVISIBLE
+            txt11.visibility = View.INVISIBLE
+//            txt12.visibility = View.INVISIBLE
+//            txt22.visibility = View.INVISIBLE
+//            txt33.visibility = View.INVISIBLE
+//            rc.visibility = View.INVISIBLE
+//            re.visibility = View.INVISIBLE
+//            btnSetSave.visibility = View.INVISIBLE
+//            setuserid.visibility = View.INVISIBLE
         }
+
+
+//        var rc = findViewById(R.id.radio_company)
+//        var re = findViewById(R.id.radio_expg)
+//        val btnSetSave: Button = findViewById(R.id.btnSetSave)
+//        val setuserid: TextView = findViewById(R.id.setuserid)
+
+
+
+
 
     }
     fun hideKeyboard(v: View) {

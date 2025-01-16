@@ -1,5 +1,7 @@
 package com.example.daisoworks
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -59,6 +61,10 @@ class SubActivity : AppCompatActivity() {
     private var RevNo: String = ""
     private var reqItemDesc: String = ""
     private var apprTyp: String = ""
+    private var kurl1: String  = ""
+    private var kurl2: String  = ""
+    private var kurl3: String  = ""
+
    // private val data1:MutableList<Comment> = mutableListOf()
 
 
@@ -444,7 +450,8 @@ class SubActivity : AppCompatActivity() {
                 val responseBody = response.body()!!
                 var kstr2 = responseBody.size
 
-
+                //val myWebView= binding.webview
+              var kflagint: Int = 0 ;
                 for (dmsdetail4 in responseBody) {
                   //  binding.txtReq1D.text =  DataDmsDetail4.reqId
 
@@ -463,6 +470,7 @@ class SubActivity : AppCompatActivity() {
 
                     data9.add(attr5)
 
+                    Log.d("data9", "${attr5}")
 
                     requestGet1(supplementService,"${BuildConfig.API_KEY}", attr5, imgUrl1)
 
@@ -479,7 +487,15 @@ class SubActivity : AppCompatActivity() {
 
                         // 실행 할 코드
                     }, 500)
+                    Log.d("data9-kflag", "${kflagint}")
 
+                    Log.d("data9-kflag", "${attr5}")
+                    if(kflagint < 1) {
+                         kurl3 = "http://59.10.47.222:3000/static/" + attr5
+
+
+                    }
+                    kflagint = kflagint + 1
 
                 }
 
@@ -505,6 +521,8 @@ class SubActivity : AppCompatActivity() {
                         val imgUrl: String =
                             "http://59.10.47.222:3000/static/" + data9[it]
 
+                        kurl3 = imgUrl
+                        kurl2 =  data9[it]
                         Glide.with(binding.photoView.context)
                             .load(imgUrl)
                             .error(android.R.drawable.stat_notify_error)
@@ -516,6 +534,16 @@ class SubActivity : AppCompatActivity() {
 
 
                 }
+
+                binding.btnexpan1.setOnClickListener {
+
+                    Log.d("btnexpan1", "$kurl3")
+
+                    var intent = Intent(Intent.ACTION_VIEW, Uri.parse("$kurl3"))
+                    startActivity(intent)
+                    //myWebView.loadUrl("${kurl1}")
+                }
+
 
 
 

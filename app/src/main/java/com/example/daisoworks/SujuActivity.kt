@@ -188,7 +188,6 @@ class SujuActivity : AppCompatActivity() {
     }
 
     private fun sujuDisplay4() {
-        Log.d("ItevSearch" , "itemDisplay 호출")
 
         if( binding.rvHerpSujulist4.visibility == ConstraintSet.GONE) {
             binding.rvHerpSujulist4.visibility = View.VISIBLE
@@ -196,7 +195,6 @@ class SujuActivity : AppCompatActivity() {
     }
 
     private fun sujuDisplay5() {
-        Log.d("ItevSearch" , "itemDisplay 호출")
 
         if( binding.rvHerpSujulist5.visibility == ConstraintSet.GONE) {
             binding.rvHerpSujulist5.visibility = View.VISIBLE
@@ -206,7 +204,6 @@ class SujuActivity : AppCompatActivity() {
 
 
     private fun sujuDisplay6() {
-        Log.d("ItevSearch" , "itemDisplay 호출")
 
         if( binding.rvHerpSujulist6.visibility == ConstraintSet.GONE) {
             binding.rvHerpSujulist6.visibility = View.VISIBLE
@@ -348,7 +345,6 @@ class SujuActivity : AppCompatActivity() {
         ): Call<List<apirstData>>
 
     }
-
 
 
     private  fun sujuGetData1() {
