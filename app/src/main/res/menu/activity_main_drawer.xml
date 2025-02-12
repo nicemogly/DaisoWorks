@@ -36,6 +36,15 @@
                    android:icon="@drawable/ic_menu_slideshow"
                    android:title="수주" >
                </item>
+
+
+               <item
+                   android:id="@+id/nav_exh"
+                   android:icon="@drawable/ic_menu_slideshow"
+                   android:title="전시" >
+               </item>
+
+
            </group>
        </menu>
    </item>

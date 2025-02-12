@@ -15,7 +15,7 @@
     android:autoSizeMinTextSize="14sp"
     android:padding="10px"
     android:singleLine="true"
-    android:lineHeight="20dp"
+    android:lineHeight="30dp"
 
     android:textSize="16sp"
 

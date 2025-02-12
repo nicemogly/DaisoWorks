@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph3"
+    app:startDestination="@id/exhibitionFragment">
+
+    <fragment
+        android:id="@+id/exhibitionFragment"
+        android:name="com.example.daisoworks.ui.exhibition.ExhibitionFragment"
+        android:label="fragment_exhibition"
+        tools:layout="@layout/fragment_exhibition" >
+        <action
+            android:id="@+id/action_exhibitionFragment_to_exhibition1Fragment"
+            app:destination="@id/exhibition1Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exhibition1Fragment"
+        android:name="com.example.daisoworks.ui.exhibition1.Exhibition1Fragment"
+        android:label="fragment_exhibition1"
+        tools:layout="@layout/fragment_exhibition1" />
+</navigation>

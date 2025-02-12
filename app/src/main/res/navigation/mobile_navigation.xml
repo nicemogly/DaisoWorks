@@ -14,9 +14,31 @@
         <action
             android:id="@+id/action_nav_home_to_nav_suju"
             app:destination="@id/nav_suju" />
+
     </fragment>
 
 
+
+
+    <fragment
+        android:id="@+id/nav_exh"
+        android:name="com.example.daisoworks.ui.exhibition.ExhibitionFragment"
+        android:label="@string/menu_exhibition"
+        android:tag="EXHIBITION"
+        tools:layout="@layout/fragment_exhibition" >
+
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/nav_exh1"
+        android:name="com.example.daisoworks.ui.exhibition1.Exhibition1Fragment"
+        android:label="@string/menu_exhibition"
+        android:tag="EXHIBITION1"
+        tools:layout="@layout/fragment_exhibition1" >
+
+    </fragment>
 
 
 

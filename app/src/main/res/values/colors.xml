@@ -14,8 +14,10 @@
     <color name="color_e0e0e0">#e0e0e0</color>
     <color name="editTextGray">#ACACAC</color>
     <color name="transparent">#40C4FF</color>
+    <color name="red">#FF5252</color>
 
     <!-- Format is #AARRGGBB -->
     <color name="colorAccent">#FF0080D0</color>
+
 
 </resources>

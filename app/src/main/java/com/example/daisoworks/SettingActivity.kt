@@ -54,7 +54,6 @@ class SettingActivity : AppCompatActivity() {
         val lexcutive = prefs.getString("excutive", "0")
         val lid = prefs.getString("id", "0")
 
-        Log.d("babo", "00")
 
         //자동로그인 분기처리
         if (autoLoginFlagS == "0") { //자동로그인이 아니면
@@ -62,16 +61,16 @@ class SettingActivity : AppCompatActivity() {
         } else {  // 자동로그인이면
             findViewById<SwitchCompat?>(R.id.login_toggle).isChecked = true
         }
-        Log.d("babo", "000")
+
         //토글 선택시
         loginToggle = findViewById(R.id.login_toggle)
         loginToggle.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) { // on
                 prefs.setString("autoLoginFlagS", "1")
-                Log.d("babo", "1")
+
             } else {    // off
                 prefs.setString("autoLoginFlagS", "0")
-                Log.d("babo", "0")
+
             }
         }
 
@@ -84,6 +83,7 @@ class SettingActivity : AppCompatActivity() {
         var txt12: TextView = findViewById(R.id.txt12)
         var txt22: TextView = findViewById(R.id.txt22)
         var txt33: TextView = findViewById(R.id.txt33)
+        var txt333: TextView = findViewById(R.id.txt333)
 
         var rc: RadioGroup = findViewById(R.id.radio_company)
         var re: RadioGroup = findViewById(R.id.radio_expg)
@@ -139,6 +139,21 @@ class SettingActivity : AppCompatActivity() {
 
             btnSetSave.setOnClickListener(){
                 prefs.setString("id", setuserid.text.toString())
+
+               var ktmpuserid =  setuserid.text.toString()
+
+                //김교령  HS1106470  - HMP
+                //최군    HS1106240  - (주)아성
+                if(ktmpuserid=="HS1106470"){
+                    prefs.setString("company","아성에이치엠피")
+                    prefs.setString("companycode","10000")
+                    prefs.setString("memempmgnum","430")
+                }else if(ktmpuserid=="HS1106240") {
+                    prefs.setString("company","아성")
+                    prefs.setString("companycode","00001")
+                    prefs.setString("memempmgnum","452")
+                }
+
                 hideKeyboard(it)
                 Toast.makeText( this, "저장하였습니다.", Toast.LENGTH_SHORT).show()
             }
@@ -147,6 +162,7 @@ class SettingActivity : AppCompatActivity() {
             Log.d("babo", "1")
             cl1.visibility = View.INVISIBLE
             txt11.visibility = View.INVISIBLE
+            txt333.visibility = View.INVISIBLE
 //            txt12.visibility = View.INVISIBLE
 //            txt22.visibility = View.INVISIBLE
 //            txt33.visibility = View.INVISIBLE

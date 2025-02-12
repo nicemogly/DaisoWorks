@@ -23,6 +23,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.daisoworks.databinding.ActivityMainBinding
+import com.example.daisoworks.ui.exhibition1.Exhibition1Fragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity()  {
         private val PERMISSION_REQUEST_CODE = 5000
     }
 
-
+    private var fragmentB = Exhibition1Fragment()
 
     private fun permissionCheck() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -121,7 +122,9 @@ class MainActivity : AppCompatActivity()  {
                 R.id.nav_approve,
                 R.id.nav_suju,
                 R.id.nav_client,
-                R.id.nav_approve1
+                R.id.nav_approve1,
+                R.id.nav_exh,
+                R.id.nav_exh1
             ), drawerLayout
         )
 
@@ -377,8 +380,11 @@ class MainActivity : AppCompatActivity()  {
 
     //이 함수를 통해 다른 fragment로 이동한다.생성자가 아닌 불러오는 형식
     fun fragmentChange_for_adapter(frag: Fragment){
-        supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_content_sub , frag).commit()
+       //supportFragmentManager.beginTransaction().replace(R.id.action_exhibitionFragment_to_exhibition1Fragment  , frag).commit()
+        Log.d("FRAGTOFRAG", "{$frag}")
     }
+
+
 
 
 }

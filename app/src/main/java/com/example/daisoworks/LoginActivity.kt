@@ -21,6 +21,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.daisoworks.data.ChkVer
 import com.example.daisoworks.data.HerpMemberInfo
+import com.example.daisoworks.data.HsMember
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
@@ -54,9 +55,18 @@ class LoginActivity : AppCompatActivity() {
     private var versionName : String  = ""
     private var versionFkag : String  = "N"
 
+    private var hsmem_usrid : String = ""
+    private var hsmem_divicd : String = ""
+    private var hsmem_deptcde : String = ""
+    private var hsmem_corpcd : String = ""
+
     private var Deptgbn : String  = ""
     private var Deptnme : String  = ""
     private var Deptcde : String  = ""
+    private var empmgnum : Int   = 0
+    private var hnme : String  = ""
+
+
 
     //내부저장소 변수 설정
     companion object{
@@ -198,33 +208,42 @@ class LoginActivity : AppCompatActivity() {
 
                     when (loginFlag) {
                         "T" -> { //사번,비번 일치하면
-                           //  내부저장소에 id,pw 등록
-                            prefs.setString("id","${keyword3}")
-                            prefs.setString("pw","${keyword4}")
+                            //  내부저장소에 id,pw 등록
+                            prefs.setString("id", "${keyword3}")
+                            prefs.setString("pw", "${keyword4}")
 
                             // 내부저장소에 회사등록
-                            var LoginCompany : String = ""
-                            var LoginCompanyCode : String = ""
+                            var LoginCompany: String = ""
+                            var LoginCompanyCode: String = ""
 
-                            var PreLoginCompany = keyword3.substring(0,2).toUpperCase()
-                            if(PreLoginCompany=="AD") {
-                                LoginCompany="아성다이소"
-                                LoginCompanyCode="00000"
-                            }else if(PreLoginCompany=="AH") {
-                                LoginCompany="아성에이치엠피"
-                                LoginCompanyCode="10000"
+                            var PreLoginCompany = keyword3.substring(0, 2).toUpperCase()
+                            if (PreLoginCompany == "AD") {
+                                LoginCompany = "아성다이소"
+                                LoginCompanyCode = "00000"
+                            } else if (PreLoginCompany == "AH") {
+                                LoginCompany = "아성에이치엠피"
+                                LoginCompanyCode = "10000"
 
-                            }else if(PreLoginCompany=="AS") {
+                            } else if (PreLoginCompany == "AS") {
                                 LoginCompany = "아성"
-                                LoginCompanyCode="00001"
+                                LoginCompanyCode = "00001"
+
+                            } else if(PreLoginCompany == "HS"){
+
+                                getHsMember(supplementService1, "${keyword3}" ,"${BuildConfig.API_KEY}")
+
                             }
 
-                            if(keyword3=="AD2201016" || keyword3=="AD2201004"){
-                                prefs.setString("company","아성에이치엠피")
-                                prefs.setString("companycode","10000")
+                            //    getHsMember  hsmem_usrid hsmem_deptcde hsmem_corpcd
 
-                                LoginCompany="아성에이치엠피"
-                                LoginCompanyCode="10000"
+                            if(keyword3=="AD2201016" || keyword3=="AD2201004"){
+                               // prefs.setString("company","아성에이치엠피")
+                              //  prefs.setString("companycode","10000")
+                             Log.d("testtest" , "hs예외")
+                               // LoginCompany="아성에이치엠피"
+                              //  LoginCompanyCode="10000"
+                                 var key3: String = "HS0910260"
+                                getHsMember(supplementService1, "${key3}" ,"${BuildConfig.API_KEY}")
 
                             }else {
                                 prefs.setString("company","${LoginCompany}")
@@ -367,6 +386,44 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
+    private fun getHsMember(service1: RetrofitService1, keyword1:String , keyword2: String){
+        service1.hsMember(keyword1,keyword2).enqueue(object: retrofit2.Callback<List<HsMember>> {
+            override  fun onFailure(call: Call<List<HsMember>>, error: Throwable) {
+                Log.d("HsMember", "versionCheck Failed: {$error}")
+            }
+
+            //Retrofit error 없이 Response 떨어지면
+            override fun onResponse(
+                call: Call<List<HsMember>>,
+                response: Response<List<HsMember>>
+            ) {
+                val responseBody = response.body()!!
+                //    hsmem_usrid hsmem_deptcde hsmem_corpcd
+
+                hsmem_usrid = responseBody[0].usrid
+                hsmem_divicd = responseBody[0].divicd
+                hsmem_deptcde = responseBody[0].deptcde
+                hsmem_corpcd = responseBody[0].corpcd
+
+                if(hsmem_corpcd=="10000") {
+                    prefs.setString("company", "아성에이치엠피")
+                    prefs.setString("companycode", "10000")
+                    prefs.setString("hsid", "${hsmem_divicd}")
+                } else if(hsmem_corpcd=="00001") {
+                    prefs.setString("company", "아성")
+                    prefs.setString("companycode", "00001")
+                    prefs.setString("hsid", "${hsmem_divicd}")
+                } else if(hsmem_corpcd=="10005") {
+                    prefs.setString("company", "아성다이소")
+                    prefs.setString("companycode", "10005")
+                    prefs.setString("hsid", "${hsmem_divicd}")
+                }
+
+                Log.d("HsMember", "${hsmem_divicd}")
+            }
+
+        })
+    }
     private fun getVersionName(service1: LoginActivity.RetrofitService1, keyword1:String){
            service1.checkVersion(keyword1).enqueue(object: retrofit2.Callback<List<ChkVer>> {
             override  fun onFailure(call: Call<List<ChkVer>>, error: Throwable) {
@@ -384,9 +441,9 @@ class LoginActivity : AppCompatActivity() {
 
                 SversionName = responseBody[0].versionName
                 SversionMsg = responseBody[0].versionMsg
-Log.d("version" , versionName)
 
-                Log.d("version1" , SversionName)
+
+
                 if(versionName.equals(SversionName)){
                     versionFkag = "Y"
 
@@ -459,17 +516,24 @@ Log.d("version" , versionName)
                     Deptgbn = ""
                     Deptnme = ""
                     Deptcde = ""
+                    empmgnum = 0
+                    hnme = ""
+
 
                 }else{
                     Deptgbn = responseBody[0].deptgbn
                     Deptnme = responseBody[0].deptnme
                     Deptcde = responseBody[0].deptcde
+                    empmgnum = responseBody[0].empmgnum
+                    hnme = responseBody[0].hnme
 
                 }
 
                 prefs.setString("memdeptgbn","$Deptgbn")
                 prefs.setString("memdeptnme","$Deptnme")
                 prefs.setString("memdeptcde","$Deptcde")
+                prefs.setString("memempmgnum","$empmgnum")
+                prefs.setString("memhnme","$hnme")
 
             }
         })
@@ -642,6 +706,15 @@ Log.d("version" , versionName)
         fun checkVersion(
             @Query("apikey") param1: String
         ): Call<List<ChkVer>>
+
+
+        @GET("hsMember")
+        fun hsMember(
+            @Query("userId") param1: String,
+            @Query("apikey") param2: String
+        ): Call<List<HsMember>>
+
+
 
     }
 

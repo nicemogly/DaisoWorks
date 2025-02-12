@@ -251,7 +251,25 @@
                 android:layout_marginStart="16dp"
                 app:layout_constraintStart_toEndOf="@+id/setuserid"
                 app:layout_constraintTop_toBottomOf="@+id/txt33" />
+
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/txt333"
+            android:layout_width="match_parent"
+            android:layout_height="21dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="김교령 HS1106470 HMP / 최군 HS1106240 (주)아성"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
 
     </LinearLayout>
 
