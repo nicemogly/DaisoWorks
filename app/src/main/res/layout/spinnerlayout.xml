@@ -13,7 +13,7 @@
     android:maxWidth="330dp"
     android:autoSizeMaxTextSize="18sp"
     android:autoSizeMinTextSize="14sp"
-    android:padding="10px"
+    android:padding="10dp"
     android:singleLine="true"
     android:lineHeight="30dp"
 

@@ -138,7 +138,7 @@ class LoginActivity : AppCompatActivity() {
         main = findViewById(R.id.main)
         btnLogin = findViewById(R.id.btnLogin)
         editTextId = findViewById(R.id.editTextId)
-        editTextPassword = findViewById(R.id.editTextPassword)
+        this.editTextPassword = findViewById(R.id.editTextPassword)
 
 
 
