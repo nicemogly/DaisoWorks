@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -76,10 +77,12 @@ class MainActivity : AppCompatActivity()  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        Log.d("PUSHTEST", "new Token ")
+
         prefs = PreferenceUtil(applicationContext)
         super.onCreate(savedInstanceState)
         getFCMToken()
+
+
       //  initNavigationMenu()
         // [START handle_data_extras]
         intent.extras?.let {
@@ -147,7 +150,19 @@ class MainActivity : AppCompatActivity()  {
         // setupActionBarWithNavController(navController1, appBarConfiguration1)
         navView1.setupWithNavController(navController)
 
-        autoLoginFlag = prefs.getString("autoLoginFlagS", "0")
+
+
+// 네비게이션 변경 리스너를 추가하여 특정 화면에서 바텀 메뉴 숨기기
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.nav_exh -> navView1.visibility = View.GONE
+
+                else -> navView1.visibility = View.VISIBLE
+            }
+        }
+
+
+            autoLoginFlag = prefs.getString("autoLoginFlagS", "0")
 
         val currentFragmentFirst =
         supportFragmentManager.fragments.last().childFragmentManager?.primaryNavigationFragment?.tag//호스트 프래그먼트 가져오기
@@ -156,6 +171,11 @@ class MainActivity : AppCompatActivity()  {
 
 
         permissionCheck()
+
+
+
+
+
 
     }
 

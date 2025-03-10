@@ -167,7 +167,7 @@ class SubActivity : AppCompatActivity() {
     private fun createBottomSheet(position1:Int,pitems3: MutableList<DataDmsDetail5>){
 
 
-        Log.d("botommsheet" , "${position1}")
+       // Log.d("botommsheet" , "${position1}")
         try {
             var bottomSheetListView: BottomSheetListView =
                 BottomSheetListView(this, position1 , pitems3)

@@ -10,13 +10,17 @@ data class ExhibitionUpdate(
     val uexhSangdamCnt : Int,
     val uexhSelCode : String ="",
     val usuggbn : String ="",
-    val umemempmgnum : String ="",
+    val umemempmgnum : Int,
     val upartnerEmpNo : String ="",
     val uexhComName : String ="",
     val uexhDate1 : String ="",
     val umemempmgnum1 : String ="",
     val umemempmgnum2 : String ="",
     var uexhSampleCnt :  Int,
-    val uexhSampleRtnYN1 : String =""
+    val uexhSampleRtnYN1 : String ="",
+    val uexhHsDeptCd : String ="",
+    val upoolno : String =""
+
+
 
 )

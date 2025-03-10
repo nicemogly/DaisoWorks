@@ -95,7 +95,7 @@ class HerpclientFragment : Fragment() {
 
         val LCC = prefs.getString("companycode","0")
 
-        if(LCC == "00000") {//아성다이소
+        if(LCC == "10005") {//아성다이소
 
             val builder  = androidx.appcompat.app.AlertDialog.Builder(requireContext())
             builder.setTitle("안내")
@@ -401,7 +401,7 @@ class HerpclientFragment : Fragment() {
                 clientcount = mutableListOf<ClientCount>()
                 clientDialog1 = mutableListOf<String>()
                 for(clientcnt1 in responseBody) {
-                    clientcount.add( ClientCount(clientcnt1.clientNoP , clientcnt1.clientBizNameK))
+                    clientcount.add( ClientCount(clientcnt1.clientNoP , clientcnt1.clientBizNameK , clientcnt1.clientPreNoP))
                     clientDialog1.add(clientcnt1.clientBizNameK)
                 }
                 Log.d("CSearch", clientcount.size.toString())

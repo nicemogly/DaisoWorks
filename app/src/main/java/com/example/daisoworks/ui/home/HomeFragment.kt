@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
         pagerAdapter.addFragment(fragment_tab2())
         viewPager.adapter = pagerAdapter
 
-        if(LCC == "00000") {//아성다이소
+        if(LCC == "10005") {//아성다이소
             viewPager.currentItem = 1
         }else if(LCC == "10000"){ //아성에이치엠피
             viewPager.currentItem = 0
@@ -84,7 +84,7 @@ class HomeFragment : Fragment() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int){
                Log.d("MainTab" , position.toString())
-                if(LCC=="00000" && (position == 0 || position == null) ){
+                if(LCC=="10005" && (position == 0 || position == null) ){
 
                       val builder  = AlertDialog.Builder(requireContext())
                       builder.setTitle("안내")

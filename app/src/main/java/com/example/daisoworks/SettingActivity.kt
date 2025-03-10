@@ -100,7 +100,7 @@ class SettingActivity : AppCompatActivity() {
 
             val radio_company: RadioGroup = findViewById(R.id.radio_company)
 
-            if (lcomcode == "00000") {
+            if (lcomcode == "10005") {
                 radio_company.check(R.id.radio_comtype1)
             } else if (lcomcode == "10000"){
                 radio_company.check(R.id.radio_comtype2)
@@ -110,7 +110,7 @@ class SettingActivity : AppCompatActivity() {
 
             radio_company.setOnCheckedChangeListener { radioGroup, i ->
                 when(i){
-                    R.id.radio_comtype1 ->  prefs.setString("companycode", "00000")
+                    R.id.radio_comtype1 ->  prefs.setString("companycode", "10005")
                     R.id.radio_comtype2 ->  prefs.setString("companycode", "10000")
                     R.id.radio_comtype3 ->  prefs.setString("companycode", "00001")
                 }

@@ -18,6 +18,7 @@ class BottomSheetDialog(context: Context) : BottomSheetDialogFragment()
     {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.bottom_sheet, container, false)
+
         return view
     }
 

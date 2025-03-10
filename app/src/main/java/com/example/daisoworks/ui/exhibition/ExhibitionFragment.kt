@@ -52,7 +52,7 @@ class ExhibitionFragment : Fragment() {
             binding.webView.addJavascriptInterface(WebAppInterface(requireContext()), "yjh")
 
             /* 링크 주소를 로드 */
-            binding.webView.loadUrl("https://ex.hanwellchina.net/appTest.aspx")
+      binding.webView.loadUrl("https://ex.hanwellchina.net/appTest.aspx")
 
 
 

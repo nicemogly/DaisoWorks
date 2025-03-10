@@ -33,7 +33,9 @@ import com.example.daisoworks.data.AutoNum
 import com.example.daisoworks.data.ClientCount
 import com.example.daisoworks.data.DataClientSchDetail1
 import com.example.daisoworks.data.DataExhPartner
+import com.example.daisoworks.data.DataExhPartner1
 import com.example.daisoworks.data.DataExhPartnerCount
+import com.example.daisoworks.data.DataExhPartnerCount1
 import com.example.daisoworks.data.ExhCounselNum
 import com.example.daisoworks.data.ExhibitionList
 import com.example.daisoworks.databinding.ActivityExhibitionWriteBinding
@@ -91,6 +93,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
     private lateinit var supplementService : RetrofitService
     private var ClientcodeP : String = ""
     private var ClientnameK : String = ""
+    private var ClientprenoP : String = ""
 
 
     //spinner 값 배열리스트 초기화
@@ -124,12 +127,14 @@ class ExhibitionWriteActivity : AppCompatActivity() {
     private var partnerEmpNo : String = "" // 동반자 번호
     private var exhNum : String = ""     // 상담일지코드번호
     private var exhComName : String   = ""      // 상담업체명
+   // private var exhClntPoolno : String = "" //상담업체풀번호
     private var exhSampleCnt : Int   = 0       // 상담업체 샘플수
     private var exhSangdamCnt : Int  = 0      // 상담일지장수
     private var exhSampleRtnYN : String = "1"   // 샘플반송여부
     private var vautonum : String = ""  // API를 통해 가져오 오토발번코드
+    private var memdeptcde : String = "" // 상담자부서코드
 
-
+    private var dataexhpartnercount1 = mutableListOf<DataExhPartnerCount1>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -144,7 +149,6 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         prefs = PreferenceUtil(applicationContext)
 
 
-
         // 1. 바인딩 초기화
         mbinding = ActivityExhibitionWriteBinding.inflate(layoutInflater)
 
@@ -153,52 +157,55 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //로그인시 담아놓은 회사코드를 가지고  API통신시 파라미터값으로 활용함.
-        comCd = prefs.getString("companycode","0")
+        comCd = prefs.getString("companycode", "0")
 
-        vcompanycode =  prefs.getString("companycode", "none")
+        vcompanycode = prefs.getString("companycode", "none")
 
-        id1 =  prefs.getString("id", "none")
-        memempmgnum =  prefs.getString("memempmgnum", "none")
-        memhnme =  prefs.getString("memhnme", "none")
+        id1 = prefs.getString("id", "none")
+        memempmgnum = prefs.getString("memempmgnum", "none")
+        memdeptcde = prefs.getString("memdeptcde", "none")
+
+        memhnme = prefs.getString("memhnme", "none")
 
         //기본 Actionbar 제목 변경
         getSupportActionBar()?.setTitle("전시회 상담등록")
         supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화 (화살표)
 
         //RetroFit2 API 객체생성 및 Retro 서비스 객체 생생(서비스는 내부에 둠)
-        retrofit =  RetrofitClient.getInstance()
+        retrofit = RetrofitClient.getInstance()
         supplementService = retrofit.create(RetrofitService::class.java)
 
+
         //API서비스 호출 파라미터
-        getExhList(supplementService,"${BuildConfig.API_KEY}")
+        getExhList(supplementService, "${BuildConfig.API_KEY}")
 
         //ArrayAdapter의 두 번쨰 인자는 스피너 목록에 아이템을 그려줄 레이아웃을 지정하여 줍니다.
-        val adapter = ArrayAdapter(this,R.layout.spinnerlayout, exhListDataArr)
+        val adapter = ArrayAdapter(this, R.layout.spinnerlayout, exhListDataArr)
 
         //activity_main.xml에 입력된 spinner에 어댑터를 연결한다.
         val spinner = findViewById<Spinner>(R.id.splistexhibition)
         spinner.adapter = adapter
 
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 //  textView.text = "선택됨: $position ${spinner.getItemAtPosition(position)}"
-              //  Log.d("testtestset" , "선택됨: $position ${spinner.getItemAtPosition(position)}")
+                //  Log.d("testtestset" , "선택됨: $position ${spinner.getItemAtPosition(position)}")
 
                 val selected = exhListDataArr.get(position)
 
                 fun <K, V> getKey(map: Map<K, V>, target: V): K? {
-                    for ((key, value) in map)
-                    {
+                    for ((key, value) in map) {
                         if (target == value) {
                             return key
                         }
                     }
                     return null
                 }
+
                 var test1 = getKey(mutableexhMap, selected).toString()
                 exhSelCode = test1
-               // Log.d("testtestset1" , " ${test1}")
+                // Log.d("testtestset1" , " ${test1}")
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -206,6 +213,14 @@ class ExhibitionWriteActivity : AppCompatActivity() {
             }
         }
 
+
+
+
+
+        var kautoexhSet = prefs.getString("autoexhSet", "")
+        if(kautoexhSet=="Y") {
+            init()
+        }
 
         val cal = Calendar.getInstance()
 
@@ -270,9 +285,17 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                     kcomcd="10005"
                 }
                 var kstr1 = binding.txtpartUser.text.toString()
-                kstr1 =   "%"+kstr1+"%"
 
-                getexhpartner(supplementService, kcomcd, kstr1,"${BuildConfig.API_KEY}")
+                if (kstr1.equals("null")){
+                    showAlert1("동반자명을 입력하세요")
+
+                } else if (kstr1.length < 2 ){
+                    showAlert1("검색어를 2글자이상 입력하세요")
+                }else {
+
+                    kstr1 =   "%"+kstr1+"%"
+                    getexhpartner(supplementService, kcomcd, kstr1,"${BuildConfig.API_KEY}")
+                }
 
             }
 
@@ -345,7 +368,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
             if (kschvalue.equals("null")){
                 showAlert1("거래처명을 입력하세요")
 
-            } else if (kschvalue.length < 3 ){
+            } else if (kschvalue.length < 2 ){
                 showAlert1("검색어를 2글자이상 입력하세요")
             }else {
 
@@ -405,8 +428,11 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener {
 
             exhComName = binding.txtcomname.text.toString()
+
             exhSampleCnt = binding.txtsamplecnt.text.toString().toInt()
             exhSangdamCnt = binding.txtsangdamcnt.text.toString().toInt()
+
+
 
             //======================================================================================
             // 1.입력필드 값 Validation
@@ -543,6 +569,68 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         return result!!
     }
 
+    private fun init(){
+
+        var autoexhSelCode = prefs.getString("autoexhSetItem", "")
+        var autoexhSdate = prefs.getString("autoexhSetDate", "")
+        var vautoexhPartnerEmpNo = prefs.getString("autoexhPartnerEmpNo", "")
+
+
+        binding.txtcousdate.text = exhDate.toEditable()
+
+        if(autoexhSdate.isNotEmpty()){
+            exhDate = autoexhSdate
+            binding.txtcousdate.text = exhDate.toEditable()
+            Log.d("autoset" , "${exhDate}")
+        }
+        //동반자정보셋팅
+        getexhpartner1(supplementService, vautoexhPartnerEmpNo,"${BuildConfig.API_KEY}")
+
+//        ExhibitionActivity.prefs.setString("autoexhSet", "Y")
+//        ExhibitionActivity.prefs.setString("autoexhSetItem", "${exhSelCode}")
+//        ExhibitionActivity.prefs.setString("autoexhSetDate", "${autoexhdate}")
+//        ExhibitionActivity.prefs.setString("autoexhPartnerEmpNo", "${partnerEmpNo}")
+//        ExhibitionActivity.prefs.setString("autoexhKselectedValue", "${kselectedValue}")
+    }
+
+    private fun getexhpartner1(service: RetrofitService, keyword1:String, keyword2:String){
+        service.exhpartner1(keyword1,keyword2).enqueue(object: retrofit2.Callback<List<DataExhPartner1>> {
+            override  fun onFailure(call: Call<List<DataExhPartner1>>, error: Throwable) {
+                Log.d("DataExhPartner333", "실패원인: {$error}")
+            }
+            override fun onResponse(
+                call: Call<List<DataExhPartner1>>,
+                response: Response<List<DataExhPartner1>>
+            ) {
+                // BuyerCd = keyword2
+                Log.d("DataExhPartner", "DataExhPartner API 성공 ")
+                val responseBody = response.body()!!
+                //    partnercount partnerDialog1
+                dataexhpartnercount1 = mutableListOf<DataExhPartnerCount1>()
+
+                for(partnercnt1 in responseBody) {
+                    dataexhpartnercount1.add( DataExhPartnerCount1(partnercnt1.nme , partnercnt1.hnme))
+                    var ktitle: String = ""
+                    var kcomcd1=""
+                    if(partnercnt1.corpcd=="77777") {
+                        kcomcd1 = "HS"
+                    }else if(partnercnt1.corpcd=="10000") {
+                        kcomcd1="AH"
+                    }else if(partnercnt1.corpcd=="00001") {
+                        kcomcd1="AS"
+                    }else if(partnercnt1.corpcd=="10005") {
+                        kcomcd1="AD"
+                    }
+                    ktitle = "["+kcomcd1+"] " + partnercnt1.hnme + "(" + partnercnt1.nme+")"
+                    binding.txtpartTotal.text = ktitle
+
+                    partnerEmpNo =  partnercnt1.nme.trim()
+                }
+            }
+        })
+    }
+
+
 
     private fun printCount() {
         val text = "${uriList.count()}/${maxNumber}"
@@ -631,6 +719,11 @@ class ExhibitionWriteActivity : AppCompatActivity() {
             @Query("mdate") param3: String,
             @Query("apikey") param4: String
         ): Call<List<ExhCounselNum>>
+        @GET("exhPartner1")
+        fun exhpartner1(
+            @Query("empno") param1: String,
+            @Query("apikey") param2: String
+        ): Call<List<DataExhPartner1>>
 
 
         @GET("comview11")
@@ -665,7 +758,10 @@ class ExhibitionWriteActivity : AppCompatActivity() {
            @Query("memempmgnum2") param15: String,  // memempmgnum
            @Query("exhSampleRtnYN1") param16: String,  // exhSampleRtnYN
            @Query("exhSampleCnt") param17: Int,  // exhSampleCnt
-           @Query("apikey") param18: String
+           @Query("exhDeptNum") param18: String,  // memdeptcde
+           @Query("exhClntPoolno") param19: String,  // ClientprenoP
+
+           @Query("apikey") param20: String
         ): Call<String>
 
         @Multipart
@@ -730,14 +826,14 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                 //getautoNum(supplementService, vdateFormat, "${BuildConfig.API_KEY}")
                 val dialog = LoadingDialog(this@ExhibitionWriteActivity)
                 dialog.show()
-                getexhRegist(supplementService,vautonum ,exhDate,vdateFormat1,kint,comCd,exhNum,exhSangdamCnt,exhSelCode,suggbn,memempmgnum,partnerEmpNo,exhComName,exhDate1,memempmgnum1,memempmgnum2,exhSampleRtnYN1,exhSampleCnt,"${BuildConfig.API_KEY}")
+                getexhRegist(supplementService,vautonum ,exhDate,vdateFormat1,kint,comCd,exhNum,exhSangdamCnt,exhSelCode,suggbn,memempmgnum,partnerEmpNo,exhComName,exhDate1,memempmgnum1,memempmgnum2,exhSampleRtnYN1,exhSampleCnt,memdeptcde,ClientprenoP,"${BuildConfig.API_KEY}")
 
             }
         })
     }
 
-    private fun getexhRegist(service: RetrofitService, keyword1:String,keyword2:String,keyword3:Int,keyword4:Int,keyword5:String,keyword6:String,keyword7:Int,keyword8:String,keyword9:String,keyword10:String,keyword11:String,keyword12:String,keyword13:String,keyword14:String,keyword15:String,keyword16:String,keyword17:Int,keyword18:String){
-        service.exhRegist(keyword1,keyword2,keyword3,keyword4,keyword5,keyword6,keyword7,keyword8,keyword9,keyword10,keyword11,keyword12,keyword13,keyword14,keyword15,keyword16,keyword17,keyword18).enqueue(object: retrofit2.Callback<String> {
+    private fun getexhRegist(service: RetrofitService, keyword1:String,keyword2:String,keyword3:Int,keyword4:Int,keyword5:String,keyword6:String,keyword7:Int,keyword8:String,keyword9:String,keyword10:String,keyword11:String,keyword12:String,keyword13:String,keyword14:String,keyword15:String,keyword16:String,keyword17:Int,keyword18:String,keyword19:String,keyword20:String){
+        service.exhRegist(keyword1,keyword2,keyword3,keyword4,keyword5,keyword6,keyword7,keyword8,keyword9,keyword10,keyword11,keyword12,keyword13,keyword14,keyword15,keyword16,keyword17,keyword18,keyword19,keyword20).enqueue(object: retrofit2.Callback<String> {
 
             //Retrofit error 없이 Response 떨어지면
             override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -747,6 +843,9 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                       finish()
                 }else {
 
+
+
+                    Log.d("memdeptcde" , "${memdeptcde}")
                     for (i in 0 until uriList.count()) {
                         // imageUpload(uriList.get(i), i)
                         Log.d("uriList", "xxxxxxx")
@@ -891,6 +990,24 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                     mutableexhMap.put(exhListData1.ckey , exhListData1.cname)
 
                 }
+
+
+                var autoexhSelCode = prefs.getString("autoexhSetItem", "")
+                if(autoexhSelCode.isNotEmpty()){
+                    exhSelCode = autoexhSelCode
+                }
+
+
+
+                val value1 = mutableexhMap[exhSelCode]
+
+                Log.d("autoset", "${value1}")
+                binding.splistexhibition.setSelection(exhListDataArr.indexOf("${value1}"))
+
+
+
+
+
             }
         })
     }
@@ -956,6 +1073,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
             Log.d("CSearch", "3")
             ClientnameK =  dataList[i]
             ClientcodeP = clientcount[i].clientBizNameK.toString()
+            ClientprenoP =  clientcount[i].clientPreNoP.toString()
 
           //  clientGetData1()
             binding.txtcomname.text = ClientcodeP.toEditable()
@@ -987,7 +1105,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                 clientcount = mutableListOf<ClientCount>()
                 clientDialog1 = mutableListOf<String>()
                 for(clientcnt1 in responseBody) {
-                    clientcount.add( ClientCount(clientcnt1.clientNoP , clientcnt1.clientBizNameK))
+                    clientcount.add( ClientCount(clientcnt1.clientNoP , clientcnt1.clientBizNameK , clientcnt1.clientPreNoP))
                     clientDialog1.add(clientcnt1.clientBizNameK)
                 }
                 Log.d("CSearch", clientcount.size.toString())
@@ -1001,8 +1119,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                     }
                 }else { //거래처번호가 존재 하지 않을 경우
 
-                    noitemDisplay()
-
+                    showAlert1("데이터가 존재하지 않습니다.")
                 }
 
                 ClientcodeP = binding.txtschcomname.toString()
@@ -1049,10 +1166,10 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                 Log.d("dataexhpartnercount", dataexhpartnercount.size.toString())
                 if(dataexhpartnercount.size > 1) {
                     createDialog(partnerDialog1)
-                }else if(dataexhpartnercount.size == 1) { // 거래처가 1개일 경우
+                }else if(dataexhpartnercount.size == 1) { // 가 1개일 경우
                     createDialog(partnerDialog1)
                 }else {
-
+                    showAlert1("데이터가 존재하지 않습니다.")
                 }
 
 

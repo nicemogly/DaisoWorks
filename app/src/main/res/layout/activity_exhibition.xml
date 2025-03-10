@@ -100,10 +100,30 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
 
-        android:background="@color/teal_200"
+        android:background="#A3BAE1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+        <Switch
+            android:id="@+id/autoexhbit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자동 설정"
+            android:layout_gravity="right"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+
+            android:textStyle="bold"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+
     <TextView
         android:id="@+id/lblcounselinfo1"
         android:layout_width="match_parent"

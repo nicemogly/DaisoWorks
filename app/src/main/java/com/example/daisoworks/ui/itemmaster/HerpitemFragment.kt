@@ -138,7 +138,7 @@ class HerpitemFragment : Fragment() {
 
         val LCC = HomeFragment.prefs.getString("companycode","0")
 
-        if(LCC == "00000") {//아성다이소
+        if(LCC == "10005") {//아성다이소
 
             val builder  = androidx.appcompat.app.AlertDialog.Builder(requireContext())
             builder.setTitle("안내")

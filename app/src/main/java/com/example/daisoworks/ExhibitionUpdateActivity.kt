@@ -97,6 +97,7 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
     private lateinit var supplementService : ExhibitionUpdateActivity.RetrofitService
     private var ClientcodeP : String = ""
     private var ClientnameK : String = ""
+    private var ClientprenoP : String = ""
 
     private var data9 : MutableList<String>   = mutableListOf()
     //spinner 값 배열리스트 초기화
@@ -136,6 +137,7 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
     private var exhSangdamCnt : Int  = 0      // 상담일지장수
     private var exhSampleRtnYN : String = "1"   // 샘플반송여부
     private var vautonum : String = ""  // API를 통해 가져오 오토발번코드
+    private var memdeptcde : String = "" // 상담자부서코드
 
 
 
@@ -164,6 +166,7 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
         id1 =  prefs.getString("id", "none")
         memempmgnum =  prefs.getString("memempmgnum", "none")
         memhnme =  prefs.getString("memhnme", "none")
+        memdeptcde =  prefs.getString("memdeptcde", "none")
 
         //기본 Actionbar 제목 변경
         getSupportActionBar()?.setTitle("전시회 상담수정")
@@ -296,9 +299,18 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
                     kcomcd="10005"
                 }
                 var kstr1 = binding.txtpartUser.text.toString()
-                kstr1 =   "%"+kstr1+"%"
 
-                getexhpartner(supplementService, kcomcd, kstr1,"${BuildConfig.API_KEY}")
+
+                if (kstr1.equals("null")){
+                    showAlert1("동반자명을 입력하세요")
+
+                } else if (kstr1.length < 2 ){
+                    showAlert1("검색어를 2글자이상 입력하세요")
+                }else {
+
+                    kstr1 =   "%"+kstr1+"%"
+                    getexhpartner(supplementService, kcomcd, kstr1,"${BuildConfig.API_KEY}")
+                }
 
             }
 
@@ -371,7 +383,7 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
             if (kschvalue.equals("null")){
                 showAlert1("거래처명을 입력하세요")
 
-            } else if (kschvalue.length < 3 ){
+            } else if (kschvalue.length < 2 ){
                 showAlert1("검색어를 2글자이상 입력하세요")
             }else {
 
@@ -520,10 +532,28 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
                 exhDate = binding.txtcousdate.text.toString()
 
 
+
+
                 val dialog = LoadingDialog(this)
 
                 dialog.show()
-                getexhUpdate1(supplementService,vautonum ,exhDate,vdateFormat1,kint,comCd,exhNum,exhSangdamCnt,exhSelCode,suggbn,memempmgnum,partnerEmpNo,exhComName,exhDate1,memempmgnum1,memempmgnum2,exhSampleRtnYN1,exhSampleCnt,"${BuildConfig.API_KEY}")
+
+
+//                    for (i in 0 until binding.rgflag.childCount) {
+//                        val radioButton = binding.rgflag.getChildAt(i) as RadioButton
+//                        if (radioButton.text == "신규") {
+//                            ClientprenoP = ""
+//                            break
+//                        }
+//                    }
+                Log.d("ClientprenoP" , "${ClientprenoP}")
+
+                if(binding.rbflag1.isChecked){
+                     ClientprenoP = ""
+                }
+
+
+                getexhUpdate1(supplementService,vautonum ,exhDate,vdateFormat1,kint,comCd,exhNum,exhSangdamCnt,exhSelCode,suggbn,memempmgnum,partnerEmpNo,exhComName,exhDate1,memempmgnum1,memempmgnum2,exhSampleRtnYN1,exhSampleCnt,memdeptcde,ClientprenoP,"${BuildConfig.API_KEY}")
 
             }
         }
@@ -740,7 +770,9 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
             @Query("memempmgnum2") param15: String,  // memempmgnum
             @Query("exhSampleRtnYN1") param16: String,  // exhSampleRtnYN
             @Query("exhSampleCnt") param17: Int,  // exhSampleCnt
-            @Query("apikey") param18: String
+            @Query("exhDeptNum") param18: String,  // memdeptcde
+            @Query("exhClntPoolno") param19: String,  // ClientprenoP
+            @Query("apikey") param20: String
         ): Call<String>
 
         @GET("exhupdate")
@@ -826,15 +858,15 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
 //        })
 //    }
 
-    private fun getexhUpdate1(service: RetrofitService, keyword1:String, keyword2:String, keyword3:Int, keyword4:Int, keyword5:String, keyword6:String, keyword7:Int, keyword8:String, keyword9:String, keyword10:String, keyword11:String, keyword12:String, keyword13:String, keyword14:String, keyword15:String, keyword16:String, keyword17:Int, keyword18:String){
-        service.exhUpdate1(keyword1,keyword2,keyword3,keyword4,keyword5,keyword6,keyword7,keyword8,keyword9,keyword10,keyword11,keyword12,keyword13,keyword14,keyword15,keyword16,keyword17,keyword18).enqueue(object: retrofit2.Callback<String> {
+    private fun getexhUpdate1(service: RetrofitService, keyword1:String, keyword2:String, keyword3:Int, keyword4:Int, keyword5:String, keyword6:String, keyword7:Int, keyword8:String, keyword9:String, keyword10:String, keyword11:String, keyword12:String, keyword13:String, keyword14:String, keyword15:String, keyword16:String, keyword17:Int,keyword18:String,keyword19:String,keyword20:String){
+        service.exhUpdate1(keyword1,keyword2,keyword3,keyword4,keyword5,keyword6,keyword7,keyword8,keyword9,keyword10,keyword11,keyword12,keyword13,keyword14,keyword15,keyword16,keyword17,keyword18,keyword19,keyword20).enqueue(object: retrofit2.Callback<String> {
 
 
             //Retrofit error 없이 Response 떨어지면
             override fun onResponse(call: Call<String>, response: Response<String>) {
 
 
-
+                Log.d("ttttttt-ClientprenoP1" , "${ClientprenoP}")
 
                 if(uriList.count()==0){
                     Toast.makeText( this@ExhibitionUpdateActivity, "수정되었습니다.", Toast.LENGTH_SHORT).show()
@@ -1026,6 +1058,23 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
                       }
 
 
+
+                    ClientprenoP =  exhUpdateData.upoolno
+
+                    if(ClientprenoP.isNullOrEmpty() || ClientprenoP.equals(" ")){
+                        binding.rbflag1.isChecked = true
+                    }else{
+                        binding.rbflag2.isChecked = true
+                       // Log.d("testtest" , "11111111")
+                    }
+
+
+//                    var kcnp = ClientprenoP.length
+//                    if(kcnp  > 1){
+//                        binding.rbflag2.isChecked = true
+//                    }else{
+//                        binding.rbflag1.isChecked = true
+//                    }
 
 
 
@@ -1275,7 +1324,8 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
             Log.d("CSearch", "3")
             ClientnameK =  dataList[i]
             ClientcodeP = clientcount[i].clientBizNameK.toString()
-
+            ClientprenoP =  clientcount[i].clientPreNoP.toString()
+            Log.d("memdeptcde" , "거래처번호2 + ${ClientprenoP}")
             //  clientGetData1()
             binding.txtcomname.text = ClientcodeP.toEditable()
 
@@ -1306,7 +1356,7 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
                 clientcount = mutableListOf<ClientCount>()
                 clientDialog1 = mutableListOf<String>()
                 for(clientcnt1 in responseBody) {
-                    clientcount.add( ClientCount(clientcnt1.clientNoP , clientcnt1.clientBizNameK))
+                    clientcount.add( ClientCount(clientcnt1.clientNoP , clientcnt1.clientBizNameK, clientcnt1.clientPreNoP))
                     clientDialog1.add(clientcnt1.clientBizNameK)
                 }
                 Log.d("CSearch", clientcount.size.toString())
@@ -1314,18 +1364,21 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
                     createDialog1(clientcount)
                 }else if(clientcount.size == 1) { // 거래처가 1개일 경우
                     ClientcodeP =  clientcount[0].clientBizNameK
+                    ClientprenoP =  clientcount[0].clientPreNoP.toString()
                     if(ClientcodeP.isNotEmpty()) {
                         //  getClientSchList1(supplementService, comCd, ClientcodeP, "${BuildConfig.API_KEY}")
                         binding.txtcomname.text = ClientcodeP.toEditable()
                     }
                 }else { //거래처번호가 존재 하지 않을 경우
 
-                    noitemDisplay()
+                    showAlert1("데이터가 존재하지 않습니다.")
 
                 }
 
+
+
                 ClientcodeP = binding.txtschcomname.toString()
-                Log.d("ItevSearch" , "거래처번호 + ${ClientcodeP}")
+               // Log.d("memdeptcde" , "거래처번호1 + ${ClientprenoP}")
 
             }
         })
@@ -1414,7 +1467,7 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
                 }else if(dataexhpartnercount.size == 1) { // 거래처가 1개일 경우
                     createDialog(partnerDialog1)
                 }else {
-
+                    showAlert1("데이터가 존재하지 않습니다.")
                 }
 
 

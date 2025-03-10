@@ -204,8 +204,10 @@ class LoginActivity : AppCompatActivity() {
 
                     val aaaa = prefs.getString("excutive","0")
 
-                    Log.d("excutive-session", "$aaaa")
-
+//                    Log.d("excutive-session", "$aaaa")
+//                    if(keyword3=="HS1106470"){
+//                        loginFlag ="T"
+//                    }
                     when (loginFlag) {
                         "T" -> { //사번,비번 일치하면
                             //  내부저장소에 id,pw 등록
@@ -219,7 +221,7 @@ class LoginActivity : AppCompatActivity() {
                             var PreLoginCompany = keyword3.substring(0, 2).toUpperCase()
                             if (PreLoginCompany == "AD") {
                                 LoginCompany = "아성다이소"
-                                LoginCompanyCode = "00000"
+                                LoginCompanyCode = "10005"
                             } else if (PreLoginCompany == "AH") {
                                 LoginCompany = "아성에이치엠피"
                                 LoginCompanyCode = "10000"
@@ -232,6 +234,7 @@ class LoginActivity : AppCompatActivity() {
 
                                 getHsMember(supplementService1, "${keyword3}" ,"${BuildConfig.API_KEY}")
 
+
                             }
 
                             //    getHsMember  hsmem_usrid hsmem_deptcde hsmem_corpcd
@@ -242,8 +245,8 @@ class LoginActivity : AppCompatActivity() {
                              Log.d("testtest" , "hs예외")
                                // LoginCompany="아성에이치엠피"
                               //  LoginCompanyCode="10000"
-                                 var key3: String = "HS0910260"
-                                getHsMember(supplementService1, "${key3}" ,"${BuildConfig.API_KEY}")
+                               //  var key3: String = "HS0910260"
+                               // getHsMember(supplementService1, "${key3}" ,"${BuildConfig.API_KEY}")
 
                             }else {
                                 prefs.setString("company","${LoginCompany}")
@@ -405,18 +408,29 @@ class LoginActivity : AppCompatActivity() {
                 hsmem_deptcde = responseBody[0].deptcde
                 hsmem_corpcd = responseBody[0].corpcd
 
+
+
+
                 if(hsmem_corpcd=="10000") {
                     prefs.setString("company", "아성에이치엠피")
                     prefs.setString("companycode", "10000")
                     prefs.setString("hsid", "${hsmem_divicd}")
+                    prefs.setString("memempmgnum", "${hsmem_divicd}")
+                    prefs.setString("memdeptcde", "${hsmem_deptcde}")
+
+
                 } else if(hsmem_corpcd=="00001") {
                     prefs.setString("company", "아성")
                     prefs.setString("companycode", "00001")
                     prefs.setString("hsid", "${hsmem_divicd}")
+                    prefs.setString("memempmgnum", "${hsmem_divicd}")
+                    prefs.setString("memdeptcde", "${hsmem_deptcde}")
                 } else if(hsmem_corpcd=="10005") {
                     prefs.setString("company", "아성다이소")
                     prefs.setString("companycode", "10005")
                     prefs.setString("hsid", "${hsmem_divicd}")
+                    prefs.setString("memempmgnum", "${hsmem_divicd}")
+                    prefs.setString("memdeptcde", "${hsmem_deptcde}")
                 }
 
                 Log.d("HsMember", "${hsmem_divicd}")
@@ -534,6 +548,8 @@ class LoginActivity : AppCompatActivity() {
                 prefs.setString("memdeptcde","$Deptcde")
                 prefs.setString("memempmgnum","$empmgnum")
                 prefs.setString("memhnme","$hnme")
+
+                //Log.d("empmgnum" , "${empmgnum}")
 
             }
         })
