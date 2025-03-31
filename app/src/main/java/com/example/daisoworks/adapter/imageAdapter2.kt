@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.daisoworks.R
 
-class ImageAdapter(val context: Context, val items: ArrayList<Uri>) :
-    RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageAdapter.ViewHolder {
+class ImageAdapter2(val context: Context, val items: ArrayList<Uri>) :
+    RecyclerView.Adapter<ImageAdapter2.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageAdapter2.ViewHolder {
         val v =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_image, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_image2, parent, false)
         return ViewHolder(v)
     }
 
@@ -22,7 +22,7 @@ class ImageAdapter(val context: Context, val items: ArrayList<Uri>) :
         return items.count()
     }
 
-    override fun onBindViewHolder(holder: ImageAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ImageAdapter2.ViewHolder, position: Int) {
         holder.bindItems(items[position])
 //        val layoutParams = holder.itemView.layoutParams
 //        layoutParams.width = 300

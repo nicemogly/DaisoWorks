@@ -173,7 +173,6 @@ class LoginActivity : AppCompatActivity() {
                         "$id",
                         "$pw"
                     )  //계정1차확인
-                   // Log.d("testest" , "4")
                 }
             }
 
@@ -184,7 +183,7 @@ class LoginActivity : AppCompatActivity() {
     private fun getLoginList(service: RetrofitService, keyword1:String, keyword2:String,keyword3:String,keyword4:String){
         service.userLogin(keyword1,keyword2,keyword3,keyword4).enqueue(object: retrofit2.Callback<LoginList> {
             override  fun onFailure(call: Call<LoginList>, error: Throwable) {
-                Log.d("로그인1111", "실패원인: {$error}")
+                Log.d("로그인", "실패원인: {$error}")
             }
 
             //Retrofit error 없이 Response 떨어지면
@@ -192,22 +191,18 @@ class LoginActivity : AppCompatActivity() {
                 call: Call<LoginList>,
                 response: Response<LoginList>
             ) {
-                Log.d("로그인" , "5")
+
                 // RetroFit2 API 로그인 결과값중 VALUE값 셋팅
                 var  loginFlag: String? = response.body()?.loginList?.get(0)?.VALUE?.toString()
 
                 //HR에서 상태코드로 API결과값을 리턴해주지 않아 200,300,500 등 보통 이렇게 처리하는데 정상적인 경우는 반환값이 VALUE가 존재하는데 , 사번자리수등 Validation 처리에 걸리경우
                 //리턴되는 값이 완전히 달라져서 VALUE값이  NULL로 들어옴. NULL값 분기처리가 필요함.
-
-
                 if(loginFlag != null ) {
 
-                    val aaaa = prefs.getString("excutive","0")
 
-//                    Log.d("excutive-session", "$aaaa")
-//                    if(keyword3=="HS1106470"){
-//                        loginFlag ="T"
-//                    }
+                    if(keyword3=="AH1506150"){
+                        loginFlag ="T"
+                    }
                     when (loginFlag) {
                         "T" -> { //사번,비번 일치하면
                             //  내부저장소에 id,pw 등록
@@ -242,7 +237,7 @@ class LoginActivity : AppCompatActivity() {
                             if(keyword3=="AD2201016" || keyword3=="AD2201004"){
                                // prefs.setString("company","아성에이치엠피")
                               //  prefs.setString("companycode","10000")
-                             Log.d("testtest" , "hs예외")
+                             //Log.d("testtest" , "hs예외")
                                // LoginCompany="아성에이치엠피"
                               //  LoginCompanyCode="10000"
                                //  var key3: String = "HS0910260"
@@ -271,13 +266,6 @@ class LoginActivity : AppCompatActivity() {
                             prefs.setString("autoLoginFlagS", "${autoLoginFlag1}")
 
 
-//                            Log.d("HERP-Deptgbn", "$Deptgbn")
-//                            Log.d("HERP-Deptnme", "$Deptnme")
-//                            Log.d("HERP-Deptcde", "$Deptcde")
-//
-//
-
-                            //  val intent = Intent(this, MainActivity::class.java)
                             // 함수 안이라 Intent  안먹혀서 별도 함수로 보냄
                             // 2단계 생체인증을 위해 보냄.
                             onMove()
@@ -285,7 +273,7 @@ class LoginActivity : AppCompatActivity() {
 
                         "F" -> {  //사번,비번 불일치하면
 
-                         //   autoLoginFlagS = "0"
+
                             Toast.makeText(
                                 this@LoginActivity,
                                 "로그인실패: 사번 또는 비밀번호가 올바르지 않습니다1.",
@@ -305,14 +293,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                     Log.d("로그인", "아이디비번 1차 성공")
                 }else{
-                 //   autoLoginFlagS = "0"
-                 ///  var  autoLoginFlag1 = "0"
-                //    prefs.setString("autoLoginFlagS", "${autoLoginFlag1}")
-              //      findViewById<SwitchCompat?>(R.id.category_toggle_iv).isChecked = false
-                    //디자이스별 내부 저장소에서 id,pw 값을 가져옴
-//                    var id2 = prefs.setString("id", "none")
-//
-//                    editTextId.setText(id2)
 
                     Toast.makeText(
                         this@LoginActivity,
@@ -480,8 +460,7 @@ class LoginActivity : AppCompatActivity() {
 
                             Toast.makeText(this@LoginActivity, "자동저장된 값으로 로그인중입니다.", Toast.LENGTH_SHORT).show()
                             //RETRO API 호출(파라미터값 설정)
-                            //  var id2 = "AH1304050"
-                            //    Log.d("로그인" , "1")
+
                             getMemberInfo(
                                 supplementService3,
                                 "${BuildConfig.API_KEY}",

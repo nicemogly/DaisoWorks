@@ -189,10 +189,6 @@ class ExhibitionActivity : AppCompatActivity() {
             }
         }
 
-
-
-
-
         binding.txtcousdate.setOnClickListener{
             keyBordHide()
             DatePickerDialog(this, DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
@@ -218,9 +214,7 @@ class ExhibitionActivity : AppCompatActivity() {
             }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-//        binding.txtcousdate.setOnFocusChangeListener{ view, b ->
-//
-//         }
+
         binding.txtcouedate.setOnClickListener{
             keyBordHide()
             DatePickerDialog(this, DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
@@ -246,9 +240,6 @@ class ExhibitionActivity : AppCompatActivity() {
             }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-
-
-
         //RetroFit2 API 객체생성 및 Retro 서비스 객체 생생(서비스는 내부에 둠)
         retrofit =  RetrofitClient.getInstance()
         supplementService = retrofit.create(RetrofitService::class.java)
@@ -267,9 +258,6 @@ class ExhibitionActivity : AppCompatActivity() {
         //Log.d("testtestset" , "${memempmgnum}")
 
         getExhMyList(supplementService,"${psdate}","${pedate}","${memempmgnum}","${BuildConfig.API_KEY}")
-
-
-
         binding.exhSchRegist.setOnClickListener{
             keyBordHide()
             //schsdate schedate empno
@@ -288,9 +276,6 @@ class ExhibitionActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-
-
     }
     fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -303,7 +288,6 @@ class ExhibitionActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
-
 
     //Retrofit Object 설정
     object RetrofitClient {
@@ -357,8 +341,6 @@ class ExhibitionActivity : AppCompatActivity() {
 
     }
 
-//in  : memempmgnum , exhDate , apikey
-//out : tclntConNo, exhNum , exhComName ,exhDate
 
     private fun showBottomSheet() {
 
@@ -368,17 +350,13 @@ class ExhibitionActivity : AppCompatActivity() {
 
         // BottomSheet의 View Binding 초기화
         val bottomSheetBinding = BottomSheetLayoutBinding.inflate(layoutInflater)
-
-
         bottomSheetDialog.setContentView(bottomSheetBinding.root)
-
-
         var cal = Calendar.getInstance()
 
 
         bottomSheetBinding.exhRegistcal.setOnClickListener {
             keyBordHide()
-            Log.d("ddddd" , "ddddd")
+
             DatePickerDialog(this, DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
 
                 var mmonth = ""
@@ -411,9 +389,6 @@ class ExhibitionActivity : AppCompatActivity() {
 
         bottomSheetDialog.show()
 
-
-
-
         //ArrayAdapter의 두 번쨰 인자는 스피너 목록에 아이템을 그려줄 레이아웃을 지정하여 줍니다.
         val adapter = ArrayAdapter(this,
             com.example.daisoworks.R.layout.spinnerlayout, exhListDataArr)
@@ -422,8 +397,6 @@ class ExhibitionActivity : AppCompatActivity() {
         val spinner = bottomSheetBinding.splistexhibition1
       //  Log.d("spineer" , "${spinner}")
         spinner.adapter = adapter
-
-
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -451,18 +424,11 @@ class ExhibitionActivity : AppCompatActivity() {
             }
         }
 
-
-
         val list01 = arrayOf("회사선택","HS", "AH", "AS", "AD")
-
         //ArrayAdapter의 두 번쨰 인자는 스피너 목록에 아이템을 그려줄 레이아웃을 지정하여 줍니다.
         val adapter1 = ArrayAdapter(this, com.example.daisoworks.R.layout.spinnerlayout, list01)
-
-
         // val spinner = findViewById<Spinner>(R.id.splistexhibition)
         bottomSheetBinding.spexhCom.adapter = adapter1
-
-
         bottomSheetBinding.exhUserSearch.setOnClickListener {
 
                 if(comSel == "회사선택" || comSel == "") {
@@ -488,16 +454,10 @@ class ExhibitionActivity : AppCompatActivity() {
                     }else {
                         kstr1 =   "%"+kstr1+"%"
                         getexhpartner(supplementService, kcomcd, kstr1,"${BuildConfig.API_KEY}", bottomSheetBinding)
-
                         bottomSheetBinding.txtpartTotal1.setText("${kselectedValue}")
-
-
                     }
                 }
-
             }
-
-
         bottomSheetBinding.exhUserSet.setOnClickListener {
 
             val  autoexhdate = bottomSheetBinding.txtcousdate.text
@@ -506,21 +466,14 @@ class ExhibitionActivity : AppCompatActivity() {
             prefs.setString("autoexhSetDate", "${autoexhdate}")
             prefs.setString("autoexhPartnerEmpNo", "${partnerEmpNo}")
             prefs.setString("autoexhKselectedValue", "${kselectedValue}")
-
             bottomSheetDialog.dismiss()
-
-
         }
 
         bottomSheetBinding.spexhCom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                //  textView.text = "선택됨: $position ${binding.spexhCom.getItemAtPosition(position)}"
-                Log.d("testtestset" , "선택됨: $position ${bottomSheetBinding.spexhCom.getItemAtPosition(position)}")
-
                 var kint: String = bottomSheetBinding.spexhCom.getItemAtPosition(position).toString()
                 comSel = kint
 
-               // Log.d("testtestset" , "${comSel}")
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -601,10 +554,6 @@ class ExhibitionActivity : AppCompatActivity() {
                 }else {
                     showAlert1("데이터가 존재하지 않습니다.")
                 }
-
-
-
-
             }
         })
     }
@@ -619,9 +568,6 @@ class ExhibitionActivity : AppCompatActivity() {
 
         val dataList = pparnercount
 
-       // val bottomSheetBinding = BottomSheetLayoutBinding.inflate(layoutInflater)
-        // BottomSheetDialog 초기화
-     //   val bottomSheetDialog = BottomSheetDialog(this)
         val adapter = ArrayAdapter<String>(
             this, android.R.layout.select_dialog_singlechoice ,dataList
         )
@@ -631,13 +577,8 @@ class ExhibitionActivity : AppCompatActivity() {
         // builder에 어뎁터 설정
         // 두 번째 매개변수에는 사용자가 선택한 항목의 순서값이 들어온다.
 
-//        builder.setAdapter(adapter) { _, which ->
-//            val selectedItem = dataList[which] // 선택된 데이터 가져오기
-//            onItemClick(selectedItem) // 선택한 값을 콜백으로 전달
-//        }
 
         builder.setAdapter(adapter){ dialogInterface: DialogInterface, i: Int ->
-           // setTextView.text = "선택한 항목 : ${dataList[i]}"
             // BottomSheet의 View Binding 초기화
             kselectedValue = dataList[i] // 선택한 데이터 가져오기
             onItemClick(kselectedValue) // 콜백 호출
@@ -651,7 +592,6 @@ class ExhibitionActivity : AppCompatActivity() {
             val indexOf2 = schstr.indexOf(searchkey2)
 
             partnerEmpNo = schstr.substring(indexOf1, indexOf2)
-             //Log.d("testtest" , "${partnerEmpNo}")
             keyBordHide()
         }
 
@@ -675,7 +615,6 @@ class ExhibitionActivity : AppCompatActivity() {
             ) {
                 val responseBody = response.body()!!
 
-                Log.d("exhListData1" , "{$responseBody.size}")
 
                 //val myStringBuilder = StringBuilder()
                 exhListDataArr.clear()
@@ -718,16 +657,10 @@ class ExhibitionActivity : AppCompatActivity() {
 
                 expandableAdapterExhMyList.setItemClickListener(object: ExpandableAdapterMyList.OnItemClickListener{
                     override fun onClick(v: View, position: Int) {
-                        // 클릭 시 이벤트 작성
-//                        Toast.makeText(this@ExhibitionActivity ,
-//                            "${languageList[position].tclntConNo}\n${languageList[position].exhNum}",
-//                            Toast.LENGTH_SHORT).show()
 
                         val intent = Intent(this@ExhibitionActivity, ExhibitionUpdateActivity::class.java)
                         intent.putExtra("Data1", "${languageList[position].tclntConNo}")
                         startActivity(intent)
-
-
                     }
                 })
             }

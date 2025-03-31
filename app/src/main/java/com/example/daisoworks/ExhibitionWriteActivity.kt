@@ -70,23 +70,19 @@ class ExhibitionWriteActivity : AppCompatActivity() {
 
     companion object{
         lateinit var prefs: PreferenceUtil
-        private const val TAG = "ExhibitionWriteActivity"
+        //private const val TAG = "ExhibitionWriteActivity"
     }
-
-
 
     // 전역 변수로 바인딩 객체 선언
     private var mbinding: ActivityExhibitionWriteBinding? = null
     // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
     private val binding get() = mbinding!!
 
-    private lateinit var uri: Uri
+    //private lateinit var uri: Uri
     //lateinit var exhibitionActivity: ExhibitionActivity
     private var uriList = ArrayList<Uri>()
     private val maxNumber = 10
     lateinit var adapter: ImageAdapter
-
-
 
     //데이터 통신
     private lateinit var retrofit : Retrofit
@@ -95,30 +91,21 @@ class ExhibitionWriteActivity : AppCompatActivity() {
     private var ClientnameK : String = ""
     private var ClientprenoP : String = ""
 
-
     //spinner 값 배열리스트 초기화
     private val exhListDataArr = mutableListOf<String>("전시회 선택")
     //spinner는 id,value 형태가 아니라서 value만 들어감. 그래서 Map형태로 API통신시 미리 두개를 가져오(한개는 spinner값, 검색버튼 누를때 spinner값을 코드로 치환해주기 위한 Map임.
     private var mutableexhMap = mutableMapOf<String, String>()
-
     private var comSel: String = ""
-
     private var dataexhpartnercount = mutableListOf<DataExhPartnerCount>()
     private var partnerDialog1 = mutableListOf<String>()
-    private var Partnernme : String = ""
-    private var Partnerhnme : String = ""
-    private var Partnercorpcd : String = ""
-
-
+//    private var Partnernme : String = ""
+//    private var Partnerhnme : String = ""
+//    private var Partnercorpcd : String = ""
     private var clientcount = mutableListOf<ClientCount>()
     private var clientDialog1 = mutableListOf<String>()
-
     private var id1 : String = ""
     private var vcompanycode : String = ""
-
-
     private var memhnme : String = ""
-
     // Regist Filed
     private var exhSelCode : String = ""  // 전시회코드
     private var exhDate : String = ""     // 전시회상담일자
@@ -177,7 +164,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
 
 
         //API서비스 호출 파라미터
-        getExhList(supplementService, "${BuildConfig.API_KEY}")
+        getExhList(supplementService, BuildConfig.API_KEY)
 
         //ArrayAdapter의 두 번쨰 인자는 스피너 목록에 아이템을 그려줄 레이아웃을 지정하여 줍니다.
         val adapter = ArrayAdapter(this, R.layout.spinnerlayout, exhListDataArr)
@@ -185,7 +172,6 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         //activity_main.xml에 입력된 spinner에 어댑터를 연결한다.
         val spinner = findViewById<Spinner>(R.id.splistexhibition)
         spinner.adapter = adapter
-
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -203,9 +189,8 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                     return null
                 }
 
-                var test1 = getKey(mutableexhMap, selected).toString()
+                val test1 = getKey(mutableexhMap, selected).toString()
                 exhSelCode = test1
-                // Log.d("testtestset1" , " ${test1}")
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -213,17 +198,12 @@ class ExhibitionWriteActivity : AppCompatActivity() {
             }
         }
 
-
-
-
-
-        var kautoexhSet = prefs.getString("autoexhSet", "")
+        val kautoexhSet = prefs.getString("autoexhSet", "")
         if(kautoexhSet=="Y") {
             init()
         }
 
         val cal = Calendar.getInstance()
-
         // 달력 로드
         binding.exhRegistcal.setOnClickListener {
             keyBordHide()
@@ -243,32 +223,24 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                 }else{
                     dday = ""+(d)
                 }
-
-
                   binding.txtcousdate.text = "$y-${mmonth}-$dday".toEditable()
                   exhDate  =  "$y-${mmonth}-$dday"
             }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-
-        var totname = memhnme + "("+id1+"/"+memempmgnum+")"
-
-
+        val totname = memhnme + "("+id1+"/"+memempmgnum+")"
         binding.txtcousTotal.setText(totname)
         binding.txtcoussabun.setText(id1)
         binding.txtcousempno.setText(memempmgnum)
 
 
         val list01 = arrayOf("회사선택","HS", "AH", "AS", "AD")
-
         //ArrayAdapter의 두 번쨰 인자는 스피너 목록에 아이템을 그려줄 레이아웃을 지정하여 줍니다.
         val adapter1 = ArrayAdapter(this,R.layout.spinnerlayout, list01)
 
 
        // val spinner = findViewById<Spinner>(R.id.splistexhibition)
         binding.spexhCom.adapter = adapter1
-
-
         binding.exhUserSearch.setOnClickListener {
 
             if(comSel == "회사선택" || comSel == "") {
@@ -294,23 +266,19 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                 }else {
 
                     kstr1 =   "%"+kstr1+"%"
-                    getexhpartner(supplementService, kcomcd, kstr1,"${BuildConfig.API_KEY}")
+                    getexhpartner(supplementService, kcomcd, kstr1, BuildConfig.API_KEY)
                 }
 
             }
 
         }
 
-
         binding.spexhCom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                //  textView.text = "선택됨: $position ${binding.spexhCom.getItemAtPosition(position)}"
-                Log.d("testtestset" , "선택됨: $position ${binding.spexhCom.getItemAtPosition(position)}")
 
-                var kint: String = binding.spexhCom.getItemAtPosition(position).toString()
+                val kint: String = binding.spexhCom.getItemAtPosition(position).toString()
                 comSel = kint
 
-                Log.d("testtestset" , "${comSel}")
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -319,10 +287,8 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         }
         
         binding.exhcodenum.setOnClickListener{
-           var  kcalvalue = binding.txtcousdate.text.toString()
-          // var  phsid =  prefs.getString("hsid","0")
+           val  kcalvalue = binding.txtcousdate.text.toString()
 
-            Log.d("testtest" ,"${exhSelCode}")
             if(exhSelCode.equals("null")){
                 Toast.makeText( this,"전시회를 선택하세요", Toast.LENGTH_SHORT).show()
             }else if(kcalvalue == "") {
@@ -330,10 +296,8 @@ class ExhibitionWriteActivity : AppCompatActivity() {
             }else{
                 //Toast.makeText(this, "발번 시작", Toast.LENGTH_SHORT).show()
                 //API서비스 호출 파라미터  exhnum , hsid ,mdate
-                Log.d("testtest_exhSelCode" ,"${exhSelCode}")
-             //   Log.d("testtest_phsid" ,"${phsid}")
-                Log.d("testtest_kcalvalue" ,"${kcalvalue}")
-                getexhCounselNum(supplementService, exhSelCode , kcalvalue,"${BuildConfig.API_KEY}")
+
+                getexhCounselNum(supplementService, exhSelCode , kcalvalue, BuildConfig.API_KEY)
             }
         }
 
@@ -361,10 +325,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         }
 
             binding.exhcomsearch.setOnClickListener{
-
-
-
-            var  kschvalue = binding.txtschcomname.text.toString()
+            val  kschvalue = binding.txtschcomname.text.toString()
             if (kschvalue.equals("null")){
                 showAlert1("거래처명을 입력하세요")
 
@@ -372,13 +333,11 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                 showAlert1("검색어를 2글자이상 입력하세요")
             }else {
 
-               var kschvalue1 =   "%"+kschvalue+"%"
-                Log.d("testtest" , "${comCd}")
-                getClientSchCountList(supplementService, comCd, kschvalue1,"${BuildConfig.API_KEY}")
+               val kschvalue1 =   "%"+kschvalue+"%"
+
+                getClientSchCountList(supplementService, comCd, kschvalue1, BuildConfig.API_KEY)
             }
         }
-
-
 
         binding.rgsamflag.setOnCheckedChangeListener { _, checkedId1 ->
             //if catButton was selected add 1 to variable cat
@@ -409,7 +368,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                  this,
                     "이미지는 최대 ${maxNumber}장까지 첨부할 수 있습니다.",
                     Toast.LENGTH_SHORT
-                ).show();
+                ).show()
                 return@setOnClickListener
             }
             val intent = Intent(Intent.ACTION_PICK)
@@ -428,12 +387,8 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener {
 
             exhComName = binding.txtcomname.text.toString()
-
             exhSampleCnt = binding.txtsamplecnt.text.toString().toInt()
             exhSangdamCnt = binding.txtsangdamcnt.text.toString().toInt()
-
-
-
             //======================================================================================
             // 1.입력필드 값 Validation
             // 2.채번번호 가지고 오기
@@ -459,24 +414,24 @@ class ExhibitionWriteActivity : AppCompatActivity() {
             }
 
             // 1.1 전시회코드 체크
-            if(exhSelCode=="" || exhSelCode == null || exhSelCode.equals("null") ){
+            if(exhSelCode=="" ||  exhSelCode.equals("null") ){
                 showAlert("전시회 상담등록 오류" , "해당 전시회를 선택하세요", "확인" )
             // 1.2 전시회 상담일자 체크
-            } else if(exhDate=="" || exhDate == null || exhDate.equals("null") ){
+            } else if(exhDate==""  || exhDate.equals("null") ){
                 showAlert("전시회 상담등록 오류" , "전시회 상담일자를 입력하세요", "확인" )
             // 1.3 전시회 상담자 체크
-            } else if( memempmgnum==null  || memempmgnum=="null" || memempmgnum=="" ||  memempmgnum=="0" || memempmgnum.equals("0") ){
+            } else if(  memempmgnum=="null" || memempmgnum=="" ||  memempmgnum=="0" || memempmgnum.equals("0") ){
                     showAlert("전시회 상담등록 오류" , "정상적인 접근 방법이 아닙니다. 시스템 관리자에게 문의 바랍니다.", "확인" )
             // 1.4 전시회 동반자 체크
-            } else if(partnerEmpNo=="" || partnerEmpNo == null || partnerEmpNo.equals("null")  ){
+            } else if(partnerEmpNo=="" ||  partnerEmpNo.equals("null")  ){
                 showAlert("전시회 상담등록 오류" , "동반자 정보를 선택하세요", "확인" )
 
             // 1.5 전시회 동반자 체크
-            } else if(exhNum=="" || exhNum == null || exhNum.equals("null")  ){
+            } else if(exhNum=="" || exhNum.equals("null")  ){
                 showAlert("전시회 상담등록 오류" , "상담일지코드를 발번하세요.", "확인" )
 
             // 1.6 전시회 상담업체 체크
-            } else if(exhComName=="" || exhComName == null || exhComName.equals("null")  ){
+            } else if(exhComName=="" ||  exhComName.equals("null")  ){
                 showAlert("전시회 상담등록 오류" , "상담업체명을 입력하세요.", "확인" )
 
             // 1.7 전시회 상담샘플수 체크
@@ -499,15 +454,10 @@ class ExhibitionWriteActivity : AppCompatActivity() {
              //   showLoadingDialog()
                 getautoNum(supplementService, vdateFormat, "${BuildConfig.API_KEY}")
 
-
             }
-
-
         }
 
     }
-
-
     fun showAlert(str1: String ,str2: String , str3: String ){
 
         val builder = AlertDialog.Builder(this)
@@ -520,8 +470,6 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         builder.create()
         builder.show()
     }
-
-
 
     private val registerForActivityResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -559,21 +507,21 @@ class ExhibitionWriteActivity : AppCompatActivity() {
 
     // 절대경로 변환
     fun absolutelyPath(path: Uri?, context : Context): String {
-        var proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
-        var c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
-        var index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        val proj: Array<String> = arrayOf(MediaStore.Images.Media.DATA)
+        val c: Cursor? = context.contentResolver.query(path!!, proj, null, null, null)
+        val index = c?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
         c?.moveToFirst()
 
-        var result = c?.getString(index!!)
+        val result = c?.getString(index!!)
 
         return result!!
     }
 
     private fun init(){
 
-        var autoexhSelCode = prefs.getString("autoexhSetItem", "")
-        var autoexhSdate = prefs.getString("autoexhSetDate", "")
-        var vautoexhPartnerEmpNo = prefs.getString("autoexhPartnerEmpNo", "")
+        //var autoexhSelCode = prefs.getString("autoexhSetItem", "")
+        val autoexhSdate = prefs.getString("autoexhSetDate", "")
+        val vautoexhPartnerEmpNo = prefs.getString("autoexhPartnerEmpNo", "")
 
 
         binding.txtcousdate.text = exhDate.toEditable()
@@ -581,16 +529,9 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         if(autoexhSdate.isNotEmpty()){
             exhDate = autoexhSdate
             binding.txtcousdate.text = exhDate.toEditable()
-            Log.d("autoset" , "${exhDate}")
         }
         //동반자정보셋팅
-        getexhpartner1(supplementService, vautoexhPartnerEmpNo,"${BuildConfig.API_KEY}")
-
-//        ExhibitionActivity.prefs.setString("autoexhSet", "Y")
-//        ExhibitionActivity.prefs.setString("autoexhSetItem", "${exhSelCode}")
-//        ExhibitionActivity.prefs.setString("autoexhSetDate", "${autoexhdate}")
-//        ExhibitionActivity.prefs.setString("autoexhPartnerEmpNo", "${partnerEmpNo}")
-//        ExhibitionActivity.prefs.setString("autoexhKselectedValue", "${kselectedValue}")
+        getexhpartner1(supplementService, vautoexhPartnerEmpNo, BuildConfig.API_KEY)
     }
 
     private fun getexhpartner1(service: RetrofitService, keyword1:String, keyword2:String){
@@ -639,7 +580,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
 
     // 파일 업로드
     // 파일을 가리키는 참조를 생성한 후 putFile에 이미지 파일 uri를 넣어 파일을 업로드한다.
-    private fun imageUpload(uri: Uri, count: Int) {
+//    private fun imageUpload(uri: Uri, count: Int) {
 //        // storage 인스턴스 생성
 //        val storage = Firebase.storage
 //        // storage 참조
@@ -657,7 +598,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
 //            // 파일 업로드 실패
 //            Toast.makeText(getActivity(), "사진 업로드 실패", Toast.LENGTH_SHORT).show();
 //        }
-    }
+//    }
 
     fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -805,11 +746,11 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                 val now1: LocalDateTime = LocalDateTime.now()
                 val vdateFormat1 = now1.format(DateTimeFormatter.ofPattern("yyyyMM")).toInt()
                 //  Log.d("testtest", "${vautonum}")
-                var kkk = vautonum.substring(8,12)
+                val kkk = vautonum.substring(8,12)
                 //var kkk = "0016"
-                var kint = kkk.toInt()
+                val kint = kkk.toInt()
                 //Log.d("testtest", "${kint}")
-                var suggbn = "300"
+                val suggbn = "300"
 
                 var exhSampleRtnYN1: String = "1"
                 if(exhSampleRtnYN=="Y"){
@@ -818,15 +759,17 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                     exhSampleRtnYN1 = "1"
                 }
 
-                var memempmgnum1 = memempmgnum
-                var memempmgnum2 = memempmgnum
-                var exhDate1 = exhDate
+                val memempmgnum1 = memempmgnum
+                val memempmgnum2 = memempmgnum
+                val exhDate1 = exhDate
               //  var exhsampcnt = binding.txtsamplecnt
                 // 3.전시회 상담 헤더 등록
                 //getautoNum(supplementService, vdateFormat, "${BuildConfig.API_KEY}")
                 val dialog = LoadingDialog(this@ExhibitionWriteActivity)
                 dialog.show()
-                getexhRegist(supplementService,vautonum ,exhDate,vdateFormat1,kint,comCd,exhNum,exhSangdamCnt,exhSelCode,suggbn,memempmgnum,partnerEmpNo,exhComName,exhDate1,memempmgnum1,memempmgnum2,exhSampleRtnYN1,exhSampleCnt,memdeptcde,ClientprenoP,"${BuildConfig.API_KEY}")
+                getexhRegist(supplementService,vautonum ,exhDate,vdateFormat1,kint,comCd,exhNum,exhSangdamCnt,exhSelCode,suggbn,memempmgnum,partnerEmpNo,exhComName,exhDate1,memempmgnum1,memempmgnum2,exhSampleRtnYN1,exhSampleCnt,memdeptcde,ClientprenoP,
+                    BuildConfig.API_KEY
+                )
 
             }
         })
@@ -845,11 +788,11 @@ class ExhibitionWriteActivity : AppCompatActivity() {
 
 
 
-                    Log.d("memdeptcde" , "${memdeptcde}")
+                    //Log.d("memdeptcde" , "${memdeptcde}")
                     for (i in 0 until uriList.count()) {
                         // imageUpload(uriList.get(i), i)
                         Log.d("uriList", "xxxxxxx")
-                        var file =
+                        val file =
                             File(absolutelyPath(uriList.get(i), this@ExhibitionWriteActivity))
                         var requestFile =
                             RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
@@ -865,7 +808,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                         }
                         Log.d("uriListff", "${orifilename}")
                         //  var body = MultipartBody.Part.createFormData("file", vautonum+"_"+k+".JPG", requestFile)
-                        var body =
+                        val body =
                             MultipartBody.Part.createFormData("file", orifilename, requestFile)
 
                         var vattr1 = vautonum;
@@ -914,11 +857,6 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                         }
                     }
                 }
-
-              //  Toast.makeText( this@ExhibitionWriteActivity, "등록되었습니다.", Toast.LENGTH_SHORT).show()
-               // val responseBody = response.body()!!
-             //
-             //   finish()
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
@@ -979,7 +917,6 @@ class ExhibitionWriteActivity : AppCompatActivity() {
             ) {
                 val responseBody = response.body()!!
 
-                Log.d("exhListData1" , "{$responseBody.size}")
 
                 //val myStringBuilder = StringBuilder()
                 exhListDataArr.clear()
@@ -1001,7 +938,6 @@ class ExhibitionWriteActivity : AppCompatActivity() {
 
                 val value1 = mutableexhMap[exhSelCode]
 
-                Log.d("autoset", "${value1}")
                 binding.splistexhibition.setSelection(exhListDataArr.indexOf("${value1}"))
 
 
@@ -1057,12 +993,12 @@ class ExhibitionWriteActivity : AppCompatActivity() {
             dataList.add(clientcount[i].clientBizNameK)
             // Log.d("CSearch", clientcount[i].clientBizNameK.toString())
         }
-        Log.d("CSearch", "1")
+
         val adapter = ArrayAdapter<String>(
            this, android.R.layout.select_dialog_singlechoice ,dataList
         )
 
-        Log.d("CSearch", "2")
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle("거래처 선택")
         // builder에 어뎁터 설정
@@ -1070,7 +1006,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
         builder.setAdapter(adapter){ dialogInterface: DialogInterface, i: Int ->
             // setTextView.text = "선택한 항목 : ${dataList[i]}"
 
-            Log.d("CSearch", "3")
+
             ClientnameK =  dataList[i]
             ClientcodeP = clientcount[i].clientBizNameK.toString()
             ClientprenoP =  clientcount[i].clientPreNoP.toString()
@@ -1081,7 +1017,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
 
         }
 
-        Log.d("CSearch", "4")
+
         builder.setNegativeButton("취소",null)
         builder.show()
         //binding.svClient.clearFocus()
@@ -1108,7 +1044,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                     clientcount.add( ClientCount(clientcnt1.clientNoP , clientcnt1.clientBizNameK , clientcnt1.clientPreNoP))
                     clientDialog1.add(clientcnt1.clientBizNameK)
                 }
-                Log.d("CSearch", clientcount.size.toString())
+
                 if(clientcount.size > 1) { //거래처가 1개이상  존재할 경우
                     createDialog1(clientcount)
                 }else if(clientcount.size == 1) { // 거래처가 1개일 경우
@@ -1123,7 +1059,7 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                 }
 
                 ClientcodeP = binding.txtschcomname.toString()
-                Log.d("ItevSearch" , "거래처번호 + ${ClientcodeP}")
+
 
             }
         })
@@ -1171,9 +1107,6 @@ class ExhibitionWriteActivity : AppCompatActivity() {
                 }else {
                     showAlert1("데이터가 존재하지 않습니다.")
                 }
-
-
-
 
             }
         })

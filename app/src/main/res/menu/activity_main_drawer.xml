@@ -45,6 +45,13 @@
                </item>
 
 
+               <item
+                   android:id="@+id/nav_sam"
+                   android:icon="@drawable/baseline_photo_library_24"
+                   android:title="샘플관리" >
+               </item>
+
+
            </group>
        </menu>
    </item>

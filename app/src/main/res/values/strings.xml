@@ -12,6 +12,7 @@
     <string name="menu_home">홈</string>
     <string name="menu_exhibition">전시회관리</string>
     <string name="menu_exhibition1">전시회관리</string>
+    <string name="menu_sample">샘플관리</string>
     <string name="menu_analysis">디자인현황</string>
     <string name="menu_approve">디자인결재</string>
     <string name="menu_approve1">디자인조회</string>
