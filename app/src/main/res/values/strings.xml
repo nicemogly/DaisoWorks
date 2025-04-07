@@ -12,7 +12,9 @@
     <string name="menu_home">홈</string>
     <string name="menu_exhibition">전시회관리</string>
     <string name="menu_exhibition1">전시회관리</string>
-    <string name="menu_sample">샘플관리</string>
+    <string name="menu_sample">샘플이미지 등록</string>
+    <string name="menu_sample1">샘플접수 관리</string>
+    <string name="menu_sample2">스터디 결과등록</string>
     <string name="menu_analysis">디자인현황</string>
     <string name="menu_approve">디자인결재</string>
     <string name="menu_approve1">디자인조회</string>
@@ -40,6 +42,7 @@
     <string name="title_notifications">디자인결재</string>
 
 
+    <string name="home_add_samscan">샘플스캔</string>
     <string name="home_add_exhibition">상담등록</string>
     <string name="herp_title1">기본정보</string>
     <string name="versioninfo">버전 업데이트 안내</string>

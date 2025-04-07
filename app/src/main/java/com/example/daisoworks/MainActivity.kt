@@ -127,7 +127,10 @@ class MainActivity : AppCompatActivity()  {
                 R.id.nav_client,
                 R.id.nav_approve1,
                 R.id.nav_exh,
-                R.id.nav_exh1
+                R.id.nav_exh1,
+                R.id.nav_sam,
+                R.id.nav_sam1,
+                R.id.nav_sam2
             ), drawerLayout
         )
 

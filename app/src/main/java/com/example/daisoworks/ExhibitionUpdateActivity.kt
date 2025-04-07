@@ -974,19 +974,48 @@ class ExhibitionUpdateActivity : AppCompatActivity() {
 
                 var kvalautonum =  responseBody[0].counselautonum
 
-                Log.d("ExhCounselNum" , "{$kvalautonum}")
+//                Log.d("ExhCounselNum" , "{$kvalautonum}")
+//                //  kvalautonum = "T2025-01-22-09"
+//                if(kvalautonum == "0"){
+//                    kvalautonum = "T"+keyword2+"-01"
+//                }else{
+//                    var tlength = kvalautonum.length
+//                    var tstr1 = kvalautonum.substring(tlength-2 , tlength).toInt()+1
+//                    var tstr11 = tstr1.toString()
+//                    if(tstr1 < 10) {
+//                        tstr11 = "0"+tstr1
+//                    }
+//                    kvalautonum = kvalautonum.substring(0 , tlength-2)+tstr11
+//                }
+
+
+
+
+                var autonum1 = keyword2.split("-")
+                var yy: Int = autonum1[0].toInt()
+                var ym: Int  = autonum1[1].toInt()
+                var yd: Int = autonum1[2].toInt()
+
+                Log.d("autonum1" , "${ym}")
+                var pmm : String = ""
+                var vkey1: String = yy.toString() + "-" + ym.toString() + "-" + yd.toString()
                 //  kvalautonum = "T2025-01-22-09"
                 if(kvalautonum == "0"){
-                    kvalautonum = "T"+keyword2+"-01"
+                    //kvalautonum = "T"+keyword2+"-01"
+                    kvalautonum = vkey1+"-1"
                 }else{
-                    var tlength = kvalautonum.length
-                    var tstr1 = kvalautonum.substring(tlength-2 , tlength).toInt()+1
-                    var tstr11 = tstr1.toString()
-                    if(tstr1 < 10) {
-                        tstr11 = "0"+tstr1
-                    }
-                    kvalautonum = kvalautonum.substring(0 , tlength-2)+tstr11
+
+                    var autonum2 = kvalautonum.split("-")
+                    var yy2: Int = autonum2[0].toInt()
+                    var ym2: Int  = autonum2[1].toInt()
+                    var yd2: Int = autonum2[2].toInt()
+                    var ys2: Int = autonum2[3].toInt()
+                    kvalautonum =  yy2.toString() + "-" + ym2.toString() + "-" + yd2.toString() + "-" + (ys2+1).toString()
+
+
                 }
+
+
                 binding.txtcodeNum.text = kvalautonum.toEditable()
                 exhNum = kvalautonum
             }

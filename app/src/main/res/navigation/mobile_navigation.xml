@@ -51,6 +51,27 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_sam1"
+        android:name="com.example.daisoworks.ui.sample.sample1Fragment"
+        android:label="@string/menu_sample1"
+        android:tag="SAMPLE1"
+        tools:layout="@layout/fragment_sample1" >
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sam2"
+        android:name="com.example.daisoworks.ui.sample.sample2Fragment"
+        android:label="@string/menu_sample2"
+        android:tag="SAMPLE2"
+        tools:layout="@layout/fragment_sample2" >
+
+    </fragment>
+
+
+
+
+    <fragment
         android:id="@+id/nav_approve"
         android:name="com.example.daisoworks.ui.approve.ApproveFragment"
         android:label="@string/menu_approve"

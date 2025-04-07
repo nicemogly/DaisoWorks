@@ -62,7 +62,7 @@ import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class sampleFragment : Fragment(R.layout.fragment_sample) {
+class sampleFragment : Fragment(R.layout.fragment_sample){
 
     private lateinit var qrcode: EditText
     private lateinit var scanButton: ImageButton
@@ -440,7 +440,7 @@ class sampleFragment : Fragment(R.layout.fragment_sample) {
     }
 
     companion object {
-        private const val CAMERA_PERMISSION_REQUEST_CODE = 1001
+        const val CAMERA_PERMISSION_REQUEST_CODE = 1001
         private const val TAG = "sampleFragment"
         lateinit var prefs: PreferenceUtil
     }
@@ -478,7 +478,7 @@ class sampleFragment : Fragment(R.layout.fragment_sample) {
         @GET("sampleload1")
         fun sampleView1(
             @Query("samcode") param1: String,
-            @Query("apikey") param5: String
+            @Query("apikey") param2: String
         ): Call<List<DataSampleDetail1>>
 
         @GET("imgdownload")
@@ -544,9 +544,13 @@ class sampleFragment : Fragment(R.layout.fragment_sample) {
 
                             Glide.with(binding.sampleimg.context)
                                 .load(imgUrl)
+                                .skipMemoryCache(true) // 메모리 캐시 무시
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .error(android.R.drawable.stat_notify_error)
                                 .into(binding.sampleimg)
+
+
+
 
                             // 실행 할 코드
                         }, 1000)
@@ -685,6 +689,8 @@ class sampleFragment : Fragment(R.layout.fragment_sample) {
         val text = "${uriList.count()}/${maxNumber}"
         binding.countArea.text = text
     }
+
+
 
     private fun String?.toPlainRequestBody() = requireNotNull(this).toRequestBody("text/plain".toMediaTypeOrNull())
 }

@@ -501,17 +501,20 @@ class LoginActivity : AppCompatActivity() {
                 response: Response<List<HerpMemberInfo>>
             ) {
 
+                Log.d("empmgnum" , "keyword1:${keyword1}")
+                Log.d("empmgnum" , "keyword2:${keyword2}")
+
                 val responseBody = response.body()!!
                 //val myStringBuilder = StringBuilder()
 
-                if (responseBody.isNotEmpty() || responseBody.isNullOrEmpty()) {
-
+             //   if (responseBody.isNotEmpty() || responseBody.isNullOrEmpty()) { //20250401  잘못된 구문 삭제
+                if ( responseBody.isNullOrEmpty()) {
                     Deptgbn = ""
                     Deptnme = ""
                     Deptcde = ""
                     empmgnum = 0
                     hnme = ""
-
+                    Log.d("empmgnum" , "empmgnumempmgnum:${empmgnum}")
 
                 }else{
                     Deptgbn = responseBody[0].deptgbn
@@ -519,7 +522,7 @@ class LoginActivity : AppCompatActivity() {
                     Deptcde = responseBody[0].deptcde
                     empmgnum = responseBody[0].empmgnum
                     hnme = responseBody[0].hnme
-
+                    Log.d("empmgnum" , "empmgnumempmgnum1:${empmgnum}")
                 }
 
                 prefs.setString("memdeptgbn","$Deptgbn")
@@ -528,7 +531,7 @@ class LoginActivity : AppCompatActivity() {
                 prefs.setString("memempmgnum","$empmgnum")
                 prefs.setString("memhnme","$hnme")
 
-                //Log.d("empmgnum" , "${empmgnum}")
+
 
             }
         })
