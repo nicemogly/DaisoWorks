@@ -57,11 +57,11 @@
                    android:title="샘플접수 관리" >
                </item>
 
-<!--               <item-->
-<!--                   android:id="@+id/nav_sam2"-->
-<!--                   android:icon="@drawable/baseline_photo_library_24"-->
-<!--                   android:title="스터디 결과등록" >-->
-<!--               </item>-->
+               <item
+                   android:id="@+id/nav_sam2"
+                   android:icon="@drawable/baseline_photo_library_24"
+                   android:title="스터디 결과등록" >
+               </item>
 
 
 
